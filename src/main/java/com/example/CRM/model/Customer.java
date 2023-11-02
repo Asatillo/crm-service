@@ -1,8 +1,6 @@
 package com.example.CRM.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -21,6 +19,7 @@ public class Customer {
     private String city;
     private Date dob;
     private Date acc_creation_date;
-    private String segment;
+    @Enumerated(EnumType.ORDINAL)
+    private Segment segment;
 
 }
