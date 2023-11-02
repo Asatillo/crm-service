@@ -3,6 +3,7 @@ package com.example.CRM.controller;
 import com.example.CRM.model.Plan;
 import com.example.CRM.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,12 @@ public class PlanController {
     }
 
     @GetMapping("/plans")
-    public List<Plan> getAll(){
+    public ResponseEntity<List<Plan>> getAll(){
         return planService.getAll();
     }
 
     @GetMapping("/plan/{id}")
-    public Plan getById(@PathVariable Long id){
+    public ResponseEntity<Plan> getById(@PathVariable Long id){
         return planService.getById(id);
     }
 }
