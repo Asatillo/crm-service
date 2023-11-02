@@ -38,7 +38,7 @@ public class PlanService {
         Plan existingPlan = planRepository.findById(id).orElse(null);
         existingPlan.setName(plan.getName());
         existingPlan.setPrice(plan.getPrice());
-        existingPlan.setType(plan.getType());
+        existingPlan.setPackageType(plan.getPackageType());
         existingPlan.setAmount(plan.getAmount());
         existingPlan.setDuration(plan.getDuration());
         existingPlan.setDescription(plan.getDescription());

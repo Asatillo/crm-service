@@ -1,22 +1,30 @@
 package com.example.CRM.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "plan")
+@RequiredArgsConstructor
+@NoArgsConstructor
 @Data
 public class Plan {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String name;
-    private String type;
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private Package packageType;
+    @NonNull
     private String amount;
+    @NonNull
     private String duration;
+    @NonNull
     private String description;
-    private Float price;
+    @NonNull
+    private Double price;
 
 }
