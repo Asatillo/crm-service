@@ -12,8 +12,12 @@ import java.util.List;
 @Service
 public class PlanService {
 
-    @Autowired
+    final
     PlanRepository planRepository;
+
+    public PlanService(PlanRepository planRepository) {
+        this.planRepository = planRepository;
+    }
 
     public ResponseEntity<List<Plan>> getAll() {
         return new ResponseEntity<>(planRepository.findAll(), HttpStatus.OK);
@@ -31,6 +35,13 @@ public class PlanService {
 
     // TODO: data validation
     public ResponseEntity<Plan> updatePlan(Long id, Plan plan) {
+        Plan existingPlan = planRepository.findById(id).orElse(null);
+        existingPlan.setName(plan.getName());
+        existingPlan.setPrice(plan.getPrice());
+        existingPlan.setType(plan.getType());
+        existingPlan.setAmount(plan.getAmount());
+        existingPlan.setDuration(plan.getDuration());
+        existingPlan.setDescription(plan.getDescription());
         return new ResponseEntity<>(planRepository.save(plan), HttpStatus.OK);
     }
 

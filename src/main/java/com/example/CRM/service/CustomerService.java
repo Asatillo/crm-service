@@ -16,8 +16,12 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    @Autowired
+    final
     CustomerRepository customerRepository;
+
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     public ResponseEntity<List<Customer>> getAll() {
         return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
