@@ -1,6 +1,6 @@
 package com.example.CRM.service;
 
-import com.example.CRM.data.Customer;
+import com.example.CRM.model.Customer;
 import com.example.CRM.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

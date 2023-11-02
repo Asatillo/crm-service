@@ -1,4 +1,4 @@
-package com.example.CRM.data;
+package com.example.CRM.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
