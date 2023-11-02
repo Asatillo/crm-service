@@ -44,4 +44,10 @@ public class SubscriptionService {
     public ResponseEntity<List<Customer>> getCustomersByPlanId(Long id) {
         return new ResponseEntity<>(subscriptionRepository.getCustomersByPlanId(id), HttpStatus.OK);
     }
+
+    // TODO: data validation
+    public ResponseEntity<Long> deleteSubscription(Long id) {
+        subscriptionRepository.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
 }
