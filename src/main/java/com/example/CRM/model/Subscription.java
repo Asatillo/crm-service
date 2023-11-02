@@ -19,11 +19,5 @@ public class Subscription {
     @ManyToOne
     @JoinColumn(name = "plan_id")
     private Plan plan;
-
-    private String plan_id;
-    private String plan_type;
-    private String plan_start_date;
-    private String plan_end_date;
-    private String plan_amount;
-
+// TODO: add more fields related to the specific subscription. Like start date and end date.
 }

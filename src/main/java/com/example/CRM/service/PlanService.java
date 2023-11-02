@@ -19,7 +19,24 @@ public class PlanService {
         return new ResponseEntity<>(planRepository.findAll(), HttpStatus.OK);
     }
 
+    // TODO: data validation
     public ResponseEntity<Plan> getById(Long id) {
         return new ResponseEntity<>(planRepository.findById(id).orElse(null), HttpStatus.OK);
+    }
+
+    // TODO: data validation
+    public ResponseEntity<Plan> addPlan(Plan plan) {
+        return new ResponseEntity<>(planRepository.save(plan), HttpStatus.CREATED);
+    }
+
+    // TODO: data validation
+    public ResponseEntity<Plan> updatePlan(Long id, Plan plan) {
+        return new ResponseEntity<>(planRepository.save(plan), HttpStatus.OK);
+    }
+
+    // TODO: data validation
+    public ResponseEntity<Long> deletePlan(Long id) {
+        planRepository.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

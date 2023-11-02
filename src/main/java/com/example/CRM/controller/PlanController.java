@@ -3,10 +3,7 @@ package com.example.CRM.controller;
 import com.example.CRM.model.Plan;
 import com.example.CRM.service.PlanService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +17,7 @@ public class PlanController {
         this.planService = planService;
     }
 
+    // TODO: add filters, perpage, page, sortby, sortorder
     @GetMapping("/plans")
     public ResponseEntity<List<Plan>> getAll(){
         return planService.getAll();
@@ -28,5 +26,20 @@ public class PlanController {
     @GetMapping("/plan/{id}")
     public ResponseEntity<Plan> getById(@PathVariable Long id){
         return planService.getById(id);
+    }
+
+    @PostMapping("/plan")
+    public ResponseEntity<Plan> addPlan(@RequestBody Plan plan){
+        return planService.addPlan(plan);
+    }
+
+    @PutMapping("/plan/{id}")
+    public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @RequestBody Plan plan){
+        return planService.updatePlan(id, plan);
+    }
+
+    @DeleteMapping("/plan/{id}")
+    public ResponseEntity<Long> deletePlan(@PathVariable Long id){
+        return planService.deletePlan(id);
     }
 }

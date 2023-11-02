@@ -1,5 +1,7 @@
 package com.example.CRM.service;
 
+import com.example.CRM.model.Customer;
+import com.example.CRM.model.Plan;
 import com.example.CRM.model.Subscription;
 import com.example.CRM.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,23 @@ public class SubscriptionService {
         return new ResponseEntity<>(subscriptionRepository.findAll(), HttpStatus.OK);
     }
 
+    // TODO: data validation
     public ResponseEntity<Subscription> getById(Long id) {
         return new ResponseEntity<>(subscriptionRepository.findById(id).orElse(null), HttpStatus.OK);
+    }
+
+    // TODO: data validation
+    public ResponseEntity<Subscription> addSubscription(Subscription subscription) {
+        return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
+    }
+
+    // TODO: data validation
+    public ResponseEntity<List<Subscription>> getSubscriptionsByCustomerId(Long id) {
+        return new ResponseEntity<>(subscriptionRepository.findByCustomerId(id), HttpStatus.OK);
+    }
+
+    // TODO: data validation
+    public ResponseEntity<List<Customer>> getCustomersByPlanId(Long id) {
+        return new ResponseEntity<>(subscriptionRepository.getCustomersByPlanId(id), HttpStatus.OK);
     }
 }

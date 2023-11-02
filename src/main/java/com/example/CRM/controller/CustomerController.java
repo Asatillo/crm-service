@@ -3,10 +3,7 @@ package com.example.CRM.controller;
 import com.example.CRM.model.Customer;
 import com.example.CRM.service.CustomerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +18,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    // TODO: add filters, perpage, page, sortby, sortorder
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAll(){
         return customerService.getAll();
@@ -31,4 +29,19 @@ public class CustomerController {
         return customerService.getById(id);
     }
 
+    @PostMapping("/customer")
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer){
+        return customerService.addCustomer(customer);
+    }
+
+    // change customer info
+    @PutMapping("/customer/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
+        return customerService.updateCustomer(id, customer);
+    }
+
+    @DeleteMapping("/customer/{id}")
+    public ResponseEntity<Long> deleteCustomer(@PathVariable Long id){
+        return customerService.deleteCustomer(id);
+    }
 }
