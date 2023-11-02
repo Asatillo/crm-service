@@ -14,8 +14,12 @@ import java.util.List;
 @RequestMapping("/api/v1/")
 public class SubscriptionController {
 
-    @Autowired
+    final
     SubscriptionService subscriptionService;
+
+    public SubscriptionController(SubscriptionService subscriptionService) {
+        this.subscriptionService = subscriptionService;
+    }
 
     @GetMapping("/subscriptions")
     public List<Subscription> getAll(){

@@ -13,8 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/")
 public class PlanController {
-    @Autowired
+    final
     PlanService planService;
+
+    public PlanController(PlanService planService) {
+        this.planService = planService;
+    }
 
     @GetMapping("/plans")
     public List<Plan> getAll(){
