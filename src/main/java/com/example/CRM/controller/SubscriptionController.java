@@ -1,7 +1,7 @@
 package com.example.CRM.controller;
 
-import com.example.CRM.model.Customer;
-import com.example.CRM.service.CustomerService;
+import com.example.CRM.model.Subscription;
+import com.example.CRM.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,19 +12,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/")
-public class CustomerController {
+public class SubscriptionController {
 
     @Autowired
-    CustomerService customerService;
+    SubscriptionService subscriptionService;
 
-    @GetMapping("/customers")
-    public List<Customer> getAll(){
-        return customerService.getAll();
+    @GetMapping("/subscriptions")
+    public List<Subscription> getAll(){
+        return subscriptionService.getAll();
     }
 
-    @GetMapping("/customer/{id}")
-    public Customer getById(@PathVariable Long id){
-        return customerService.getById(id);
+    @GetMapping("/subscription/{id}")
+    public Subscription getById(@PathVariable Long id){
+        return subscriptionService.getById(id);
     }
-
 }
