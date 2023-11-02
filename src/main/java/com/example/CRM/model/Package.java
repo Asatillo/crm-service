@@ -1,5 +1,5 @@
 package com.example.CRM.model;
 
-public enum PlanType {
+public enum Package {
     VOICE, DATA, SMS
 }
