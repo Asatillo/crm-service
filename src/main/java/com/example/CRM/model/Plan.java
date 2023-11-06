@@ -19,7 +19,7 @@ public class Plan {
     @Enumerated(EnumType.STRING)
     private Package packageType;
     @NonNull
-    private String amount;
+    private Integer amount;
     @NonNull
     private String duration;
     @NonNull
