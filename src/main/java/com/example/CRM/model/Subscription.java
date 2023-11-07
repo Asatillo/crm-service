@@ -31,7 +31,6 @@ public class Subscription {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    //TODO: Automatically calculates during the creation of the subscription. The value is calculated by adding the duration of the plan to the start date of the subscription.
     public Subscription(Customer customer, Plan plan) {
         this.is_active = true;
         this.customer = customer;
