@@ -3,8 +3,8 @@ package com.example.CRM.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -34,5 +34,5 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private Segment segment;
     @CreationTimestamp
-    private Date accCreationDate;
+    private LocalDateTime accCreationDate;
 }

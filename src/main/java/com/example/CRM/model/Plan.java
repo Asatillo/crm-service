@@ -5,7 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "plan")
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Data
 public class Plan {
@@ -13,18 +12,20 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     private String name;
-    @NonNull
     @Enumerated(EnumType.STRING)
     private Package packageType;
-    @NonNull
     private Integer amount;
-    @NonNull
     private String duration;
-    @NonNull
     private String description;
-    @NonNull
     private Double price;
 
+    public Plan(String name, Package packageType, Integer amount, String duration, String description, Double price) {
+        this.name = name;
+        this.packageType = packageType;
+        this.amount = amount;
+        this.duration = duration;
+        this.description = description;
+        this.price = price;
+    }
 }
