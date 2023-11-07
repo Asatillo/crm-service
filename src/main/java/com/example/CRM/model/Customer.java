@@ -16,23 +16,26 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
     private String firstName;
-    @NonNull
     private String lastName;
-    @NonNull
     private String phoneNumber;
-    @NonNull
     private String email;
-    @NonNull
     private String address;
-    @NonNull
     private String city;
-    @NonNull
     private Date dob;
-    @NonNull
     @Enumerated(EnumType.STRING)
     private Segment segment;
-    @CreationTimestamp
     private LocalDateTime accCreationDate;
+
+    public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, Date dob, Segment segment) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.city = city;
+        this.dob = dob;
+        this.segment = segment;
+        this.accCreationDate = LocalDateTime.now();
+    }
 }
