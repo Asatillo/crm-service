@@ -1,8 +1,8 @@
 package com.example.CRM.model;
 
+import com.example.CRM.model.enums.Segment;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;

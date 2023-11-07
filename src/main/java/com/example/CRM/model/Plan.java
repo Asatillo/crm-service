@@ -1,5 +1,6 @@
 package com.example.CRM.model;
 
+import com.example.CRM.model.enums.Package;
 import jakarta.persistence.*;
 import lombok.*;
 

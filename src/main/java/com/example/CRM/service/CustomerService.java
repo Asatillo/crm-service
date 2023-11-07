@@ -1,16 +1,11 @@
 package com.example.CRM.service;
 
 import com.example.CRM.model.Customer;
-import com.example.CRM.model.Segment;
 import com.example.CRM.repository.CustomerRepository;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
