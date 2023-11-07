@@ -36,4 +36,8 @@ public class Customer {
         this.segment = segment;
         this.accCreationDate = LocalDateTime.now();
     }
+
+    public boolean isInCapital(){
+        return this.city.equals("Budapest");
+    }
 }
