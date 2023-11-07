@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.Period;
 
 @Entity
-@Table(name = "subscription")
 @NoArgsConstructor
 @Data
 public class Subscription {
