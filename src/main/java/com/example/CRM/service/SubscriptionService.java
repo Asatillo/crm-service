@@ -1,10 +1,16 @@
 package com.example.CRM.service;
 
 import com.example.CRM.exceptions.ResourceNotFoundException;
-import com.example.CRM.model.Customer;
 import com.example.CRM.model.Subscription;
+import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
+import com.example.CRM.repository.PlanRepository;
 import com.example.CRM.repository.SubscriptionRepository;
+import com.example.CRM.utils.AppUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,13 +26,31 @@ public class SubscriptionService {
     final
     CustomerRepository CustomerRepository;
 
-    public SubscriptionService(SubscriptionRepository subscriptionRepository, CustomerRepository CustomerRepository) {
+    final
+    PlanRepository planRepository;
+
+    public SubscriptionService(SubscriptionRepository subscriptionRepository, CustomerRepository CustomerRepository, PlanRepository planRepository) {
         this.subscriptionRepository = subscriptionRepository;
         this.CustomerRepository = CustomerRepository;
+        this.planRepository = planRepository;
     }
 
-    public ResponseEntity<List<Subscription>> getAll() {
-        return new ResponseEntity<>(subscriptionRepository.findAll(), HttpStatus.OK);
+    public PagedResponse<Subscription> getAll(int page, int size, String sort) {
+        AppUtils.validatePageNumberAndSize(page, size);
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+
+        Page<Subscription> subscriptions = subscriptionRepository.findAll(pageable);
+
+        if(subscriptions.getNumberOfElements() == 0){
+            return new PagedResponse<>(List.of(), subscriptions.getNumber(), subscriptions.getSize(),
+                    subscriptions.getTotalElements(), subscriptions.getTotalPages(), subscriptions.isLast());
+        }
+
+        List<Subscription> subscriptionsList = subscriptions.getContent();
+
+        return new PagedResponse<>(subscriptionsList, subscriptions.getNumber(), subscriptions.getSize(), subscriptions.getTotalElements(),
+                subscriptions.getTotalPages(), subscriptions.isLast());
     }
 
     // TODO: data validation
@@ -40,14 +64,42 @@ public class SubscriptionService {
     }
 
     // TODO: data validation
-    public ResponseEntity<List<Subscription>> getSubscriptionsByCustomerId(Long id) {
+    public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
         CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
-        return new ResponseEntity<>(subscriptionRepository.findAllByCustomerId(id), HttpStatus.OK);
+        AppUtils.validatePageNumberAndSize(page, size);
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+
+        Page<Subscription> subscriptions = subscriptionRepository.findAllByCustomerId(id, pageable);
+
+        if(subscriptions.getNumberOfElements() == 0){
+            return new PagedResponse<>(List.of(), subscriptions.getNumber(), subscriptions.getSize(),
+                    subscriptions.getTotalElements(), subscriptions.getTotalPages(), subscriptions.isLast());
+        }
+
+        List<Subscription> subscriptionsList = subscriptions.getContent();
+
+        return new PagedResponse<>(subscriptionsList, subscriptions.getNumber(), subscriptions.getSize(), subscriptions.getTotalElements(),
+                subscriptions.getTotalPages(), subscriptions.isLast());
     }
 
-    // TODO: data validation
-    public ResponseEntity<List<Customer>> getCustomersByPlanId(Long id) {
-        return new ResponseEntity<>(subscriptionRepository.getCustomersByPlanId(id), HttpStatus.OK);
+    public PagedResponse<Subscription> getSubscriptionsByPlanId(Long id, Integer page, Integer size, String sort) {
+        planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
+        AppUtils.validatePageNumberAndSize(page, size);
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+
+        Page<Subscription> subscriptions = subscriptionRepository.findAllByPlanId(id, pageable);
+
+        if(subscriptions.getNumberOfElements() == 0){
+            return new PagedResponse<>(List.of(), subscriptions.getNumber(), subscriptions.getSize(),
+                    subscriptions.getTotalElements(), subscriptions.getTotalPages(), subscriptions.isLast());
+        }
+
+        List<Subscription> subscriptionsList = subscriptions.getContent();
+
+        return new PagedResponse<>(subscriptionsList, subscriptions.getNumber(), subscriptions.getSize(), subscriptions.getTotalElements(),
+                subscriptions.getTotalPages(), subscriptions.isLast());
     }
 
     // TODO: data validation

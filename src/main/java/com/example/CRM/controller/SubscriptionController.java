@@ -1,8 +1,10 @@
 package com.example.CRM.controller;
 
-import com.example.CRM.model.Customer;
 import com.example.CRM.model.Subscription;
+import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.SubscriptionService;
+import com.example.CRM.utils.AppConstants;
+import com.example.CRM.utils.AppUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,13 @@ public class SubscriptionController {
     // TODO: add filters, perpage, page, sortby, sortorder
     @Operation(summary = "Get All Subscriptions")
     @GetMapping("/subscriptions")
-    public ResponseEntity<List<Subscription>> getAll(){
-        return subscriptionService.getAll();
+    public PagedResponse<Subscription> getAll(
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
+    ){
+        AppUtils.validatePageNumberAndSize(page, size);
+        return subscriptionService.getAll(page, size, sort);
     }
 
     @Operation(summary = "Get Subscription by Id")
@@ -35,15 +42,22 @@ public class SubscriptionController {
 
     @Operation(summary = "Get Subscriptions of Customer Id")
     @GetMapping("/subscriptions/customer/{id}")
-    public ResponseEntity<List<Subscription>> getSuscriptionsByCustomerId(@PathVariable Long id){
-        return subscriptionService.getSubscriptionsByCustomerId(id);
+    public PagedResponse<Subscription> getSubscriptionsByCustomerId(@PathVariable Long id,
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
+        AppUtils.validatePageNumberAndSize(page, size);
+        return subscriptionService.getSubscriptionsByCustomerId(id, page, size, sort);
     }
 
-    // get customers by active plan subscriptions
-    @Operation(summary = "Get Customers by Plan Id of Their Subscription")
-    @GetMapping("/customers/plan/{id}")
-    public ResponseEntity<List<Customer>> getCustomersByPlanId(@PathVariable Long id){
-        return subscriptionService.getCustomersByPlanId(id);
+    @Operation(summary = "Get Subscriptions of Plan Id")
+    @GetMapping("/subscriptions/plan/{id}")
+    public PagedResponse<Subscription> getSubscriptionsByPlanId(@PathVariable Long id,
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
+        AppUtils.validatePageNumberAndSize(page, size);
+        return subscriptionService.getSubscriptionsByPlanId(id, page, size, sort);
     }
 
     @Operation(summary = "Add Subscription")
