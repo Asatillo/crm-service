@@ -1,6 +1,5 @@
 package com.example.CRM.exceptions;
 
-import com.example.CRM.payload.ApiResponse;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
