@@ -1,6 +1,7 @@
 package com.example.CRM.model;
 
 import com.example.CRM.model.enums.Segment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,7 +38,8 @@ public class Customer {
         this.accCreationDate = LocalDateTime.now();
     }
 
+    @JsonIgnore
     public boolean isInCapital(){
-        return this.city.equals("Budapest");
+        return city.equals("Budapest");
     }
 }
