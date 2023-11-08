@@ -3,9 +3,6 @@ package com.example.CRM.exceptions;
 import org.springframework.http.HttpStatus;
 
 public class CRMApiException extends RuntimeException{
-
-    private static final long serialVersionUID = -6593330219878485669L;
-
     private final HttpStatus status;
     private final String message;
 
