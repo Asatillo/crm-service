@@ -1,10 +1,10 @@
 package com.example.CRM.service;
 
+import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
-import com.example.CRM.model.Plan;
 import com.example.CRM.model.Subscription;
+import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.SubscriptionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,12 @@ public class SubscriptionService {
     final
     SubscriptionRepository subscriptionRepository;
 
-    public SubscriptionService(SubscriptionRepository subscriptionRepository) {
+    final
+    CustomerRepository CustomerRepository;
+
+    public SubscriptionService(SubscriptionRepository subscriptionRepository, CustomerRepository CustomerRepository) {
         this.subscriptionRepository = subscriptionRepository;
+        this.CustomerRepository = CustomerRepository;
     }
 
     public ResponseEntity<List<Subscription>> getAll() {
@@ -37,7 +41,8 @@ public class SubscriptionService {
 
     // TODO: data validation
     public ResponseEntity<List<Subscription>> getSubscriptionsByCustomerId(Long id) {
-        return new ResponseEntity<>(subscriptionRepository.findByCustomerId(id), HttpStatus.OK);
+        Customer customer = CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        return new ResponseEntity<>(subscriptionRepository.findAllByCustomerId(id), HttpStatus.OK);
     }
 
     // TODO: data validation

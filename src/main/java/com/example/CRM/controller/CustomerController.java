@@ -1,7 +1,11 @@
 package com.example.CRM.controller;
 
 import com.example.CRM.model.Customer;
+import com.example.CRM.payload.ApiResponse;
+import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.CustomerService;
+import com.example.CRM.utils.AppConstants;
+import com.example.CRM.utils.AppUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +23,14 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    // TODO: add filters, perpage, page, sortby, sortorder
     @Operation(summary = "Get All Customers")
     @GetMapping("/customers")
-    public ResponseEntity<List<Customer>> getAll(){
-        return customerService.getAll();
+    public PagedResponse<Customer> getAll(
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
+        AppUtils.validatePageNumberAndSize(page, size);
+        return customerService.getAllCustomers(page, size, sort);
     }
 
     @Operation(summary = "Get Customer by Id")
@@ -47,7 +54,7 @@ public class CustomerController {
 
     @Operation(summary = "Delete Customer")
     @DeleteMapping("/customer/{id}")
-    public ResponseEntity<Long> deleteCustomer(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Long id){
         return customerService.deleteCustomer(id);
     }
 }
