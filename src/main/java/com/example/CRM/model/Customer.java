@@ -1,10 +1,12 @@
 package com.example.CRM.model;
 
 import com.example.CRM.model.enums.Segment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -21,12 +23,13 @@ public class Customer {
     private String email;
     private String address;
     private String city;
-    private Date dob;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dob;
     @Enumerated(EnumType.STRING)
     private Segment segment;
     private LocalDateTime accCreationDate;
 
-    public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, Date dob, Segment segment) {
+    public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, LocalDate dob, Segment segment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
