@@ -13,4 +13,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     List<Subscription> findAllByCustomerId(Long id);
 
     List<Customer> getCustomersByPlanId(Long id);
+
+    List<Subscription> findAllByPlanId(Long id);
 }

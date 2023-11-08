@@ -1,7 +1,11 @@
 package com.example.CRM.controller;
 
 import com.example.CRM.model.Plan;
+import com.example.CRM.payload.ApiResponse;
+import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.PlanService;
+import com.example.CRM.utils.AppConstants;
+import com.example.CRM.utils.AppUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +25,13 @@ public class PlanController {
     // TODO: add filters, perpage, page, sortby, sortorder
     @Operation(summary = "Get All Plans")
     @GetMapping("/plans")
-    public ResponseEntity<List<Plan>> getAll(){
-        return planService.getAll();
+    public PagedResponse<Plan> getAll(
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
+    ){
+        AppUtils.validatePageNumberAndSize(page, size);
+        return planService.getAll(page, size, sort);
     }
 
     @Operation(summary = "Get Plan by Id")
@@ -45,7 +54,7 @@ public class PlanController {
 
     @Operation(summary = "Delete Plan")
     @DeleteMapping("/plan/{id}")
-    public ResponseEntity<Long> deletePlan(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> deletePlan(@PathVariable Long id){
         return planService.deletePlan(id);
     }
 }
