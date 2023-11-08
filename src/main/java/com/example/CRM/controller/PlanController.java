@@ -22,7 +22,7 @@ public class PlanController {
         this.planService = planService;
     }
 
-    // TODO: add filters, perpage, page, sortby, sortorder
+    // TODO: add filters, sortorder
     @Operation(summary = "Get All Plans")
     @GetMapping("/plans")
     public PagedResponse<Plan> getAll(
