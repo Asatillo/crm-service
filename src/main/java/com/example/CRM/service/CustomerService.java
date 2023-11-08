@@ -81,9 +81,7 @@ public class CustomerService {
         customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
         List<Subscription> subscriptions = subscriptionRepository.findAllByCustomerId(id);
-        for(Subscription subscription : subscriptions){
-            subscriptionRepository.delete(subscription);
-        }
+        subscriptionRepository.deleteAll(subscriptions);
 
         customerRepository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer deleted successfully"), HttpStatus.OK);

@@ -1,7 +1,9 @@
 package com.example.CRM.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class CRMApiException extends RuntimeException{
     private final HttpStatus status;
     private final String message;
@@ -17,13 +19,4 @@ public class CRMApiException extends RuntimeException{
         this.status = status;
         this.message = message;
     }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
 }

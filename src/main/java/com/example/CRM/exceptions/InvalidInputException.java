@@ -1,8 +1,10 @@
 package com.example.CRM.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+@Getter
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class InvalidInputException extends RuntimeException{
     private String resourceName;
@@ -14,17 +16,5 @@ public class InvalidInputException extends RuntimeException{
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
-    }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public Object getFieldValue() {
-        return fieldValue;
     }
 }

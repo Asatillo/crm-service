@@ -41,7 +41,7 @@ public class SubscriptionService {
 
     // TODO: data validation
     public ResponseEntity<List<Subscription>> getSubscriptionsByCustomerId(Long id) {
-        Customer customer = CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
         return new ResponseEntity<>(subscriptionRepository.findAllByCustomerId(id), HttpStatus.OK);
     }
 
