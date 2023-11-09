@@ -41,15 +41,8 @@ public class CustomerService {
 
         Page<Customer> customers = customerRepository.findAll(pageable);
 
-        if(customers.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), customers.getNumber(), customers.getSize(),
-                    customers.getTotalElements(), customers.getTotalPages(), customers.isLast());
-        }
-
-        List<Customer> customerList = customers.getContent();
-
-        return new PagedResponse<>(customerList, customers.getNumber(), customers.getSize(),
-                customers.getTotalElements(), customers.getTotalPages(), customers.isLast());
+        PagedResponse<Customer> pagedResponse = new PagedResponse<>();
+        return pagedResponse.returnPagedResponse(customers);
     }
 
     public ResponseEntity<Customer> getById(Long id) {

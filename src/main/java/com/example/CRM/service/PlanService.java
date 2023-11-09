@@ -39,15 +39,8 @@ public class PlanService {
 
         Page<Plan> plans = planRepository.findAll(pageable);
 
-        if(plans.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), plans.getNumber(), plans.getSize(),
-                    plans.getTotalElements(), plans.getTotalPages(), plans.isLast());
-        }
-
-        List<Plan> plansList = plans.getContent();
-
-        return new PagedResponse<>(plansList, plans.getNumber(), plans.getSize(), plans.getTotalElements(),
-                plans.getTotalPages(), plans.isLast());
+        PagedResponse<Plan> pagedResponse = new PagedResponse<>();
+        return pagedResponse.returnPagedResponse(plans);
     }
 
     public ResponseEntity<Plan> getById(Long id) {

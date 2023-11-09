@@ -1,7 +1,9 @@
 package com.example.CRM.payload;
 
+import com.example.CRM.model.Subscription;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,5 +42,17 @@ public class PagedResponse<T> {
 
     public boolean isLast() {
         return last;
+    }
+
+    public PagedResponse<T> returnPagedResponse(Page<T> resource){
+        if(resource.getNumberOfElements() == 0){
+            return new PagedResponse<>(List.of(), resource.getNumber(), resource.getSize(),
+                    resource.getTotalElements(), resource.getTotalPages(), resource.isLast());
+        }
+
+        List<T> subscriptionsList = resource.getContent();
+
+        return new PagedResponse<>(subscriptionsList, resource.getNumber(), resource.getSize(), resource.getTotalElements(),
+                resource.getTotalPages(), resource.isLast());
     }
 }

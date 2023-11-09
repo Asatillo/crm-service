@@ -42,15 +42,8 @@ public class SubscriptionService {
 
         Page<Subscription> subscriptions = subscriptionRepository.findAll(pageable);
 
-        if(subscriptions.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), subscriptions.getNumber(), subscriptions.getSize(),
-                    subscriptions.getTotalElements(), subscriptions.getTotalPages(), subscriptions.isLast());
-        }
-
-        List<Subscription> subscriptionsList = subscriptions.getContent();
-
-        return new PagedResponse<>(subscriptionsList, subscriptions.getNumber(), subscriptions.getSize(), subscriptions.getTotalElements(),
-                subscriptions.getTotalPages(), subscriptions.isLast());
+        PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+        return pagedResponse.returnPagedResponse(subscriptions);
     }
 
     // TODO: data validation
@@ -72,15 +65,8 @@ public class SubscriptionService {
 
         Page<Subscription> subscriptions = subscriptionRepository.findAllByCustomerId(id, pageable);
 
-        if(subscriptions.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), subscriptions.getNumber(), subscriptions.getSize(),
-                    subscriptions.getTotalElements(), subscriptions.getTotalPages(), subscriptions.isLast());
-        }
-
-        List<Subscription> subscriptionsList = subscriptions.getContent();
-
-        return new PagedResponse<>(subscriptionsList, subscriptions.getNumber(), subscriptions.getSize(), subscriptions.getTotalElements(),
-                subscriptions.getTotalPages(), subscriptions.isLast());
+        PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+        return pagedResponse.returnPagedResponse(subscriptions);
     }
 
     public PagedResponse<Subscription> getSubscriptionsByPlanId(Long id, Integer page, Integer size, String sort) {
@@ -91,15 +77,8 @@ public class SubscriptionService {
 
         Page<Subscription> subscriptions = subscriptionRepository.findAllByPlanId(id, pageable);
 
-        if(subscriptions.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), subscriptions.getNumber(), subscriptions.getSize(),
-                    subscriptions.getTotalElements(), subscriptions.getTotalPages(), subscriptions.isLast());
-        }
-
-        List<Subscription> subscriptionsList = subscriptions.getContent();
-
-        return new PagedResponse<>(subscriptionsList, subscriptions.getNumber(), subscriptions.getSize(), subscriptions.getTotalElements(),
-                subscriptions.getTotalPages(), subscriptions.isLast());
+        PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+        return pagedResponse.returnPagedResponse(subscriptions);
     }
 
     // TODO: data validation
