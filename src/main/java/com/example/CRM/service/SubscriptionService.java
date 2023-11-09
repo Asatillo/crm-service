@@ -81,9 +81,10 @@ public class SubscriptionService {
     }
 
     // TODO: data validation
-    public ResponseEntity<Long> deleteSubscription(Long id) {
+    public ResponseEntity<ApiResponse> deleteSubscription(Long id) {
+        subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
         subscriptionRepository.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription deleted successfully"), HttpStatus.OK);
     }
 
     public ResponseEntity<ApiResponse> deactivateSubscription(Long id) {

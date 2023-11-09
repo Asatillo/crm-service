@@ -67,7 +67,7 @@ public class SubscriptionController {
 
     @Operation(summary = "Delete Subscription")
     @DeleteMapping("/subscription/{id}")
-    public ResponseEntity<Long> deleteSubscription(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> deleteSubscription(@PathVariable Long id){
         return subscriptionService.deleteSubscription(id);
     }
 
