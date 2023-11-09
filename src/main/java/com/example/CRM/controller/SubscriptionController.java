@@ -22,7 +22,7 @@ public class SubscriptionController {
         this.subscriptionService = subscriptionService;
     }
 
-    // TODO: add filters, perpage, page, sortby, sortorder
+    // TODO: add filters, sortorder
     @Operation(summary = "Get All Subscriptions")
     @GetMapping("/subscriptions")
     public PagedResponse<Subscription> getAll(
