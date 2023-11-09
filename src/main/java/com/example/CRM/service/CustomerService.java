@@ -103,4 +103,14 @@ public class CustomerService {
             throw new InvalidInputException("Customer", field, "null");
         }
     }
+
+    public ResponseEntity<ApiResponse> deactivateCustomer(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        if(!customer.isActive()){
+            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer is already deactivated"), HttpStatus.OK);
+        }
+        customer.setActive(false);
+        customerRepository.save(customer);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer deactivated successfully"), HttpStatus.OK);
+    }
 }

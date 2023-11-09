@@ -74,4 +74,14 @@ public class PlanService {
         planRepository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(true, "Plan deleted successfully"), HttpStatus.OK);
     }
+
+    public ResponseEntity<ApiResponse> deactivatePlan(Long id) {
+        Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
+        if(!plan.isActive()){
+            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan already deactivated"), HttpStatus.OK);
+        }
+        plan.setActive(false);
+        planRepository.save(plan);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan deactivated successfully"), HttpStatus.OK);
+    }
 }

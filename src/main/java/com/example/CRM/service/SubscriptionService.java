@@ -2,6 +2,7 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Subscription;
+import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.PlanRepository;
@@ -83,5 +84,15 @@ public class SubscriptionService {
     public ResponseEntity<Long> deleteSubscription(Long id) {
         subscriptionRepository.deleteById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    public ResponseEntity<ApiResponse> deactivateSubscription(Long id) {
+        Subscription subscription = subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
+        if(!subscription.isActive()){
+            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription is already deactivated"), HttpStatus.OK);
+        }
+        subscription.setActive(false);
+        subscriptionRepository.save(subscription);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription deactivated successfully"), HttpStatus.OK);
     }
 }

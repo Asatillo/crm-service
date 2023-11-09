@@ -11,7 +11,7 @@ public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private boolean isActive;
     private String name;
     @Enumerated(EnumType.STRING)
     private Package packageType;
@@ -21,6 +21,7 @@ public class Plan {
     private Double price;
 
     public Plan(String name, Package packageType, Integer amount, String duration, String description, Double price) {
+        this.isActive = true;
         this.name = name;
         this.packageType = packageType;
         this.amount = amount;

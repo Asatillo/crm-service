@@ -1,6 +1,7 @@
 package com.example.CRM.controller;
 
 import com.example.CRM.model.Subscription;
+import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.SubscriptionService;
 import com.example.CRM.utils.AppConstants;
@@ -68,5 +69,11 @@ public class SubscriptionController {
     @DeleteMapping("/subscription/{id}")
     public ResponseEntity<Long> deleteSubscription(@PathVariable Long id){
         return subscriptionService.deleteSubscription(id);
+    }
+
+    @Operation(summary = "Deactivate Subscription")
+    @PatchMapping("/subscription/{id}/deactivate")
+    public ResponseEntity<ApiResponse> deactivateSubscription(@PathVariable Long id){
+        return subscriptionService.deactivateSubscription(id);
     }
 }

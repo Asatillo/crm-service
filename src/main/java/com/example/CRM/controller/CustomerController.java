@@ -43,11 +43,16 @@ public class CustomerController {
         return customerService.addCustomer(customer);
     }
 
-    // change customer info
     @Operation(summary = "Update Customer")
     @PutMapping("/customer/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
         return customerService.updateCustomer(id, customer);
+    }
+
+    @Operation(summary = "Deactivate Customer")
+    @PatchMapping("/customer/{id}/deactivate")
+    public ResponseEntity<ApiResponse> deactivateCustomer(@PathVariable Long id){
+        return customerService.deactivateCustomer(id);
     }
 
     @Operation(summary = "Delete Customer")

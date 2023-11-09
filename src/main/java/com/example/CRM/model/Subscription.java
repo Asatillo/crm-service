@@ -15,7 +15,7 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean is_active;
+    private boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -29,7 +29,7 @@ public class Subscription {
     private LocalDateTime endDate;
 
     public Subscription(Customer customer, Plan plan) {
-        this.is_active = true;
+        this.isActive = true;
         this.customer = customer;
         this.plan = plan;
         this.startDate = LocalDateTime.now();

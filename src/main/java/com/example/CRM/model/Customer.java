@@ -17,6 +17,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private boolean isActive;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -30,6 +31,7 @@ public class Customer {
     private LocalDateTime accCreationDate;
 
     public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, LocalDate dob, Segment segment) {
+        this.isActive = true;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
