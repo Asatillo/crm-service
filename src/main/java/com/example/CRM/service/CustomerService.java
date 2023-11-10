@@ -84,10 +84,10 @@ public class CustomerService {
     private void validateCustomer(Customer customer) {
         if (customer.getPhoneNumber() != null && customer.getEmail() != null){
             if (customerRepository.existsByEmail(customer.getEmail())) {
-                throw new ExistingResourceException("Customer", "email", customer.getEmail());
+                throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Email already exists"));
             }
             if (customerRepository.existsByPhoneNumber(customer.getPhoneNumber())) {
-                throw new ExistingResourceException("Customer", "phone number", customer.getPhoneNumber());
+                throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Phone number already exists"));
             }
 
             if (!AppUtils.isValidEmail(customer.getEmail())) {
