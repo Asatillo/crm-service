@@ -1,22 +1,23 @@
 package com.example.CRM.exceptions;
 
+import com.example.CRM.payload.ApiResponse;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
 public class CRMApiException extends RuntimeException{
-    private final HttpStatus status;
-    private final String message;
 
-    public CRMApiException(HttpStatus status, String message) {
+    private static final long serialVersionUID = 1L;
+
+    private transient ApiResponse apiResponse;
+
+    private HttpStatus status;
+
+
+    public CRMApiException(String message) {
         super();
-        this.status = status;
-        this.message = message;
+        this.status = HttpStatus.BAD_REQUEST;
+        this.apiResponse = new ApiResponse(Boolean.FALSE, message);
     }
 
-    public CRMApiException(HttpStatus status, String message, Throwable exception) {
-        super(exception);
-        this.status = status;
-        this.message = message;
-    }
 }
