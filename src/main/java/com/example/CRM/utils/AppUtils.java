@@ -1,6 +1,5 @@
 package com.example.CRM.utils;
 
-import org.springframework.http.HttpStatus;
 import com.example.CRM.exceptions.CRMApiException;
 
 public class AppUtils {

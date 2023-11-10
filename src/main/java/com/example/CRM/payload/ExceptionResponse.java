@@ -3,9 +3,6 @@ package com.example.CRM.payload;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Data
 public class ExceptionResponse {
