@@ -6,15 +6,15 @@ import com.example.CRM.exceptions.CRMApiException;
 public class AppUtils {
     public static void validatePageNumberAndSize(int page, int size) {
         if (page < 0) {
-            throw new CRMApiException(HttpStatus.BAD_REQUEST, "Page number cannot be less than zero.");
+            throw new CRMApiException("Page number cannot be less than zero.");
         }
 
         if (size < 0) {
-            throw new CRMApiException(HttpStatus.BAD_REQUEST, "Size number cannot be less than zero.");
+            throw new CRMApiException("Size number cannot be less than zero.");
         }
 
         if (size > AppConstants.MAX_PAGE_SIZE) {
-            throw new CRMApiException(HttpStatus.BAD_REQUEST, "Page size must not be greater than " + AppConstants.MAX_PAGE_SIZE);
+            throw new CRMApiException(String.format("Size number cannot exceed %d", AppConstants.MAX_PAGE_SIZE));
         }
     }
 
