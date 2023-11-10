@@ -11,28 +11,13 @@ import java.util.List;
 public class ExceptionResponse {
     private String error;
     private Integer status;
-    private List<String> messages;
+    private String message;
     private Instant timestamp;
 
-    public ExceptionResponse(List<String> messages, String error, Integer status) {
-        setMessages(messages);
+    public ExceptionResponse(String message, String error, Integer status) {
+        this.message = message;
         this.error = error;
         this.status = status;
         this.timestamp = Instant.now();
     }
-
-    public List<String> getMessages() {
-
-        return messages == null ? null : new ArrayList<>(messages);
-    }
-
-    public final void setMessages(List<String> messages) {
-
-        if (messages == null) {
-            this.messages = null;
-        } else {
-            this.messages = Collections.unmodifiableList(messages);
-        }
-    }
-
 }
