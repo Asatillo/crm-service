@@ -36,6 +36,7 @@ public class CustomerService {
 
     public PagedResponse<Customer> getAllCustomers(int page, int size, String sort) {
         AppUtils.validatePageNumberAndSize(page, size, sort);
+        AppUtils.validateSortFieldExists(sort, Customer.class);
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
 
         Page<Customer> customers = customerRepository.findAll(pageable);
