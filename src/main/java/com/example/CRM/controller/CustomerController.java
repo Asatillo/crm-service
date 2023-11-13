@@ -27,7 +27,7 @@ public class CustomerController {
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        AppUtils.validatePageNumberAndSize(page, size);
+        AppUtils.validatePageNumberAndSize(page, size, sort);
         return customerService.getAllCustomers(page, size, sort);
     }
 
