@@ -82,25 +82,20 @@ public class CustomerService {
 
     // TODO: might need it in global
     private void validateCustomer(Customer customer) {
-        if (customer.getPhoneNumber() != null && customer.getEmail() != null){
-            if (customerRepository.existsByEmail(customer.getEmail())) {
-                throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Email already exists"));
-            }
-            if (customerRepository.existsByPhoneNumber(customer.getPhoneNumber())) {
-                throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Phone number already exists"));
-            }
+        if (customer.getPhoneNumber() != null && customerRepository.existsByEmail(customer.getEmail())){
+            throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Email already exists"));
+        }
 
-            if (!AppUtils.isValidEmail(customer.getEmail())) {
-                throw new InvalidInputException("Customer", "email", customer.getEmail());
-            }
-            if (!AppUtils.isValidPhoneNumber(customer.getPhoneNumber())) {
-                throw new InvalidInputException("Customer", "phone number", customer.getPhoneNumber());
-            }
+        if (customer.getEmail() != null && customerRepository.existsByPhoneNumber(customer.getPhoneNumber())){
+            throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Phone number already exists"));
+        }
 
+        if (!AppUtils.isValidEmail(customer.getEmail())) {
+            throw new InvalidInputException("Customer", "email", customer.getEmail());
+        }
 
-        }else {
-            String field = customer.getPhoneNumber() == null ? "phoneNumber" : "email";
-            throw new InvalidInputException("Customer", field, "null");
+        if (!AppUtils.isValidPhoneNumber(customer.getPhoneNumber())) {
+            throw new InvalidInputException("Customer", "phone number", customer.getPhoneNumber());
         }
     }
 
