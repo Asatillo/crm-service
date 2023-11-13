@@ -7,21 +7,9 @@ import java.util.Arrays;
 
 public class AppUtils {
     public static void validatePageNumberAndSize(int page, int size, String sort) {
-        if (page < 0) {
-            throw new CRMApiException("Page number cannot be less than zero.");
-        }
-
-        if (size < 0) {
-            throw new CRMApiException("Size number cannot be less than zero.");
-        }
-
-        if (size > AppConstants.MAX_PAGE_SIZE) {
-            throw new CRMApiException(String.format("Size number cannot exceed %d", AppConstants.MAX_PAGE_SIZE));
-        }
-
-        if(Arrays.stream(Customer.class.getDeclaredFields()).noneMatch(field -> field.getName().equals(sort))){
-            throw new CRMApiException(String.format("No property '%s' found", sort));
-        }
+        validatePageNumberGreaterThanZero(page);
+        validateSizeNumberGreaterThanZero(size);
+        validatePageSizeLessThanMaxPageSize(size);
     }
 
     public static void validatePageNumberLessThanTotalPages(int page, int totalPages) {
@@ -33,6 +21,24 @@ public class AppUtils {
     public static void validateSortFieldExists(String sort, Class<?> clazz){
         if(Arrays.stream(clazz.getDeclaredFields()).noneMatch(field -> field.getName().equals(sort))){
             throw new CRMApiException(String.format("No property '%s' found", sort));
+        }
+    }
+
+    public static void validatePageSizeLessThanMaxPageSize(int size) {
+        if (size > AppConstants.MAX_PAGE_SIZE) {
+            throw new CRMApiException(String.format("Size number cannot exceed %d", AppConstants.MAX_PAGE_SIZE));
+        }
+    }
+
+    public static void validateSizeNumberGreaterThanZero(int size){
+        if(size < 0){
+            throw new CRMApiException("Size number must be greater than zero.");
+        }
+    }
+
+    public static void validatePageNumberGreaterThanZero(int page){
+        if(page < 0){
+            throw new CRMApiException("Page number must be greater than zero.");
         }
     }
 
