@@ -30,6 +30,12 @@ public class AppUtils {
         }
     }
 
+    public static void validateSortFieldExists(String sort, Class<?> clazz){
+        if(Arrays.stream(clazz.getDeclaredFields()).noneMatch(field -> field.getName().equals(sort))){
+            throw new CRMApiException(String.format("No property '%s' found", sort));
+        }
+    }
+
     public static boolean isValid(String regex, String input) {
         return input.matches(regex);
     }
