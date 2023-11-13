@@ -33,7 +33,7 @@ public class PlanService {
     }
 
     public PagedResponse<Plan> getAll(int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size, sort);
+        AppUtils.validatePageNumberAndSize(page, size);
         AppUtils.validateSortFieldExists(sort, Plan.class);
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
 

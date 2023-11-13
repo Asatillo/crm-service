@@ -35,7 +35,7 @@ public class SubscriptionService {
     }
 
     public PagedResponse<Subscription> getAll(int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size, sort);
+        AppUtils.validatePageNumberAndSize(page, size);
         AppUtils.validateSortFieldExists(sort, Subscription.class);
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
 
@@ -58,7 +58,7 @@ public class SubscriptionService {
 
     // TODO: data validation
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size, sort);
+        AppUtils.validatePageNumberAndSize(page, size);
         AppUtils.validateSortFieldExists(sort, Subscription.class);
         CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
@@ -72,7 +72,7 @@ public class SubscriptionService {
     }
 
     public PagedResponse<Subscription> getSubscriptionsByPlanId(Long id, Integer page, Integer size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size, sort);
+        AppUtils.validatePageNumberAndSize(page, size);
         AppUtils.validateSortFieldExists(sort, Subscription.class);
         planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
 

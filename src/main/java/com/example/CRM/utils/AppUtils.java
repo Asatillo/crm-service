@@ -1,12 +1,11 @@
 package com.example.CRM.utils;
 
 import com.example.CRM.exceptions.CRMApiException;
-import com.example.CRM.model.Customer;
 
 import java.util.Arrays;
 
 public class AppUtils {
-    public static void validatePageNumberAndSize(int page, int size, String sort) {
+    public static void validatePageNumberAndSize(int page, int size) {
         validatePageNumberGreaterThanZero(page);
         validateSizeNumberGreaterThanZero(size);
         validatePageSizeLessThanMaxPageSize(size);
