@@ -5,7 +5,6 @@ import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.CustomerService;
 import com.example.CRM.utils.AppConstants;
-import com.example.CRM.utils.AppUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
