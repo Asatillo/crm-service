@@ -33,11 +33,13 @@ public class PlanService {
     }
 
     public PagedResponse<Plan> getAll(int page, int size, String sort) {
+        AppUtils.validatePageNumberAndSize(page, size, sort);
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
 
         Page<Plan> plans = planRepository.findAll(pageable);
 
         PagedResponse<Plan> pagedResponse = new PagedResponse<>();
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
         return pagedResponse.returnPagedResponse(plans);
     }
 

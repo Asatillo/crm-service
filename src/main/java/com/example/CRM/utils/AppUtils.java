@@ -24,6 +24,12 @@ public class AppUtils {
         }
     }
 
+    public static void validatePageNumberLessThanTotalPages(int page, int totalPages) {
+        if (page > totalPages) {
+            throw new CRMApiException(String.format("Requested page does not exist. Total pages: %d", totalPages+1));
+        }
+    }
+
     public static boolean isValid(String regex, String input) {
         return input.matches(regex);
     }

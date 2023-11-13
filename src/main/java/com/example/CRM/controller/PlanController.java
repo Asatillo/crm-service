@@ -28,7 +28,6 @@ public class PlanController {
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
     ){
-        AppUtils.validatePageNumberAndSize(page, size, sort);
         return planService.getAll(page, size, sort);
     }
 
