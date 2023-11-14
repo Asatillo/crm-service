@@ -2,6 +2,7 @@ package com.example.CRM.utils;
 
 import com.example.CRM.exceptions.CRMApiException;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public class AppUtils {
@@ -51,5 +52,14 @@ public class AppUtils {
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
         return isValid(AppConstants.REGEX_PHONE_NUMBER, phoneNumber);
+    }
+
+    public static boolean isOlderThan18(LocalDate dob) {
+        return dob.plusYears(18).isBefore(LocalDate.now());
+    }
+
+    // TODO: implement
+    public static boolean isValidCity(String city) {
+        return true;
     }
 }
