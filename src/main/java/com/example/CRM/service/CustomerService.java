@@ -53,6 +53,7 @@ public class CustomerService {
 
     // not validating name, last name and address since the agent is the one who writes down the info from the customer's ID
     public ResponseEntity<Customer> addCustomer(Customer customer) {
+        customer.processPhoneNumber();
         validateCustomer(customer);
         return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }

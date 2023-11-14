@@ -33,7 +33,7 @@ public class Customer {
         this.isActive = true;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber.replaceAll("[^0-9]", "");;
         this.email = email;
         this.address = address;
         this.city = city;
@@ -45,5 +45,10 @@ public class Customer {
     @JsonIgnore
     public boolean isInCapital(){
         return city.equals("Budapest");
+    }
+
+    @JsonIgnore
+    public void processPhoneNumber(){
+        this.phoneNumber = this.phoneNumber.replaceAll("[^0-9]", "");
     }
 }
