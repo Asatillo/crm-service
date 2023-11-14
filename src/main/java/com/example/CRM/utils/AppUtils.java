@@ -46,10 +46,6 @@ public class AppUtils {
         return input.matches(regex);
     }
 
-    public static boolean isValidEmail(String email) {
-        return isValid(AppConstants.REGEX_EMAIL, email);
-    }
-
     public static boolean isValidPhoneNumber(String phoneNumber) {
         return isValid(AppConstants.REGEX_PHONE_NUMBER, phoneNumber);
     }

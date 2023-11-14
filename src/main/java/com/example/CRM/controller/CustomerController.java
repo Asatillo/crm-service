@@ -6,6 +6,7 @@ import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.CustomerService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,13 +38,13 @@ public class CustomerController {
 
     @Operation(summary = "Add Customer")
     @PostMapping("/customer")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer){
+    public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer){
         return customerService.addCustomer(customer);
     }
 
     @Operation(summary = "Update Customer")
     @PutMapping("/customer/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customer){
         return customerService.updateCustomer(id, customer);
     }
 

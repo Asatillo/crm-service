@@ -1,6 +1,5 @@
 package com.example.CRM.service;
 
-import com.example.CRM.exceptions.ExistingResourceException;
 import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
@@ -54,21 +53,48 @@ public class CustomerService {
     // not validating name, last name and address since the agent is the one who writes down the info from the customer's ID
     public ResponseEntity<Customer> addCustomer(Customer customer) {
         customer.processPhoneNumber();
-        validateCustomer(customer);
+        if (!AppUtils.isValidPhoneNumber(customer.getPhoneNumber())) {
+            throw new InvalidInputException("Customer", "phone number", customer.getPhoneNumber());
+        }
         return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }
 
     public ResponseEntity<Customer> updateCustomer(Long id, Customer customer) {
         Customer existingCustomer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
-        validateCustomer(customer);
-        existingCustomer.setFirstName(customer.getFirstName());
-        existingCustomer.setLastName(customer.getLastName());
-        existingCustomer.setEmail(customer.getEmail());
-        existingCustomer.setPhoneNumber(customer.getPhoneNumber());
-        existingCustomer.setAddress(customer.getAddress());
-        existingCustomer.setCity(customer.getCity());
-        existingCustomer.setDob(customer.getDob());
-        existingCustomer.setSegment(customer.getSegment());
+        customer.processPhoneNumber();
+        if(!customer.getEmail().equals(existingCustomer.getEmail())){
+            existingCustomer.setEmail(customer.getEmail());
+        }
+        if(!customer.getPhoneNumber().equals(existingCustomer.getPhoneNumber())){
+            existingCustomer.setPhoneNumber(customer.getPhoneNumber());
+        }
+        if(!customer.getSegment().equals(existingCustomer.getSegment())){
+            // TODO: create a segment validator, check if given segment is one of the existing segments
+            existingCustomer.setSegment(customer.getSegment());
+        }
+        if(!customer.getDob().equals(existingCustomer.getDob())){
+            // TODO: validate a date while creating a customer
+            if(!AppUtils.isOlderThan18(customer.getDob())){
+                throw new InvalidInputException("Customer", "date of birth", customer.getDob());
+            }
+            existingCustomer.setDob(customer.getDob());
+        }
+        if(!customer.getCity().equals(existingCustomer.getCity())){
+            // TODO: create a city validator
+            if(!AppUtils.isValidCity(customer.getCity())){
+                throw new InvalidInputException("Customer", "city", customer.getCity());
+            }
+            existingCustomer.setCity(customer.getCity());
+        }
+        if(!customer.getAddress().equals(existingCustomer.getAddress())){
+            existingCustomer.setAddress(customer.getAddress());
+        }
+        if(!customer.getFirstName().equals(existingCustomer.getFirstName())){
+            existingCustomer.setFirstName(customer.getFirstName());
+        }
+        if(!customer.getLastName().equals(existingCustomer.getLastName())){
+            existingCustomer.setLastName(customer.getLastName());
+        }
         return new ResponseEntity<>(customerRepository.save(existingCustomer), HttpStatus.OK);
     }
 
@@ -80,25 +106,6 @@ public class CustomerService {
 
         customerRepository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer deleted successfully"), HttpStatus.OK);
-    }
-
-    // TODO: might need it in global
-    private void validateCustomer(Customer customer) {
-        if (customer.getPhoneNumber() != null && customerRepository.existsByEmail(customer.getEmail())){
-            throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Email already exists"));
-        }
-
-        if (customer.getEmail() != null && customerRepository.existsByPhoneNumber(customer.getPhoneNumber())){
-            throw new ExistingResourceException(new ApiResponse(Boolean.FALSE, "Phone number already exists"));
-        }
-
-        if (!AppUtils.isValidEmail(customer.getEmail())) {
-            throw new InvalidInputException("Customer", "email", customer.getEmail());
-        }
-
-        if (!AppUtils.isValidPhoneNumber(customer.getPhoneNumber())) {
-            throw new InvalidInputException("Customer", "phone number", customer.getPhoneNumber());
-        }
     }
 
     public ResponseEntity<ApiResponse> deactivateCustomer(Long id) {

@@ -4,10 +4,7 @@ import com.example.CRM.model.enums.Segment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -33,7 +30,7 @@ public class Customer {
 
     @NotBlank(message = "Phone number cannot be blank")
     @Column(unique = true)
-    @Size(max = 15, message = "Phone number must be between 1 and 15 characters long")
+    @Size(min = 11,max = 16, message = "Phone number must be between 11 and 16 characters long")
     private String phoneNumber;
 
     @NotBlank(message = "Email cannot be blank")
@@ -50,13 +47,13 @@ public class Customer {
     @Size(max = 30)
     private String city;
 
+    @NotNull(message = "Date of birth cannot be null")
     @Past(message = "Date of birth must be in the past")
     @JsonFormat(pattern="yyyy-MM-dd")
-    @NotBlank(message = "Date of birth cannot be blank")
     private LocalDate dob;
 
+    @NotNull(message = "Segment cannot be null")
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Segment cannot be blank")
     private Segment segment;
 
     @Column(updatable = false)

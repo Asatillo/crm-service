@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.HashMap;
+
 @ControllerAdvice
 public class RestControllerExceptionHandler {
 
@@ -71,16 +73,17 @@ public class RestControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException exception) {
-        // use string builder
-        StringBuilder message = new StringBuilder("Validation error(s): ");
+        HashMap<String, String> validationErrors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
-            message.append("\n").append(fieldName).append(": ").append(errorMessage);
+            validationErrors.put(fieldName, errorMessage);
         });
 
-        return new ResponseEntity<>(new ExceptionResponse(message.toString(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                new ExceptionResponse(validationErrors.size() == 1 ? "Validation error" : "Validation errors",
+                        HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value(), validationErrors),
+                HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
