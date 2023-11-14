@@ -2,9 +2,12 @@ package com.example.CRM.exceptions;
 
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.ExceptionResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,4 +66,31 @@ public class RestControllerExceptionHandler {
         return new ResponseEntity<>(new ExceptionResponse(message, HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase(),
                 HttpStatus.METHOD_NOT_ALLOWED.value()), HttpStatus.METHOD_NOT_ALLOWED);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException exception) {
+        // use string builder
+        StringBuilder message = new StringBuilder("Validation error(s): ");
+        exception.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            message.append("\n").append(fieldName).append(": ").append(errorMessage);
+        });
+
+        return new ResponseEntity<>(new ExceptionResponse(message.toString(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = {DataIntegrityViolationException.class})
+    @ResponseBody
+    public ResponseEntity<ExceptionResponse> resolveException(DataIntegrityViolationException exception){
+        String message =  exception.getMostSpecificCause().getMessage();
+
+        return new ResponseEntity<>(new ExceptionResponse(message, HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
 }
