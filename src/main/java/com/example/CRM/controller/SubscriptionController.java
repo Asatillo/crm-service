@@ -3,11 +3,15 @@ package com.example.CRM.controller;
 import com.example.CRM.model.Subscription;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.SubscriptionRequest;
 import com.example.CRM.service.SubscriptionService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -37,7 +41,7 @@ public class SubscriptionController {
         return subscriptionService.getById(id);
     }
 
-    @Operation(summary = "Get Subscriptions of Customer Id")
+    @Operation(summary = "Get Subscriptions by Customer Id")
     @GetMapping("/subscriptions/customer/{id}")
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(@PathVariable Long id,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
@@ -46,7 +50,7 @@ public class SubscriptionController {
         return subscriptionService.getSubscriptionsByCustomerId(id, page, size, sort);
     }
 
-    @Operation(summary = "Get Subscriptions of Plan Id")
+    @Operation(summary = "Get Subscriptions by Plan Id")
     @GetMapping("/subscriptions/plan/{id}")
     public PagedResponse<Subscription> getSubscriptionsByPlanId(@PathVariable Long id,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
@@ -57,8 +61,14 @@ public class SubscriptionController {
 
     @Operation(summary = "Add Subscription")
     @PostMapping("/subscription")
-    public ResponseEntity<Subscription> addSubscription(@RequestBody Subscription subscription){
-        return subscriptionService.addSubscription(subscription);
+    public ResponseEntity<Subscription> addSubscription(@Valid @RequestBody SubscriptionRequest subscriptionRequest){
+        return subscriptionService.addSubscription(subscriptionRequest);
+    }
+
+    @Operation(summary = "Extend Subscription")
+    @PatchMapping("/subscription/{id}/extend")
+    public ResponseEntity<Subscription> extendSubscription(@PathVariable Long id, @RequestBody LocalDateTime endDate){
+        return subscriptionService.extendSubscription(id, endDate);
     }
 
     @Operation(summary = "Delete Subscription")
