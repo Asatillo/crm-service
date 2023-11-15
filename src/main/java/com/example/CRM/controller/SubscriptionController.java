@@ -72,4 +72,10 @@ public class SubscriptionController {
     public ResponseEntity<ApiResponse> deactivateSubscription(@PathVariable Long id){
         return subscriptionService.deactivateSubscription(id);
     }
+
+    @Operation(summary = "Activate Subscription")
+    @PatchMapping("/subscription/{id}/activate")
+    public ResponseEntity<ApiResponse> activateSubscription(@PathVariable Long id){
+        return subscriptionService.activateSubscription(id);
+    }
 }

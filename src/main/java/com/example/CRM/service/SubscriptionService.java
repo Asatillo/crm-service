@@ -1,9 +1,13 @@
 package com.example.CRM.service;
 
+import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
+import com.example.CRM.model.Customer;
+import com.example.CRM.model.Plan;
 import com.example.CRM.model.Subscription;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.SubscriptionRequest;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.PlanRepository;
 import com.example.CRM.repository.SubscriptionRepository;
@@ -15,6 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class SubscriptionService {
@@ -46,17 +52,36 @@ public class SubscriptionService {
         return pagedResponse.returnPagedResponse(subscriptions);
     }
 
-    // TODO: data validation
     public ResponseEntity<Subscription> getById(Long id) {
         return new ResponseEntity<>(subscriptionRepository.findById(id).orElse(null), HttpStatus.OK);
     }
 
-    // TODO: data validation
-    public ResponseEntity<Subscription> addSubscription(Subscription subscription) {
+    public ResponseEntity<Subscription> addSubscription(SubscriptionRequest subscriptionRequest) {
+        Long customerId = subscriptionRequest.getCustomerId();
+        Long planId = subscriptionRequest.getPlanId();
+        LocalDateTime startDate = subscriptionRequest.getStartDate();
+
+        Plan plan = planRepository.findById(planId)
+                .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
+        Customer customer = CustomerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", customerId));
+
+        if(!plan.isActive()){
+            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "plan", planId)));
+        }
+
+        if(!customer.isActive()){
+            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "customer", customerId)));
+        }
+
+        if(startDate.isBefore(LocalDateTime.now())){
+            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s cannot be before the current date", "start date")));
+        }
+
+        Subscription subscription = new Subscription(customer, plan, startDate);
         return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
     }
 
-    // TODO: data validation
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
         AppUtils.validatePageNumberAndSize(page, size);
         AppUtils.validateSortFieldExists(sort, Subscription.class);
@@ -85,7 +110,6 @@ public class SubscriptionService {
         return pagedResponse.returnPagedResponse(subscriptions);
     }
 
-    // TODO: data validation
     public ResponseEntity<ApiResponse> deleteSubscription(Long id) {
         subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
         subscriptionRepository.deleteById(id);
@@ -100,5 +124,15 @@ public class SubscriptionService {
         subscription.setActive(false);
         subscriptionRepository.save(subscription);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription deactivated successfully"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<ApiResponse> activateSubscription(Long id) {
+        Subscription subscription = subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
+        if(subscription.isActive()){
+            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription is already active"), HttpStatus.OK);
+        }
+        subscription.setActive(true);
+        subscriptionRepository.save(subscription);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription activated successfully"), HttpStatus.OK);
     }
 }
