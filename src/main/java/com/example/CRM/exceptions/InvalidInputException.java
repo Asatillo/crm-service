@@ -25,4 +25,9 @@ public class InvalidInputException extends RuntimeException{
         this.apiResponse = new ApiResponse(Boolean.FALSE, String.format("%s with %s value '%s' doesn't match the pattern", resourceName, fieldName, fieldValue));
     }
 
+    public InvalidInputException(ApiResponse apiResponse) {
+        super();
+        this.apiResponse = apiResponse;
+    }
+
 }
