@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.CONFLICT)
 public class ExistingResourceException extends RuntimeException{
 
-    private static final long serialVersionUID = 1L;
-
     private ApiResponse apiResponse;
 
     public ExistingResourceException(ApiResponse apiResponse) {

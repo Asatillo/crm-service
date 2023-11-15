@@ -17,9 +17,6 @@ import java.io.Serializable;
 })
 public class ApiResponse implements Serializable {
 
-    @JsonIgnore
-    private static final long serialVersionUID = 7702134516418120340L;
-
     @JsonProperty("success")
     private Boolean success;
 

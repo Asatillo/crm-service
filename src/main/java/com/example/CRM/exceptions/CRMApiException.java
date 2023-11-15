@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class CRMApiException extends RuntimeException{
 
-    private static final long serialVersionUID = 1L;
-
     private transient ApiResponse apiResponse;
 
     private HttpStatus status;
