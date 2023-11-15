@@ -54,6 +54,12 @@ public class CustomerController {
         return customerService.deactivateCustomer(id);
     }
 
+    @Operation(summary = "Activate Customer")
+    @PatchMapping("/customer/{id}/activate")
+    public ResponseEntity<ApiResponse> activateCustomer(@PathVariable Long id){
+        return customerService.activateCustomer(id);
+    }
+
     @Operation(summary = "Delete Customer")
     @DeleteMapping("/customer/{id}")
     public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Long id){

@@ -117,4 +117,14 @@ public class CustomerService {
         customerRepository.save(customer);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer deactivated successfully"), HttpStatus.OK);
     }
+
+    public ResponseEntity<ApiResponse> activateCustomer(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        if(customer.isActive()){
+            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer is already active"), HttpStatus.OK);
+        }
+        customer.setActive(true);
+        customerRepository.save(customer);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Customer activated successfully"), HttpStatus.OK);
+    }
 }
