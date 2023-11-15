@@ -21,11 +21,9 @@ import java.util.List;
 @Service
 public class PlanService {
 
-    final
-    PlanRepository planRepository;
+    final PlanRepository planRepository;
 
-    final
-    SubscriptionRepository subscriptionRepository;
+    final SubscriptionRepository subscriptionRepository;
 
     public PlanService(PlanRepository planRepository, SubscriptionRepository subscriptionRepository) {
         this.planRepository = planRepository;
@@ -49,7 +47,6 @@ public class PlanService {
         return new ResponseEntity<>(plan, HttpStatus.OK);
     }
 
-    // TODO: what kind of data validation?
     public ResponseEntity<Plan> addPlan(Plan plan) {
         return new ResponseEntity<>(planRepository.save(plan), HttpStatus.CREATED);
     }
@@ -79,10 +76,20 @@ public class PlanService {
     public ResponseEntity<ApiResponse> deactivatePlan(Long id) {
         Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
         if(!plan.isActive()){
-            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan already deactivated"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(Boolean.FALSE, "Plan already deactivated"), HttpStatus.OK);
         }
         plan.setActive(false);
         planRepository.save(plan);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan deactivated successfully"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<ApiResponse> activatePlan(Long id) {
+        Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
+        if(plan.isActive()){
+            return new ResponseEntity<>(new ApiResponse(Boolean.FALSE, "Plan already activated"), HttpStatus.OK);
+        }
+        plan.setActive(true);
+        planRepository.save(plan);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan activated successfully"), HttpStatus.OK);
     }
 }

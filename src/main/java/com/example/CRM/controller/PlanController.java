@@ -6,6 +6,7 @@ import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.PlanService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,13 +39,13 @@ public class PlanController {
 
     @Operation(summary = "Add Plan")
     @PostMapping("/plan")
-    public ResponseEntity<Plan> addPlan(@RequestBody Plan plan){
+    public ResponseEntity<Plan> addPlan(@Valid @RequestBody Plan plan){
         return planService.addPlan(plan);
     }
 
     @Operation(summary = "Update Plan")
     @PutMapping("/plan/{id}")
-    public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @RequestBody Plan plan){
+    public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @Valid @RequestBody Plan plan){
         return planService.updatePlan(id, plan);
     }
 
@@ -52,6 +53,12 @@ public class PlanController {
     @PatchMapping("/plan/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivatePlan(@PathVariable Long id){
         return planService.deactivatePlan(id);
+    }
+
+    @Operation(summary = "Activate Plan")
+    @PatchMapping("/plan/{id}/activate")
+    public ResponseEntity<ApiResponse> activatePlan(@PathVariable Long id){
+        return planService.activatePlan(id);
     }
 
     @Operation(summary = "Delete Plan")
