@@ -50,7 +50,10 @@ public class SubscriptionService {
     }
 
     public ResponseEntity<Subscription> getById(Long id) {
-        return new ResponseEntity<>(subscriptionRepository.findById(id).orElse(null), HttpStatus.OK);
+        Subscription subscription = subscriptionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
+
+        return new ResponseEntity<>(subscription, HttpStatus.OK);
     }
 
     public ResponseEntity<Subscription> addSubscription(SubscriptionRequest subscriptionRequest) {
