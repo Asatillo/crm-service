@@ -15,7 +15,7 @@ public class PagedResponse<T> {
     private long totalElements;
     private int totalPages;
 
-    public PagedResponse(List<T> content, int page, int size, long totalElements, int totalPages, boolean last) {
+    public PagedResponse(List<T> content, int page, int size, long totalElements, int totalPages) {
         setContent(content);
         this.page = page;
         this.size = size;
@@ -26,12 +26,12 @@ public class PagedResponse<T> {
     public PagedResponse<T> returnPagedResponse(Page<T> resource){
         if(resource.getNumberOfElements() == 0){
             return new PagedResponse<>(List.of(), resource.getNumber() + 1, resource.getSize(),
-                    resource.getTotalElements(), resource.getTotalPages(), resource.isLast());
+                    resource.getTotalElements(), resource.getTotalPages());
         }
 
         List<T> subscriptionsList = resource.getContent();
 
         return new PagedResponse<>(subscriptionsList, resource.getNumber() + 1, resource.getSize(), resource.getTotalElements(),
-                resource.getTotalPages(), resource.isLast());
+                resource.getTotalPages());
     }
 }
