@@ -1,11 +1,12 @@
 package com.example.CRM.model;
 
-import com.example.CRM.model.enums.Segment;
+import com.example.CRM.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -53,13 +54,13 @@ public class Customer {
     private LocalDate dob;
 
     @NotNull(message = "Segment cannot be null")
-    @Enumerated(EnumType.STRING)
-    private Segment segment;
+    @Pattern(regexp = AppConstants.SEGMENT_TYPES_REGEX, message = "Segment must be one of the following: " + AppConstants.SEGMENT_TYPES_REGEX)
+    private String segment;
 
     @Column(updatable = false)
     private LocalDateTime accCreationDate;
 
-    public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, LocalDate dob, Segment segment) {
+    public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, LocalDate dob, String segment) {
         this.isActive = true;
         this.firstName = firstName;
         this.lastName = lastName;

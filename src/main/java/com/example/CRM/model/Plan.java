@@ -1,12 +1,13 @@
 package com.example.CRM.model;
 
-import com.example.CRM.model.enums.Package;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import com.example.CRM.utils.AppConstants;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
@@ -23,8 +24,9 @@ public class Plan {
     private String name;
 
     @NotNull(message = "Package type cannot be null")
-    @Enumerated(EnumType.STRING)
-    private Package packageType;
+    @Pattern(regexp = AppConstants.PACKAGE_TYPES_REGEX,
+            message = "Package type must be one of the following: " + AppConstants.PACKAGE_TYPES_REGEX)
+    private String packageType;
 
     @NotNull(message = "Amount cannot be null")
     @Positive(message = "Amount must be positive")
@@ -42,7 +44,7 @@ public class Plan {
     @Positive(message = "Price must be positive")
     private Double price;
 
-    public Plan(String name, Package packageType, Integer amount, String duration, String description, Double price) {
+    public Plan(String name, String packageType, Integer amount, String duration, String description, Double price) {
         this.isActive = true;
         this.name = name;
         this.packageType = packageType;

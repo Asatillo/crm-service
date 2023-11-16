@@ -8,6 +8,13 @@ public class AppConstants {
 
     public static final String REGEX_PHONE_NUMBER = "(36|06)[237]0\\d{7}";
 
-    // TODO: optimize regex to not start with special characters
-    public static final String REGEX_EMAIL = "^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    /*
+     * The default quantity measures are:
+     * Voice: Minutes
+     * Data: GB
+     * SMS: Number of SMS
+     */
+    public static final String PACKAGE_TYPES_REGEX = "VOICE|DATA|SMS";
+
+    public static final String SEGMENT_TYPES_REGEX = "PREMIUM|GOLD|SILVER|BRONZE|EXPLORE";
 }
