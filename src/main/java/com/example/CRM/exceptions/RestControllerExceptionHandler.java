@@ -5,6 +5,7 @@ import com.example.CRM.payload.ExceptionResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -111,6 +112,15 @@ public class RestControllerExceptionHandler {
     public ResponseEntity<ExceptionResponse> resolveException(MissingServletRequestParameterException exception){
 
         return new ResponseEntity<>(new ExceptionResponse("Required request parameter for method is not present", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = {HttpMessageNotReadableException.class})
+    @ResponseBody
+    public ResponseEntity<ExceptionResponse> resolveException(HttpMessageNotReadableException exception){
+
+        return new ResponseEntity<>(new ExceptionResponse("Required request body is missing", HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 }
