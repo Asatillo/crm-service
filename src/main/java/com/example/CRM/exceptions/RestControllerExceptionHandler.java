@@ -58,6 +58,14 @@ public class RestControllerExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(value = {ReferencedRecordException.class})
+    @ResponseBody
+    public ResponseEntity<ApiResponse> resolveException(ReferencedRecordException exception){
+        ApiResponse apiResponse = exception.getApiResponse();
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ResponseBody
