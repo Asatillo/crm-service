@@ -27,7 +27,7 @@ public class CustomerController {
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return customerService.getAllCustomers(page, size, sort);
+        return customerService.getAllCustomers(page-1, size, sort);
     }
 
     @Operation(summary = "Get Customer by Id")

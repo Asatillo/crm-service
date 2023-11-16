@@ -32,7 +32,7 @@ public class SubscriptionController {
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
     ){
-        return subscriptionService.getAll(page, size, sort);
+        return subscriptionService.getAll(page-1, size, sort);
     }
 
     @Operation(summary = "Get Subscription by Id")
@@ -47,7 +47,7 @@ public class SubscriptionController {
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return subscriptionService.getSubscriptionsByCustomerId(id, page, size, sort);
+        return subscriptionService.getSubscriptionsByCustomerId(id, page-1, size, sort);
     }
 
     @Operation(summary = "Get Subscriptions by Plan Id")
@@ -56,7 +56,7 @@ public class SubscriptionController {
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return subscriptionService.getSubscriptionsByPlanId(id, page, size, sort);
+        return subscriptionService.getSubscriptionsByPlanId(id, page-1, size, sort);
     }
 
     @Operation(summary = "Add Subscription")
