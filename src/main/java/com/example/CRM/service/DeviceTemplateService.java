@@ -92,6 +92,10 @@ public class DeviceTemplateService {
         if(deviceTemplate.isMobile() != existingDeviceTemplate.isMobile()){
             existingDeviceTemplate.setMobile(deviceTemplate.isMobile());
         }
+
+        if(!deviceTemplate.getWarrantyDuration().equals(existingDeviceTemplate.getWarrantyDuration())){
+            existingDeviceTemplate.setWarrantyDuration(deviceTemplate.getWarrantyDuration());
+        }
         return new ResponseEntity<>(deviceTemplateRepository.save(existingDeviceTemplate), HttpStatus.OK);
     }
 
