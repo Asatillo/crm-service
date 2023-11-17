@@ -135,20 +135,4 @@ public class SubscriptionService {
         subscriptionRepository.save(subscription);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription activated successfully"), HttpStatus.OK);
     }
-
-    public ResponseEntity<Subscription> extendSubscription(Long id, LocalDateTime endDate) {
-        Subscription subscription = subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
-
-        if(!subscription.isActive()){
-            throw  new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "subscription", id)));
-        }
-
-        if(endDate.isBefore(subscription.getEndDate())){
-            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' has an end date before the current one", "subscription", id)));
-        }
-
-        subscription.setEndDate(endDate);
-        subscriptionRepository.save(subscription);
-        return new ResponseEntity<>(subscription, HttpStatus.OK);
-    }
 }

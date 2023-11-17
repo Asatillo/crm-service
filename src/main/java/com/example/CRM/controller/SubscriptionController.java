@@ -65,12 +65,6 @@ public class SubscriptionController {
         return subscriptionService.addSubscription(subscriptionRequest);
     }
 
-    @Operation(summary = "Extend Subscription")
-    @PatchMapping("/subscription/{id}/extend")
-    public ResponseEntity<Subscription> extendSubscription(@PathVariable Long id, @RequestBody LocalDateTime endDate){
-        return subscriptionService.extendSubscription(id, endDate);
-    }
-
     @Operation(summary = "Delete Subscription")
     @DeleteMapping("/subscription/{id}")
     public ResponseEntity<ApiResponse> deleteSubscription(@PathVariable Long id){
