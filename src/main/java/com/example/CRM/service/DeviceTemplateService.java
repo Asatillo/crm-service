@@ -27,14 +27,14 @@ public class DeviceTemplateService {
         this.deviceRepository = deviceRepository;
     }
     public PagedResponse<DeviceTemplate> getAllDeviceTemplates(int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, DeviceTemplate.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
+
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-
         Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findAll(pageable);
-
         PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
         return pagedResponse.returnPagedResponse(deviceTemplates);
     }
 
@@ -45,8 +45,7 @@ public class DeviceTemplateService {
     }
 
     public PagedResponse<DeviceTemplate> getByBrand(String brand, int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, DeviceTemplate.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findByBrand(brand, pageable);
@@ -58,8 +57,7 @@ public class DeviceTemplateService {
     }
 
     public PagedResponse<DeviceTemplate> getMobile(boolean isMobile, int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, DeviceTemplate.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<DeviceTemplate> deviceTemplates;

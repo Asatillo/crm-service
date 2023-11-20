@@ -34,14 +34,14 @@ public class CustomerService {
     }
 
     public PagedResponse<Customer> getAllCustomers(int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Customer.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Customer.class);
+
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-
         Page<Customer> customers = customerRepository.findAll(pageable);
-
         PagedResponse<Customer> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
         return pagedResponse.returnPagedResponse(customers);
     }
 

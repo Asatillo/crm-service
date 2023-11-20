@@ -35,12 +35,12 @@ public class DeviceService {
     }
 
     public PagedResponse<Device> getAllDevices(int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Device.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = deviceRepository.findAll(pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
         return pagedResponse.returnPagedResponse(devices);
@@ -60,12 +60,12 @@ public class DeviceService {
     }
 
     public PagedResponse<Device> getByDeviceTemplateId(Long id, int page, Integer size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Device.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = deviceRepository.findByDeviceTemplate_Id(id, pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
         return pagedResponse.returnPagedResponse(devices);
@@ -77,22 +77,22 @@ public class DeviceService {
         return new ResponseEntity<>(new ApiResponse(true, "Device deleted successfully"), HttpStatus.OK);
     }
 
-    public PagedResponse<Device> getByCustomerId(Long id, int i, Integer size, String sort) {
+    public PagedResponse<Device> getByCustomerId(Long id, int page, int size, String sort) {
         customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
-        AppUtils.validatePageNumberAndSize(i, size);
-        AppUtils.validateSortFieldExists(sort, Device.class);
 
-        Pageable pageable = PageRequest.of(i, size, Sort.Direction.ASC, sort);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = deviceRepository.findByOwner_Id(id, pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>();
-        AppUtils.validatePageNumberLessThanTotalPages(i, pagedResponse.getTotalPages());
+
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
         return pagedResponse.returnPagedResponse(devices);
     }
 
     public PagedResponse<Device> getMobile(boolean isMobile, int page, Integer size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Device.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices;

@@ -38,14 +38,14 @@ public class SubscriptionService {
     }
 
     public PagedResponse<Subscription> getAll(int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Subscription.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
+
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-
         Page<Subscription> subscriptions = subscriptionRepository.findAll(pageable);
-
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
         return pagedResponse.returnPagedResponse(subscriptions);
     }
 
@@ -83,30 +83,30 @@ public class SubscriptionService {
     }
 
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Subscription.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
+
         CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-
         Page<Subscription> subscriptions = subscriptionRepository.findAllByCustomerId(id, pageable);
-
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
         return pagedResponse.returnPagedResponse(subscriptions);
     }
 
     public PagedResponse<Subscription> getSubscriptionsByPlanId(Long id, Integer page, Integer size, String sort) {
-        AppUtils.validatePageNumberAndSize(page, size);
-        AppUtils.validateSortFieldExists(sort, Subscription.class);
+        AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
+
         planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-
         Page<Subscription> subscriptions = subscriptionRepository.findAllByPlanId(id, pageable);
-
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
         return pagedResponse.returnPagedResponse(subscriptions);
     }
 

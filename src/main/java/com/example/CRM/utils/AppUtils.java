@@ -6,30 +6,22 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class AppUtils {
+
+    // Pagination and sorting validation methods
+    public static void validatePaginationRequestParams(int page, int size, String sort, Class<?> clazz){
+        validatePageNumberAndSize(page, size);
+        validateSortFieldExists(sort, clazz);
+    }
+
     public static void validatePageNumberAndSize(int page, int size) {
         validatePageNumberGreaterThanZero(page);
         validateSizeNumberGreaterThanZero(size);
         validatePageSizeLessThanMaxPageSize(size);
     }
 
-    /*
-    * Checks if the requested page number is less than the total number of pages
-    * */
-    public static void validatePageNumberLessThanTotalPages(int page, int totalPages) {
-        if (page > totalPages) {
-            throw new CRMApiException(String.format("Requested page does not exist. Total pages: %d", totalPages+1));
-        }
-    }
-
-    public static void validateSortFieldExists(String sort, Class<?> clazz){
-        if(Arrays.stream(clazz.getDeclaredFields()).noneMatch(field -> field.getName().equals(sort))){
-            throw new CRMApiException(String.format("No property '%s' found", sort));
-        }
-    }
-
-    public static void validatePageSizeLessThanMaxPageSize(int size) {
-        if (size > AppConstants.MAX_PAGE_SIZE) {
-            throw new CRMApiException(String.format("Size number cannot exceed %d", AppConstants.MAX_PAGE_SIZE));
+    public static void validatePageNumberGreaterThanZero(int page){
+        if(page < 0){
+            throw new CRMApiException("Page number must be greater than zero.");
         }
     }
 
@@ -39,9 +31,23 @@ public class AppUtils {
         }
     }
 
-    public static void validatePageNumberGreaterThanZero(int page){
-        if(page < 0){
-            throw new CRMApiException("Page number must be greater than zero.");
+    public static void validatePageSizeLessThanMaxPageSize(int size) {
+        if (size > AppConstants.MAX_PAGE_SIZE) {
+            throw new CRMApiException(String.format("Size number cannot exceed %d", AppConstants.MAX_PAGE_SIZE));
+        }
+    }
+
+    /* Checks if the requested page number is less than the total number of pages */
+    public static void validatePageNumberLessThanTotalPages(int page, int totalPages) {
+        if (page > totalPages) {
+            throw new CRMApiException(String.format("Requested page does not exist. Total pages: %d", totalPages+1));
+        }
+    }
+
+    // Input data validation methods
+    public static void validateSortFieldExists(String sort, Class<?> clazz){
+        if(Arrays.stream(clazz.getDeclaredFields()).noneMatch(field -> field.getName().equals(sort))){
+            throw new CRMApiException(String.format("No property '%s' found", sort));
         }
     }
 
