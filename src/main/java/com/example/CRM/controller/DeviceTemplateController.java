@@ -30,13 +30,13 @@ public class DeviceTemplateController {
     }
 
     @Operation(summary = "Get Device Template by Id")
-    @GetMapping("/device-template/{id}")
+    @GetMapping("/device-templates/{id}")
     public ResponseEntity<DeviceTemplate> getById(@PathVariable Long id){
         return deviceTemplateService.getById(id);
     }
 
     @Operation(summary = "Get Device Templates by Brand")
-    @GetMapping("/device-template/brand/{brand}")
+    @GetMapping("/device-templates/brand/{brand}")
     public PagedResponse<DeviceTemplate> getByBrand(@PathVariable String brand,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -45,7 +45,7 @@ public class DeviceTemplateController {
     }
 
     @Operation(summary = "Get Mobile Device Templates")
-    @GetMapping("/device-template/mobile")
+    @GetMapping("/device-templates/mobile")
     public PagedResponse<DeviceTemplate> getMobile(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -54,7 +54,7 @@ public class DeviceTemplateController {
     }
 
     @Operation(summary = "Get Non-Mobile Device Templates")
-    @GetMapping("/device-template/router")
+    @GetMapping("/device-templates/router")
     public PagedResponse<DeviceTemplate> getRouter(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -63,31 +63,31 @@ public class DeviceTemplateController {
     }
 
     @Operation(summary = "Create Device Template")
-    @PostMapping("/device-template")
+    @PostMapping("/device-templates")
     public ResponseEntity<DeviceTemplate> createDeviceTemplate(@Valid @RequestBody DeviceTemplate deviceTemplate){
         return deviceTemplateService.createDeviceTemplate(deviceTemplate);
     }
 
     @Operation(summary = "Update Device Template")
-    @PutMapping("/device-template/{id}")
+    @PutMapping("/device-templates/{id}")
     public ResponseEntity<DeviceTemplate> updateDeviceTemplate(@PathVariable Long id, @Valid @RequestBody DeviceTemplate deviceTemplate){
         return deviceTemplateService.updateDeviceTemplate(id, deviceTemplate);
     }
 
     @Operation(summary = "Delete Device Template")
-    @DeleteMapping("/device-template/{id}")
+    @DeleteMapping("/device-templates/{id}")
     public ResponseEntity<ApiResponse> deleteDeviceTemplate(@PathVariable Long id){
         return deviceTemplateService.deleteDeviceTemplate(id);
     }
 
     @Operation(summary = "Deactivate Device Template")
-    @PatchMapping("/device-template/{id}/deactivate")
+    @PatchMapping("/device-templates/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivateDeviceTemplate(@PathVariable Long id){
         return deviceTemplateService.deactivateDeviceTemplate(id);
     }
 
     @Operation(summary = "Activate Device Template")
-    @PatchMapping("/device-template/{id}/activate")
+    @PatchMapping("/device-templates/{id}/activate")
     public ResponseEntity<ApiResponse> activateDeviceTemplate(@PathVariable Long id){
         return deviceTemplateService.activateDeviceTemplate(id);
     }

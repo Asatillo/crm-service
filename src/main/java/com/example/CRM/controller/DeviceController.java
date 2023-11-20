@@ -32,13 +32,13 @@ public class DeviceController {
     }
 
     @Operation(summary = "Get Device by Id")
-    @GetMapping("/device/{id}")
+    @GetMapping("/devices/{id}")
     public ResponseEntity<Device> getById(@PathVariable Long id){
         return deviceService.getById(id);
     }
 
     @Operation(summary = "Get Device by Device Template id")
-    @GetMapping("/device/template/{id}")
+    @GetMapping("/devices/template/{id}")
     public PagedResponse<Device> getByDeviceTemplateId(@PathVariable Long id,
            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -76,13 +76,13 @@ public class DeviceController {
     }
 
     @Operation(summary = "Add Device")
-    @PostMapping("/device")
+    @PostMapping("/devices")
     public ResponseEntity<Device> addDevice(@Valid @RequestBody DeviceRequest deviceRequest){
         return deviceService.addDevice(deviceRequest);
     }
 
     @Operation(summary = "Delete Device")
-    @DeleteMapping("/device/{id}")
+    @DeleteMapping("/devices/{id}")
     public ResponseEntity<ApiResponse> deleteDevice(@PathVariable Long id){
         return deviceService.deleteDevice(id);
     }

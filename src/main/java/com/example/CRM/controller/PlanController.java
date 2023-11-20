@@ -32,37 +32,37 @@ public class PlanController {
     }
 
     @Operation(summary = "Get Plan by Id")
-    @GetMapping("/plan/{id}")
+    @GetMapping("/plans/{id}")
     public ResponseEntity<Plan> getById(@PathVariable Long id){
         return planService.getById(id);
     }
 
     @Operation(summary = "Add Plan")
-    @PostMapping("/plan")
+    @PostMapping("/plans")
     public ResponseEntity<Plan> addPlan(@Valid @RequestBody Plan plan){
         return planService.addPlan(plan);
     }
 
     @Operation(summary = "Update Plan")
-    @PutMapping("/plan/{id}")
+    @PutMapping("/plans/{id}")
     public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @Valid @RequestBody Plan plan){
         return planService.updatePlan(id, plan);
     }
 
     @Operation(summary = "Deactivate Plan")
-    @PatchMapping("/plan/{id}/deactivate")
+    @PatchMapping("/plans/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivatePlan(@PathVariable Long id){
         return planService.deactivatePlan(id);
     }
 
     @Operation(summary = "Activate Plan")
-    @PatchMapping("/plan/{id}/activate")
+    @PatchMapping("/plans/{id}/activate")
     public ResponseEntity<ApiResponse> activatePlan(@PathVariable Long id){
         return planService.activatePlan(id);
     }
 
     @Operation(summary = "Delete Plan")
-    @DeleteMapping("/plan/{id}")
+    @DeleteMapping("/plans/{id}")
     public ResponseEntity<ApiResponse> deletePlan(@PathVariable Long id){
         return planService.deletePlan(id);
     }

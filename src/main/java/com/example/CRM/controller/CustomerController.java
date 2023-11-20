@@ -31,37 +31,37 @@ public class CustomerController {
     }
 
     @Operation(summary = "Get Customer by Id")
-    @GetMapping("/customer/{id}")
+    @GetMapping("/customers/{id}")
     public ResponseEntity<Customer> getById(@PathVariable Long id){
         return customerService.getById(id);
     }
 
     @Operation(summary = "Add Customer")
-    @PostMapping("/customer")
+    @PostMapping("/customers")
     public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer){
         return customerService.addCustomer(customer);
     }
 
     @Operation(summary = "Update Customer")
-    @PutMapping("/customer/{id}")
+    @PutMapping("/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customer){
         return customerService.updateCustomer(id, customer);
     }
 
     @Operation(summary = "Deactivate Customer")
-    @PatchMapping("/customer/{id}/deactivate")
+    @PatchMapping("/customers/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivateCustomer(@PathVariable Long id){
         return customerService.deactivateCustomer(id);
     }
 
     @Operation(summary = "Activate Customer")
-    @PatchMapping("/customer/{id}/activate")
+    @PatchMapping("/customers/{id}/activate")
     public ResponseEntity<ApiResponse> activateCustomer(@PathVariable Long id){
         return customerService.activateCustomer(id);
     }
 
     @Operation(summary = "Delete Customer")
-    @DeleteMapping("/customer/{id}")
+    @DeleteMapping("/customers/{id}")
     public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Long id){
         return customerService.deleteCustomer(id);
     }

@@ -36,7 +36,7 @@ public class SubscriptionController {
     }
 
     @Operation(summary = "Get Subscription by Id")
-    @GetMapping("/subscription/{id}")
+    @GetMapping("/subscriptions/{id}")
     public ResponseEntity<Subscription> getById(@PathVariable Long id){
         return subscriptionService.getById(id);
     }
@@ -60,25 +60,25 @@ public class SubscriptionController {
     }
 
     @Operation(summary = "Add Subscription")
-    @PostMapping("/subscription")
+    @PostMapping("/subscriptions")
     public ResponseEntity<Subscription> addSubscription(@Valid @RequestBody SubscriptionRequest subscriptionRequest){
         return subscriptionService.addSubscription(subscriptionRequest);
     }
 
     @Operation(summary = "Delete Subscription")
-    @DeleteMapping("/subscription/{id}")
+    @DeleteMapping("/subscriptions/{id}")
     public ResponseEntity<ApiResponse> deleteSubscription(@PathVariable Long id){
         return subscriptionService.deleteSubscription(id);
     }
 
     @Operation(summary = "Deactivate Subscription")
-    @PatchMapping("/subscription/{id}/deactivate")
+    @PatchMapping("/subscriptions/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivateSubscription(@PathVariable Long id){
         return subscriptionService.deactivateSubscription(id);
     }
 
     @Operation(summary = "Activate Subscription")
-    @PatchMapping("/subscription/{id}/activate")
+    @PatchMapping("/subscriptions/{id}/activate")
     public ResponseEntity<ApiResponse> activateSubscription(@PathVariable Long id){
         return subscriptionService.activateSubscription(id);
     }
