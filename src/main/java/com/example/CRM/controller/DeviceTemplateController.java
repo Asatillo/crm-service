@@ -47,7 +47,7 @@ public class DeviceTemplateController {
     }
 
     @Operation(summary = "Get Mobile Device Templates")
-    @GetMapping("/device-templates/mobile")
+    @GetMapping("/device-templates/mobiles")
     public PagedResponse<DeviceTemplate> getMobile(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -56,7 +56,7 @@ public class DeviceTemplateController {
     }
 
     @Operation(summary = "Get Non-Mobile Device Templates")
-    @GetMapping("/device-templates/router")
+    @GetMapping("/device-templates/routers")
     public PagedResponse<DeviceTemplate> getRouter(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
