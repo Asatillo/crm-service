@@ -56,16 +56,12 @@ public class DeviceTemplateService {
         return pagedResponse.returnPagedResponse(deviceTemplates);
     }
 
-    public PagedResponse<DeviceTemplate> getMobile(boolean isMobile, int page, int size, String sort) {
+    public PagedResponse<DeviceTemplate> getByDeviceType(String deviceType, int page, int size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<DeviceTemplate> deviceTemplates;
-        if(isMobile){
-            deviceTemplates = deviceTemplateRepository.findByIsMobileTrue(pageable);
-        }else {
-            deviceTemplates = deviceTemplateRepository.findByIsMobileFalse(pageable);
-        }
+        deviceTemplates = deviceTemplateRepository.findByDeviceType(deviceType, pageable);
         PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>();
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
@@ -87,8 +83,8 @@ public class DeviceTemplateService {
         if(!deviceTemplate.getModel().equals(existingDeviceTemplate.getModel())){
             existingDeviceTemplate.setModel(deviceTemplate.getModel());
         }
-        if(deviceTemplate.isMobile() != existingDeviceTemplate.isMobile()){
-            existingDeviceTemplate.setMobile(deviceTemplate.isMobile());
+        if(deviceTemplate.getDeviceType().equals(existingDeviceTemplate.getDeviceType())){
+            existingDeviceTemplate.setDeviceType(deviceTemplate.getDeviceType());
         }
 
         if(!deviceTemplate.getWarrantyDuration().equals(existingDeviceTemplate.getWarrantyDuration())){

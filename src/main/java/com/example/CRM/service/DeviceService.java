@@ -91,16 +91,12 @@ public class DeviceService {
         return pagedResponse.returnPagedResponse(devices);
     }
 
-    public PagedResponse<Device> getMobile(boolean isMobile, int page, Integer size, String sort) {
+    public PagedResponse<Device> getByDeviceType(String deviceType, int page, Integer size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices;
-        if(isMobile){
-            devices = deviceRepository.findByDeviceTemplate_IsMobileTrue(pageable);
-        }else {
-            devices = deviceRepository.findByDeviceTemplate_IsMobileFalse(pageable);
-        }
+        devices = deviceRepository.findByDeviceTemplate_DeviceType(deviceType, pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>();
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());

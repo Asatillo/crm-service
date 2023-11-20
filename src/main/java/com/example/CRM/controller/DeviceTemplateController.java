@@ -52,7 +52,7 @@ public class DeviceTemplateController {
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return deviceTemplateService.getMobile(true, page-1, size, sort);
+        return deviceTemplateService.getByDeviceType("MOBILE", page-1, size, sort);
     }
 
     @Operation(summary = "Get Non-Mobile Device Templates")
@@ -61,7 +61,7 @@ public class DeviceTemplateController {
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return deviceTemplateService.getMobile(false, page-1, size, sort);
+        return deviceTemplateService.getByDeviceType("ROUTER", page-1, size, sort);
     }
 
     @Operation(summary = "Create Device Template")

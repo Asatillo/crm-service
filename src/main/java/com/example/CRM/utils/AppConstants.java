@@ -18,5 +18,7 @@ public class AppConstants {
      */
     public static final String PACKAGE_TYPES_REGEX = "VOICE|DATA|SMS";
 
+    public static final String DEVICE_TYPES_REGEX = "MOBILE|ROUTER";
+
     public static final String SEGMENT_TYPES_REGEX = "PREMIUM|GOLD|SILVER|BRONZE|EXPLORE";
 }

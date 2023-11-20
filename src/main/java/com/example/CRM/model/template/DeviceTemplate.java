@@ -1,9 +1,11 @@
 package com.example.CRM.model.template;
 
+import com.example.CRM.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +32,8 @@ public class DeviceTemplate{
     private String brand;
 
     @NotNull(message = "Mobile indicator cannot be null")
-    private boolean isMobile;
+    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    private String deviceType;
 
     @NotNull(message = "Active indicator cannot be null")
     private boolean isActive = true;
@@ -38,15 +41,23 @@ public class DeviceTemplate{
     @NotNull(message = "Warranty duration cannot be null")
     private String warrantyDuration;
 
-    public DeviceTemplate(String model, String brand, boolean isMobile, String warrantyDuration) {
+    public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration) {
         this.model = model;
         this.brand = brand;
-        this.isMobile = isMobile;
+        this.deviceType = deviceType;
         this.warrantyDuration = warrantyDuration;
     }
 
     @JsonIgnore
     public Period getWarrantyDurationPeriod() {
         return Period.parse(warrantyDuration);
+    }
+
+    public boolean isMobile() {
+        return deviceType.equals("MOBILE");
+    }
+
+    public boolean isRouter() {
+        return deviceType.equals("ROUTER");
     }
 }

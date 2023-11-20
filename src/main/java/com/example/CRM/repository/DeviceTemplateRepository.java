@@ -11,7 +11,5 @@ public interface DeviceTemplateRepository extends JpaRepository<DeviceTemplate, 
 
     Page<DeviceTemplate> findByBrand(String brand, Pageable pageable);
 
-    Page<DeviceTemplate> findByIsMobileTrue(Pageable pageable);
-
-    Page<DeviceTemplate> findByIsMobileFalse(Pageable pageable);
+    Page<DeviceTemplate> findByDeviceType(String deviceType, Pageable pageable);
 }
