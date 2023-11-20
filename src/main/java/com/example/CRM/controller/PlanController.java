@@ -10,8 +10,10 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.CRM.utils.AppConstants.API_URL;
+
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping(API_URL)
 public class PlanController {
     final
     PlanService planService;

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+import static com.example.CRM.utils.AppConstants.API_URL;
+
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping(API_URL)
 public class SubscriptionController {
 
     final
