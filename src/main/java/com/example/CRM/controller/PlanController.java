@@ -3,6 +3,7 @@ package com.example.CRM.controller;
 import com.example.CRM.model.Plan;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.PlanRequest;
 import com.example.CRM.service.PlanService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,14 +42,14 @@ public class PlanController {
 
     @Operation(summary = "Add Plan")
     @PostMapping("/plans")
-    public ResponseEntity<Plan> addPlan(@Valid @RequestBody Plan plan){
-        return planService.addPlan(plan);
+    public ResponseEntity<Plan> addPlan(@Valid @RequestBody PlanRequest planRequest){
+        return planService.addPlan(planRequest);
     }
 
     @Operation(summary = "Update Plan")
     @PutMapping("/plans/{id}")
-    public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @Valid @RequestBody Plan plan){
-        return planService.updatePlan(id, plan);
+    public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @Valid @RequestBody PlanRequest planRequest){
+        return planService.updatePlan(id, planRequest);
     }
 
     @Operation(summary = "Deactivate Plan")

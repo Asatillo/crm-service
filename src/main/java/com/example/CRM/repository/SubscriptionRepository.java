@@ -11,11 +11,13 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-    Page<Subscription> findAllByCustomerId(Long id, Pageable pageable);
+    Page<Subscription> findAllByPhoneNumber_Owner_Id(Long id, Pageable pageable);
 
-    List<Subscription> findAllByCustomerId(Long id);
+    List<Subscription> findAllByPhoneNumber_Owner_Id(Long id);
 
     List<Subscription> findAllByPlanId(Long id);
 
     Page<Subscription> findAllByPlanId(Long id, Pageable pageable);
+
+    boolean existsByPlan_Id(Long id);
 }
