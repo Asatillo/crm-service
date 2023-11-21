@@ -16,7 +16,7 @@ public class AppConstants {
      * Data: GB
      * SMS: Number of SMS
      */
-    public static final String PACKAGE_TYPES_REGEX = "VOICE|DATA|SMS";
+    public static final String SERVICE_TYPES_REGEX = "VOICE|DATA|SMS";
 
     public static final String DEVICE_TYPES_REGEX = "MOBILE|ROUTER";
 
