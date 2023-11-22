@@ -79,9 +79,8 @@ public class PlanService {
             existingPlan.setDuration(planRequest.getDuration());
         }
 
-        if(!existingPlan.getServices().equals(planRequest.getServices())){
-            existingPlan.setServices(convertServiceIdsToService(planRequest.getServices()));
-        }
+        existingPlan.setServices(convertServiceIdsToService(planRequest.getServices()));
+
         return new ResponseEntity<>(planRepository.save(existingPlan), HttpStatus.OK);
     }
 
