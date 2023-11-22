@@ -63,8 +63,6 @@ public class SubscriptionService {
 
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
-        Customer customer = CustomerRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", customerId));
         NetworkEntity newNetworkEntity = networkEntityRepository.findById(networkEntityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
         Device device = deviceRepository.findById(deviceId)
