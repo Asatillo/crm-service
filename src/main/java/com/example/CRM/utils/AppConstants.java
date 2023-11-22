@@ -9,6 +9,8 @@ public class AppConstants {
     public static final String DEFAULT_SORT_PROPERTY = "id";
 
     public static final String REGEX_PHONE_NUMBER = "(36|06)[237]0\\d{7}";
+    public static final String REGEX_PHONE_NUMBER = "(36[237]0\\d{7})";
+
 
     /*
      * The default quantity measures are:
