@@ -54,6 +54,7 @@ public class Customer {
     private String segment;
 
     @Column(updatable = false)
+    @CreationTimestamp
     private LocalDateTime accCreationDate;
 
     public Customer(String firstName, String lastName, String email, String address, String city, LocalDate dob, String segment) {
