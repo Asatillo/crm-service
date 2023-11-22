@@ -19,7 +19,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean isActive;
+    @NotNull(message = "Active indicator cannot be null")
+    private boolean isActive = true;
 
     @NotBlank(message = "First name cannot be blank")
     @Size(max = 25, message = "First name must be between 1 and 25 characters long")
@@ -63,16 +64,5 @@ public class Customer {
         this.city = city;
         this.dob = dob;
         this.segment = segment;
-        this.accCreationDate = LocalDateTime.now();
-    }
-
-    @JsonIgnore
-    public boolean isInCapital(){
-        return city.equals("Budapest");
-    }
-
-    @JsonIgnore
-    public void processPhoneNumber(){
-        this.phoneNumber = this.phoneNumber.replaceAll("[^0-9]", "");
     }
 }
