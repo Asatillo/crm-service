@@ -51,14 +51,6 @@ public class AppUtils {
         }
     }
 
-    public static boolean isValid(String regex, String input) {
-        return input.matches(regex);
-    }
-
-    public static boolean isValidPhoneNumber(String phoneNumber) {
-        return isValid(AppConstants.REGEX_PHONE_NUMBER, phoneNumber);
-    }
-
     public static boolean isOlderThan18(LocalDate dob) {
         return dob.plusYears(18).isBefore(LocalDate.now());
     }
