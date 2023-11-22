@@ -61,7 +61,6 @@ public class CustomerService {
             existingCustomer.setEmail(customer.getEmail());
         }
         if(!customer.getSegment().equals(existingCustomer.getSegment())){
-            // TODO: create a segment validator, check if given segment is one of the existing segments
             existingCustomer.setSegment(customer.getSegment());
         }
         if(!customer.getDob().equals(existingCustomer.getDob())){
