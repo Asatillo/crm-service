@@ -4,12 +4,14 @@ import com.example.CRM.utils.AppConstants;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class NetworkEntityRequest {
     @NotNull(message = "Network identifier cannot be null")
@@ -27,14 +29,5 @@ public class NetworkEntityRequest {
     @Size(min = 1, max = 50, message = "Tag must be between 1 and 50 characters")
     private String tag;
 
-    @NotNull(message = "Active indicator cannot be null")
-    private boolean isActive;
-
-    public NetworkEntityRequest(String networkIdentifier, String deviceType, Long owner_id, String tag) {
-        this.networkIdentifier = networkIdentifier;
-        this.deviceType = deviceType;
-        this.owner_id = owner_id;
-        this.tag = tag;
-        this.isActive = true;
-    }
+    private boolean isActive = true;
 }
