@@ -52,21 +52,13 @@ public class CustomerService {
 
     // not validating name, last name and address since the agent is the one who writes down the info from the customer's ID
     public ResponseEntity<Customer> addCustomer(Customer customer) {
-        customer.processPhoneNumber();
-        if (!AppUtils.isValidPhoneNumber(customer.getPhoneNumber())) {
-            throw new InvalidInputException("Customer", "phone number", customer.getPhoneNumber());
-        }
         return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }
 
     public ResponseEntity<Customer> updateCustomer(Long id, Customer customer) {
         Customer existingCustomer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
-        customer.processPhoneNumber();
         if(!customer.getEmail().equals(existingCustomer.getEmail())){
             existingCustomer.setEmail(customer.getEmail());
-        }
-        if(!customer.getPhoneNumber().equals(existingCustomer.getPhoneNumber())){
-            existingCustomer.setPhoneNumber(customer.getPhoneNumber());
         }
         if(!customer.getSegment().equals(existingCustomer.getSegment())){
             // TODO: create a segment validator, check if given segment is one of the existing segments
@@ -101,7 +93,7 @@ public class CustomerService {
     public ResponseEntity<ApiResponse> deleteCustomer(Long id) {
         customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
-        List<Subscription> subscriptions = subscriptionRepository.findAllByCustomerId(id);
+        List<Subscription> subscriptions = subscriptionRepository.findAllByNetworkEntity_Owner_Id(id);
         subscriptionRepository.deleteAll(subscriptions);
 
         customerRepository.deleteById(id);

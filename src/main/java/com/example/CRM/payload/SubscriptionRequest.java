@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SubscriptionRequest {
     @NotNull
-    private long customerId;
+    private long networkEntity;
     @NotNull
     private long planId;
     @NotNull

@@ -19,9 +19,9 @@ public class Subscription {
     private boolean isActive;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    @NotNull(message = "Customer cannot be null")
-    private Customer customer;
+    @JoinColumn(name = "network_entity_id")
+    @NotNull(message = "Network entity cannot be null")
+    private NetworkEntity networkEntity;
 
     @ManyToOne
     @JoinColumn(name = "plan_id")
@@ -32,9 +32,9 @@ public class Subscription {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Subscription(Customer customer, Plan plan, LocalDateTime startDate) {
+    public Subscription(NetworkEntity networkEntity, Plan plan, Device device, LocalDateTime startDate) {
         this.isActive = true;
-        this.customer = customer;
+        this.networkEntity = networkEntity;
         this.plan = plan;
         this.startDate = startDate;
         Period period = Period.parse(plan.getDuration());

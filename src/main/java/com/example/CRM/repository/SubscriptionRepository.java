@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-    Page<Subscription> findAllByPhoneNumber_Owner_Id(Long id, Pageable pageable);
+    Page<Subscription> findAllByNetworkEntity_Owner_Id(Long id, Pageable pageable);
 
-    List<Subscription> findAllByPhoneNumber_Owner_Id(Long id);
+    List<Subscription> findAllByNetworkEntity_Owner_Id(Long id);
 
     List<Subscription> findAllByPlanId(Long id);
 

@@ -2,11 +2,11 @@ package com.example.CRM.model;
 
 import com.example.CRM.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,11 +28,6 @@ public class Customer {
     @NotBlank(message = "Last name cannot be blank")
     @Size(max = 25, message = "Last name must be between 1 and 25 characters long")
     private String lastName;
-
-    @NotBlank(message = "Phone number cannot be blank")
-    @Column(unique = true)
-    @Size(min = 11,max = 16, message = "Phone number must be between 11 and 16 characters long")
-    private String phoneNumber;
 
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Email must be valid")
@@ -60,11 +55,9 @@ public class Customer {
     @Column(updatable = false)
     private LocalDateTime accCreationDate;
 
-    public Customer(String firstName, String lastName, String phoneNumber, String email, String address, String city, LocalDate dob, String segment) {
-        this.isActive = true;
+    public Customer(String firstName, String lastName, String email, String address, String city, LocalDate dob, String segment) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber.replaceAll("[^0-9]", "");
         this.email = email;
         this.address = address;
         this.city = city;

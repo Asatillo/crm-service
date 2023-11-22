@@ -2,15 +2,11 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
-import com.example.CRM.model.Customer;
-import com.example.CRM.model.Plan;
-import com.example.CRM.model.Subscription;
+import com.example.CRM.model.*;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.payload.SubscriptionRequest;
-import com.example.CRM.repository.CustomerRepository;
-import com.example.CRM.repository.PlanRepository;
-import com.example.CRM.repository.SubscriptionRepository;
+import com.example.CRM.repository.*;
 import com.example.CRM.utils.AppUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,13 +23,13 @@ public class SubscriptionService {
 
     final SubscriptionRepository subscriptionRepository;
 
-    final CustomerRepository CustomerRepository;
+    final NetworkEntityRepository networkEntityRepository;
 
     final PlanRepository planRepository;
 
-    public SubscriptionService(SubscriptionRepository subscriptionRepository, CustomerRepository CustomerRepository, PlanRepository planRepository) {
+    public SubscriptionService(SubscriptionRepository subscriptionRepository, NetworkEntityRepository networkEntityRepository, PlanRepository planRepository, DeviceRepository deviceRepository) {
         this.subscriptionRepository = subscriptionRepository;
-        this.CustomerRepository = CustomerRepository;
+        this.networkEntityRepository = networkEntityRepository;
         this.planRepository = planRepository;
     }
 
@@ -57,7 +53,7 @@ public class SubscriptionService {
     }
 
     public ResponseEntity<Subscription> addSubscription(SubscriptionRequest subscriptionRequest) {
-        Long customerId = subscriptionRequest.getCustomerId();
+        Long networkEntityId = subscriptionRequest.getNetworkEntity();
         Long planId = subscriptionRequest.getPlanId();
         LocalDateTime startDate = subscriptionRequest.getStartDate();
 
@@ -65,30 +61,32 @@ public class SubscriptionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
         Customer customer = CustomerRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", customerId));
+        NetworkEntity newNetworkEntity = networkEntityRepository.findById(networkEntityId)
+                .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
 
         if(!plan.isActive()){
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "plan", planId)));
         }
 
-        if(!customer.isActive()){
-            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "customer", customerId)));
+        if(!newNetworkEntity.isActive()){
+            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s  '%s' is inactive", "Network Entity", newNetworkEntity.getNetworkIdentifier())));
         }
 
         if(startDate.isBefore(LocalDateTime.now())){
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s cannot be before the current date", "start date")));
         }
 
-        Subscription subscription = new Subscription(customer, plan, startDate);
+        Subscription subscription = new Subscription(newNetworkEntity, plan,  device, startDate);
         return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
     }
 
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
 
-        CustomerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        networkEntityRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", id));
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Subscription> subscriptions = subscriptionRepository.findAllByCustomerId(id, pageable);
+        Page<Subscription> subscriptions = subscriptionRepository.findAllByNetworkEntity_Owner_Id(id, pageable);
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
