@@ -16,7 +16,7 @@ import java.time.Period;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"model", "brand", "isActive"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"model", "brand"})})
 public class DeviceTemplate{
 
     @Id
