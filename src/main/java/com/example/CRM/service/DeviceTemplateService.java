@@ -57,6 +57,7 @@ public class DeviceTemplateService {
     }
 
     public PagedResponse<DeviceTemplate> getByDeviceType(String deviceType, int page, int size, String sort) {
+        AppUtils.validateDeviceType(deviceType);
         AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);

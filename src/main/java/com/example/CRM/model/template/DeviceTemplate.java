@@ -31,11 +31,10 @@ public class DeviceTemplate{
     @Size(min = 1, max = 50, message = "Brand must be between 1 and 50 characters")
     private String brand;
 
-    @NotNull(message = "Mobile indicator cannot be null")
+    @NotNull(message = "Device type cannot be null")
     @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
     private String deviceType;
 
-    @NotNull(message = "Active indicator cannot be null")
     private boolean isActive = true;
 
     @NotNull(message = "Warranty duration cannot be null")
