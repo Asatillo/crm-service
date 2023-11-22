@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @org.springframework.stereotype.Service
 public class PlanService {
@@ -71,7 +72,7 @@ public class PlanService {
             existingPlan.setDescription(planRequest.getDescription());
         }
 
-        if(existingPlan.getPrice() != planRequest.getPrice()){
+        if(!existingPlan.getPrice().equals(planRequest.getPrice())){
             existingPlan.setPrice(planRequest.getPrice());
         }
 
