@@ -26,11 +26,14 @@ public class SubscriptionService {
     final NetworkEntityRepository networkEntityRepository;
 
     final PlanRepository planRepository;
+    
+    final DeviceRepository deviceRepository;
 
     public SubscriptionService(SubscriptionRepository subscriptionRepository, NetworkEntityRepository networkEntityRepository, PlanRepository planRepository, DeviceRepository deviceRepository) {
         this.subscriptionRepository = subscriptionRepository;
         this.networkEntityRepository = networkEntityRepository;
         this.planRepository = planRepository;
+        this.deviceRepository = deviceRepository;
     }
 
     public PagedResponse<Subscription> getAll(int page, int size, String sort) {
@@ -55,6 +58,7 @@ public class SubscriptionService {
     public ResponseEntity<Subscription> addSubscription(SubscriptionRequest subscriptionRequest) {
         Long networkEntityId = subscriptionRequest.getNetworkEntity();
         Long planId = subscriptionRequest.getPlanId();
+        Long deviceId = subscriptionRequest.getDeviceId();
         LocalDateTime startDate = subscriptionRequest.getStartDate();
 
         Plan plan = planRepository.findById(planId)
@@ -63,6 +67,9 @@ public class SubscriptionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", customerId));
         NetworkEntity newNetworkEntity = networkEntityRepository.findById(networkEntityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
+        Device device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
+
 
         if(!plan.isActive()){
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "plan", planId)));

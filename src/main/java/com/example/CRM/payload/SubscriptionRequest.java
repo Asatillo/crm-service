@@ -16,5 +16,7 @@ public class SubscriptionRequest {
     @NotNull
     private long planId;
     @NotNull
+    private long deviceId;
+    @NotNull
     private LocalDateTime startDate;
 }

@@ -28,6 +28,10 @@ public class Subscription {
     @NotNull(message = "Plan cannot be null")
     private Plan plan;
 
+    @ManyToOne
+    @JoinColumn(name = "device_id")
+    private Device device;
+
     @NotNull(message = "Start date cannot be null")
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -36,6 +40,7 @@ public class Subscription {
         this.isActive = true;
         this.networkEntity = networkEntity;
         this.plan = plan;
+        this.device = device;
         this.startDate = startDate;
         Period period = Period.parse(plan.getDuration());
         this.endDate = startDate.plusDays(period.getDays()).plusMonths(period.getMonths()).plusYears(period.getYears());
