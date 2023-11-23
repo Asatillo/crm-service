@@ -1,5 +1,7 @@
 package com.example.CRM.utils;
 
+import java.util.List;
+
 public class AppConstants {
 
     public static final String API_URL = "/api";
@@ -32,4 +34,6 @@ public class AppConstants {
     public static final String SERVICE_TYPES_REGEX = "VOICE|DATA|SMS";
 
     public static final String SEGMENT_TYPES_REGEX = "PREMIUM|GOLD|SILVER|BRONZE|EXPLORE";
+
+    public static final List<String> CITIES_WITH_WIRED_INTERNET = List.of("Budapest");
 }
