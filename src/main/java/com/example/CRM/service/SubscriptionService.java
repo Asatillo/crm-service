@@ -82,6 +82,10 @@ public class SubscriptionService {
             throw new InvalidInputException(new ApiResponse(false, String.format("Plan with id value '%s' is not designated to device type of Network Entity with id value '%s'", planId, networkEntityId)));
         }
 
+        if(plan.getDesignatedDeviceType().equals("ROUTER") && !networkEntity.getOwner().isWiredInternetAvailable()){
+            throw new InvalidInputException(new ApiResponse(false, "Wired internet is not available in this area"));
+        }
+
         Device device = null;
         if(deviceId != null){
             device = deviceRepository.findById(deviceId)
