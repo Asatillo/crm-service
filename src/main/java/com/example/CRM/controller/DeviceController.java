@@ -58,23 +58,13 @@ public class DeviceController {
     }
 
     @Operation(summary = "Get mobile Devices")
-    @GetMapping("/devices/mobiles")
-    public PagedResponse<Device> getMobile(
+    @GetMapping("/devices/type/{deviceType}")
+    public PagedResponse<Device> getMobile(@PathVariable String deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
     ){
-        return deviceService.getByDeviceType("MOBILE", page - 1, size, sort);
-    }
-
-    @Operation(summary = "Get router Devices")
-    @GetMapping("/devices/routers")
-    public PagedResponse<Device> getRouter(
-            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
-            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
-    ){
-        return deviceService.getByDeviceType("ROUTER", page - 1, size, sort);
+        return deviceService.getByDeviceType(deviceType, page - 1, size, sort);
     }
 
     @Operation(summary = "Add Device")
