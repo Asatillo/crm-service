@@ -66,4 +66,8 @@ public class Customer {
         this.dob = dob;
         this.segment = segment;
     }
+
+    public boolean isWiredInternetAvailable(){
+        return AppConstants.CITIES_WITH_WIRED_INTERNET.contains(city);
+    }
 }
