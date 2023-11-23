@@ -16,7 +16,9 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean isActive;
+
+    @NotNull(message = "Active status cannot be null")
+    private boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "network_entity_id")
@@ -37,12 +39,16 @@ public class Subscription {
     private LocalDateTime endDate;
 
     public Subscription(NetworkEntity networkEntity, Plan plan, Device device, LocalDateTime startDate) {
-        this.isActive = true;
         this.networkEntity = networkEntity;
         this.plan = plan;
         this.device = device;
         this.startDate = startDate;
-        Period period = Period.parse(plan.getDuration());
-        this.endDate = startDate.plusDays(period.getDays()).plusMonths(period.getMonths()).plusYears(period.getYears());
+        assignEndDate();
     }
+
+    private void assignEndDate() {
+        Period period = Period.parse(this.plan.getDuration());
+        endDate = startDate.plusDays(period.getDays()).plusMonths(period.getMonths()).plusYears(period.getYears());
+    }
+
 }

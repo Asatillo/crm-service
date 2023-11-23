@@ -26,7 +26,7 @@ public class SubscriptionService {
     final NetworkEntityRepository networkEntityRepository;
 
     final PlanRepository planRepository;
-    
+
     final DeviceRepository deviceRepository;
 
     public SubscriptionService(SubscriptionRepository subscriptionRepository, NetworkEntityRepository networkEntityRepository, PlanRepository planRepository, DeviceRepository deviceRepository) {
@@ -65,9 +65,11 @@ public class SubscriptionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
         NetworkEntity newNetworkEntity = networkEntityRepository.findById(networkEntityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
-        Device device = deviceRepository.findById(deviceId)
-                .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
-
+        Device device = null;
+        if(deviceId != null){
+            device = deviceRepository.findById(deviceId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
+        }
 
         if(!plan.isActive()){
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "plan", planId)));
@@ -81,10 +83,11 @@ public class SubscriptionService {
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s cannot be before the current date", "start date")));
         }
 
-        Subscription subscription = new Subscription(newNetworkEntity, plan,  device, startDate);
+        Subscription subscription = new Subscription(newNetworkEntity, plan, device, startDate);
         return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
     }
 
+    // TODO: remake
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
 

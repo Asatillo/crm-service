@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class SubscriptionRequest {
-    @NotNull
-    private long networkEntity;
-    @NotNull
-    private long planId;
-    @NotNull
-    private long deviceId;
-    @NotNull
+    @NotNull(message = "Network entity cannot be null")
+    private Long networkEntity;
+
+    @NotNull(message = "Plan cannot be null")
+    private Long planId;
+
+    private Long deviceId;
+
+    @NotNull(message = "Start date cannot be null")
     private LocalDateTime startDate;
 }
