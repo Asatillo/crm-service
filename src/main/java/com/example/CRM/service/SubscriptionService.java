@@ -63,31 +63,44 @@ public class SubscriptionService {
 
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
-        NetworkEntity newNetworkEntity = networkEntityRepository.findById(networkEntityId)
+        NetworkEntity networkEntity = networkEntityRepository.findById(networkEntityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
-        Device device = null;
-        if(deviceId != null){
-            device = deviceRepository.findById(deviceId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
-        }
 
         if(!plan.isActive()){
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "plan", planId)));
         }
 
-        if(!newNetworkEntity.isActive()){
-            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s  '%s' is inactive", "Network Entity", newNetworkEntity.getNetworkIdentifier())));
+        if(!networkEntity.isActive()){
+            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s  '%s' is inactive", "Network Entity", networkEntity.getNetworkIdentifier())));
         }
 
         if(startDate.isBefore(LocalDateTime.now())){
             throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s cannot be before the current date", "start date")));
         }
 
-        Subscription subscription = new Subscription(newNetworkEntity, plan, device, startDate);
+        if(!plan.getDesignatedDeviceType().equals(networkEntity.getDeviceType())){
+            throw new InvalidInputException(new ApiResponse(false, String.format("Plan with id value '%s' is not designated to device type of Network Entity with id value '%s'", planId, networkEntityId)));
+        }
+
+        Device device = null;
+        if(deviceId != null){
+            device = deviceRepository.findById(deviceId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
+        }
+
+        // if device is null and plan is designated to router, throw error
+        if(device == null && plan.getDesignatedDeviceType().equals("ROUTER")){
+            throw new InvalidInputException(new ApiResponse(false, "Router device is required for this Plan"));
+        }
+        // if device is not null and plan is designated to router, check if device is router
+        if(device != null && plan.getDesignatedDeviceType().equals("ROUTER") && !device.getDeviceTemplate().getDeviceType().equals("ROUTER")){
+                throw new InvalidInputException(new ApiResponse(false, "Router device is required for this Plan"));
+        }
+
+        Subscription subscription = new Subscription(networkEntity, plan, device, startDate);
         return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
     }
 
-    // TODO: remake
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
 
