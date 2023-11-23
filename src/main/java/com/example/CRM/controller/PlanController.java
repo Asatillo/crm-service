@@ -52,6 +52,15 @@ public class PlanController {
         return planService.updatePlan(id, planRequest);
     }
 
+    @Operation(summary = "Get Plans by Designated Device Type")
+    @GetMapping("/plans/device-type/{deviceType}")
+    public PagedResponse<Plan> getPlansByDesignatedDeviceType(@PathVariable String deviceType,
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
+        return planService.getPlansByDesignatedDeviceType(deviceType, page-1, size, sort);
+    }
+
     @Operation(summary = "Deactivate Plan")
     @PatchMapping("/plans/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivatePlan(@PathVariable Long id){

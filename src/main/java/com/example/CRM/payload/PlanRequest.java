@@ -1,9 +1,7 @@
 package com.example.CRM.payload;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import com.example.CRM.utils.AppConstants;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +27,10 @@ public class PlanRequest {
     @NotNull(message = "Price cannot be null")
     @Positive(message = "Price must be positive")
     private Double price;
+
+    @NotNull(message = "Designated device type cannot be null")
+    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    private String designatedDeviceType;
 
     @NotNull(message = "Services cannot be null")
     private List<Long> services;

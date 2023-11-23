@@ -1,5 +1,6 @@
 package com.example.CRM.model;
 
+import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -37,6 +38,10 @@ public class Plan {
     private Double price;
 
     @OneToMany
+    @NotNull(message = "Designated device type cannot be null")
+    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    private String designatedDeviceType;
+
     @JoinColumn(name = "plan_id")
     private List<Service> services;
 
@@ -45,12 +50,13 @@ public class Plan {
 //    @Pattern(regexp = AppConstants.SEGMENT_TYPES_REGEX, message = "Segment must be one of the following: " + AppConstants.SEGMENT_TYPES_REGEX)
 //    private String segment;
 
-    public Plan(String name, String duration, String description, Double price, List<Service> services) {
+    public Plan(String name, String duration, String description, Double price, List<Service> services, String designatedDeviceType) {
         this.isActive = true;
         this.name = name;
         this.duration = duration;
         this.description = description;
         this.price = price;
         this.services = services;
+        this.designatedDeviceType = designatedDeviceType;
     }
 }

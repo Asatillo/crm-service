@@ -1,5 +1,6 @@
 package com.example.CRM.service;
 
+import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Plan;
 import com.example.CRM.model.Service;
@@ -53,16 +54,32 @@ public class PlanService {
         return new ResponseEntity<>(plan, HttpStatus.OK);
     }
 
+    public PagedResponse<Plan> getPlansByDesignatedDeviceType(String deviceType, int page, Integer size, String sort) {
+        AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
+        AppUtils.validateDeviceType(deviceType);
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+        Page<Plan> plans = planRepository.findAllByDesignatedDeviceType(deviceType, pageable);
+        PagedResponse<Plan> pagedResponse = new PagedResponse<>();
+
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
+        return pagedResponse.returnPagedResponse(plans);
+    }
+
     public ResponseEntity<Plan> addPlan(PlanRequest planRequest) {
-        List<Service> services = convertServiceIdsToService(planRequest.getServices());
+        List<Service> services = validateServiceIds(planRequest.getServices(), planRequest.getDesignatedDeviceType());
+
         Plan plan = new Plan(planRequest.getName(), planRequest.getDuration(), planRequest.getDescription(),
-                planRequest.getPrice(), services);
+                planRequest.getPrice(), services, planRequest.getDesignatedDeviceType());
 
         return new ResponseEntity<>(planRepository.save(plan), HttpStatus.CREATED);
     }
 
     public ResponseEntity<Plan> updatePlan(Long id, PlanRequest planRequest) {
         Plan existingPlan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
+
+        existingPlan.setServices(validateServiceIds(planRequest.getServices(), planRequest.getDesignatedDeviceType()));
 
         if(!existingPlan.getName().equals(planRequest.getName())){
             existingPlan.setName(planRequest.getName());
@@ -80,7 +97,9 @@ public class PlanService {
             existingPlan.setDuration(planRequest.getDuration());
         }
 
-        existingPlan.setServices(convertServiceIdsToService(planRequest.getServices()));
+        if(!existingPlan.getDesignatedDeviceType().equals(planRequest.getDesignatedDeviceType())){
+            existingPlan.setDesignatedDeviceType(planRequest.getDesignatedDeviceType());
+        }
 
         return new ResponseEntity<>(planRepository.save(existingPlan), HttpStatus.OK);
     }
@@ -123,6 +142,23 @@ public class PlanService {
                     .orElseThrow(() -> new ResourceNotFoundException("Service", "id", serviceId));
             services.add(service);
         }
+        return services;
+    }
+
+    private void validateServiceDeviceTypes(List<Service> services, String deviceType){
+        for(Service service: services){
+            if(!service.getDesignatedDeviceType().equals(deviceType)){
+                throw new InvalidInputException(new ApiResponse(false,
+                        String.format("Service '%s' is not compatible with %s device type",
+                                service.getName(), deviceType)));
+            }
+        }
+    }
+
+    private List<Service> validateServiceIds(List<Long> serviceIds, String deviceType){
+        List<Service> services = convertServiceIdsToService(serviceIds);
+        validateServiceDeviceTypes(services, deviceType);
+
         return services;
     }
 }
