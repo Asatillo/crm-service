@@ -39,6 +39,19 @@ public class ServiceService {
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
 
+    public PagedResponse<Service> getServicesByDesignatedDeviceType(String deviceType, Integer page, Integer size, String sort) {
+        AppUtils.validatePaginationRequestParams(page, size, sort, com.example.CRM.model.Service.class);
+        AppUtils.validateDeviceType(deviceType);
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+        Page<Service> services = serviceRepository.findByDesignatedDeviceType(deviceType, pageable);
+        PagedResponse<Service> pagedResponse = new PagedResponse<>();
+
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+
+        return pagedResponse.returnPagedResponse(services);
+    }
+
     public ResponseEntity<com.example.CRM.model.Service> addService(Service service) {
         return new ResponseEntity<>(serviceRepository.save(service), HttpStatus.CREATED);
     }

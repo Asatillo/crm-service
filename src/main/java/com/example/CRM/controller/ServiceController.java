@@ -38,6 +38,15 @@ public class ServiceController {
         return serviceService.getById(id);
     }
 
+    @Operation(summary = "Get Services by Designated Device Type")
+    @GetMapping("/services/device-type/{deviceType}")
+    public PagedResponse<Service> getServicesByDesignatedDeviceType(@PathVariable String deviceType,
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
+        return serviceService.getServicesByDesignatedDeviceType(deviceType, page-1, size, sort);
+    }
+
     @Operation(summary = "Add Service")
     @PostMapping("/services")
     public ResponseEntity<Service> addService(@Valid @RequestBody Service service){

@@ -37,10 +37,14 @@ public class Service {
     @NotNull(message = "Active indicator cannot be null")
     private boolean isActive;
 
-    public Service(String name, String type, Float amount) {
+    @NotNull(message = "Designated device type cannot be null")
+    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    private String designatedDeviceType;
+
+    public Service(String name, String type, Float amount, String designatedDeviceType) {
         this.name = name;
         this.type = type;
         this.amount = amount;
-        this.isActive = true;
+        this.designatedDeviceType = designatedDeviceType;
     }
 }
