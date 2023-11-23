@@ -37,11 +37,11 @@ public class Plan {
     @Positive(message = "Price must be positive")
     private Double price;
 
-    @OneToMany
     @NotNull(message = "Designated device type cannot be null")
     @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
     private String designatedDeviceType;
 
+    @ManyToMany
     @JoinColumn(name = "plan_id")
     private List<Service> services;
 
