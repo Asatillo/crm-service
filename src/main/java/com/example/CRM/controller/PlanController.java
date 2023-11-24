@@ -3,7 +3,7 @@ package com.example.CRM.controller;
 import com.example.CRM.model.Plan;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
-import com.example.CRM.payload.PlanRequest;
+import com.example.CRM.payload.request.PlanRequest;
 import com.example.CRM.service.PlanService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;

@@ -6,7 +6,7 @@ import com.example.CRM.model.Plan;
 import com.example.CRM.model.Service;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
-import com.example.CRM.payload.PlanRequest;
+import com.example.CRM.payload.request.PlanRequest;
 import com.example.CRM.repository.PlanRepository;
 import com.example.CRM.repository.ServiceRepository;
 import com.example.CRM.repository.SubscriptionRepository;

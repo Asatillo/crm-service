@@ -4,7 +4,7 @@ import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.NetworkEntity;
 import com.example.CRM.payload.ApiResponse;
-import com.example.CRM.payload.NetworkEntityRequest;
+import com.example.CRM.payload.request.NetworkEntityRequest;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.NetworkEntityRepository;

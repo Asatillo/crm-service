@@ -5,7 +5,7 @@ import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Device;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.payload.ApiResponse;
-import com.example.CRM.payload.DeviceRequest;
+import com.example.CRM.payload.request.DeviceRequest;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.DeviceRepository;

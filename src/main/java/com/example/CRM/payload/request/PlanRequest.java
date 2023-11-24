@@ -1,4 +1,4 @@
-package com.example.CRM.payload;
+package com.example.CRM.payload.request;
 
 import com.example.CRM.utils.AppConstants;
 import jakarta.validation.constraints.*;

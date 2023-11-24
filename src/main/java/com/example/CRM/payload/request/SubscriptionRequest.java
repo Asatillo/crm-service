@@ -1,4 +1,4 @@
-package com.example.CRM.payload;
+package com.example.CRM.payload.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

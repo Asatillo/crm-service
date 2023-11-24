@@ -5,7 +5,7 @@ import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.*;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
-import com.example.CRM.payload.SubscriptionRequest;
+import com.example.CRM.payload.request.SubscriptionRequest;
 import com.example.CRM.repository.*;
 import com.example.CRM.utils.AppUtils;
 import org.springframework.data.domain.Page;

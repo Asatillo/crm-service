@@ -2,7 +2,7 @@ package com.example.CRM.controller;
 
 import com.example.CRM.model.Device;
 import com.example.CRM.payload.ApiResponse;
-import com.example.CRM.payload.DeviceRequest;
+import com.example.CRM.payload.request.DeviceRequest;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.DeviceService;
 import com.example.CRM.utils.AppConstants;

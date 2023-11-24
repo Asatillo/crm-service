@@ -2,7 +2,7 @@ package com.example.CRM.controller;
 
 import com.example.CRM.model.NetworkEntity;
 import com.example.CRM.payload.ApiResponse;
-import com.example.CRM.payload.NetworkEntityRequest;
+import com.example.CRM.payload.request.NetworkEntityRequest;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.NetworkEntityService;
 import com.example.CRM.utils.AppConstants;
