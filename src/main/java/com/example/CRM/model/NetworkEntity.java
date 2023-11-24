@@ -30,7 +30,7 @@ public class NetworkEntity {
     @JoinColumn(name = "owner_id")
     private Customer owner;
 
-    @Size(min = 1, max = 50, message = "Tag must be between 1 and 50 characters")
+    @Size(max = 50, message = "Tag must not exceed 50 characters")
     private String tag;
 
     @NotNull(message = "Active indicator cannot be null")

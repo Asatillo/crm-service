@@ -25,8 +25,7 @@ public class NetworkEntityRequest {
     @NotNull(message = "Owner cannot be null")
     private Long owner_id;
 
-    @NotNull(message = "Tag cannot be null")
-    @Size(min = 1, max = 50, message = "Tag must be between 1 and 50 characters")
+    @Size(max = 50, message = "Tag must not exceed 50 characters")
     private String tag;
 
     private boolean isActive = true;
