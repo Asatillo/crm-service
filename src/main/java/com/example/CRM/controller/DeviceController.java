@@ -73,6 +73,12 @@ public class DeviceController {
         return deviceService.addDevice(deviceRequest);
     }
 
+    @Operation(summary = "Update Device")
+    @PutMapping("/devices/{id}")
+    public ResponseEntity<Device> updateDevice(@PathVariable Long id, @Valid @RequestBody DeviceRequest deviceRequest){
+        return deviceService.updateDevice(id, deviceRequest);
+    }
+
     @Operation(summary = "Delete Device")
     @DeleteMapping("/devices/{id}")
     public ResponseEntity<ApiResponse> deleteDevice(@PathVariable Long id){

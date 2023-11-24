@@ -1,5 +1,6 @@
 package com.example.CRM.service;
 
+import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.Device;
@@ -27,11 +28,14 @@ public class DeviceService {
     DeviceRepository deviceRepository;
     DeviceTemplateRepository deviceTemplateRepository;
     CustomerRepository customerRepository;
+    SubscriptionRepository subscriptionRepository;
 
-    public DeviceService(DeviceRepository deviceRepository, DeviceTemplateRepository deviceTemplateRepository, CustomerRepository customerRepository) {
+    public DeviceService(DeviceRepository deviceRepository, DeviceTemplateRepository deviceTemplateRepository,
+                         CustomerRepository customerRepository, SubscriptionRepository subscriptionRepository) {
         this.deviceRepository = deviceRepository;
         this.deviceTemplateRepository = deviceTemplateRepository;
         this.customerRepository = customerRepository;
+        this.subscriptionRepository = subscriptionRepository;
     }
 
     public PagedResponse<Device> getAllDevices(int page, int size, String sort) {
@@ -55,6 +59,20 @@ public class DeviceService {
         DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId()).orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
 
         Device device = new Device(deviceTemplate, LocalDateTime.now(), deviceRequest.getColor());
+        return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Device> updateDevice(Long id, DeviceRequest deviceRequest) {
+        Device device = deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
+
+        if(!deviceRequest.getDeviceTemplateId().equals(device.getDeviceTemplate().getId())){
+            DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId()).orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
+            if(!deviceTemplate.getDeviceType().equals(device.getDeviceTemplate().getDeviceType())){
+                throw new InvalidInputException(new ApiResponse(false, "Device type cannot be changed"));
+            }
+            device.setDeviceTemplate(deviceTemplate);
+        }
+
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
     }
 
