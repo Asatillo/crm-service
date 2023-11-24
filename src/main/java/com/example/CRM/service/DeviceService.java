@@ -68,7 +68,8 @@ public class DeviceService {
         Device device = deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
 
         if(!deviceRequest.getDeviceTemplateId().equals(device.getDeviceTemplate().getId())){
-            DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId()).orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
+            DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
             if(!deviceTemplate.getDeviceType().equals(device.getDeviceTemplate().getDeviceType())){
                 throw new InvalidInputException(new ApiResponse(false, "Device type cannot be changed"));
             }
