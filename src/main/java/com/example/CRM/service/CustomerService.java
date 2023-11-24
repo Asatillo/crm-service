@@ -50,7 +50,6 @@ public class CustomerService {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    // not validating name, last name and address since the agent is the one who writes down the info from the customer's ID
     public ResponseEntity<Customer> addCustomer(Customer customer) {
         return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }
@@ -64,10 +63,7 @@ public class CustomerService {
             existingCustomer.setSegment(customer.getSegment());
         }
         if(!customer.getDob().equals(existingCustomer.getDob())){
-            // TODO: validate a date while creating a customer
-            if(!AppUtils.isOlderThan18(customer.getDob())){
-                throw new InvalidInputException("Customer", "date of birth", customer.getDob());
-            }
+            AppUtils.validateDOB(customer.getDob());
             existingCustomer.setDob(customer.getDob());
         }
         if(!customer.getCity().equals(existingCustomer.getCity())){

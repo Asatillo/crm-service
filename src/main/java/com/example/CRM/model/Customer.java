@@ -1,6 +1,9 @@
 package com.example.CRM.model;
 
+import com.example.CRM.exceptions.InvalidInputException;
+import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.utils.AppConstants;
+import com.example.CRM.utils.AppUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -63,6 +66,7 @@ public class Customer {
         this.email = email;
         this.address = address;
         this.city = city;
+        AppUtils.validateDOB(dob);
         this.dob = dob;
         this.segment = segment;
     }

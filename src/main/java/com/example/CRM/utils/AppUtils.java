@@ -1,6 +1,8 @@
 package com.example.CRM.utils;
 
 import com.example.CRM.exceptions.CRMApiException;
+import com.example.CRM.exceptions.InvalidInputException;
+import com.example.CRM.payload.ApiResponse;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -51,10 +53,6 @@ public class AppUtils {
         }
     }
 
-    public static boolean isOlderThan18(LocalDate dob) {
-        return dob.plusYears(18).isBefore(LocalDate.now());
-    }
-
     // TODO: implement
     public static boolean isValidCity(String city) {
         return true;
@@ -63,6 +61,12 @@ public class AppUtils {
     public static void validateDeviceType(String deviceType) {
         if(!deviceType.equals("MOBILE") && !deviceType.equals("ROUTER")){
             throw new CRMApiException(String.format("Device type must be one of the following: %s", AppConstants.DEVICE_TYPES_REGEX));
+        }
+    }
+
+    public static void validateDOB(LocalDate dob) {
+        if (dob.plusYears(18).isBefore(LocalDate.now())){
+            throw new InvalidInputException(new ApiResponse(false, "Customer must be older than 18"));
         }
     }
 }
