@@ -5,6 +5,7 @@ import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.ServiceRepository;
 import com.example.CRM.utils.AppUtils;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -56,7 +57,7 @@ public class ServiceService {
         return new ResponseEntity<>(serviceRepository.save(service), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<com.example.CRM.model.Service> updateService(Long id, com.example.CRM.model.Service service) {
+    public ResponseEntity<com.example.CRM.model.Service> updateService(Long id, com.example.CRM.model.@NonNull Service service) {
         Service existingService = serviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Service", "id", id));
 
         if(!existingService.getName().equals(service.getName())){

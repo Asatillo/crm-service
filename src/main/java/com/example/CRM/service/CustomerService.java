@@ -9,6 +9,7 @@ import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.SubscriptionRepository;
 import com.example.CRM.utils.AppUtils;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -54,7 +55,7 @@ public class CustomerService {
         return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Customer> updateCustomer(Long id, Customer customer) {
+    public ResponseEntity<Customer> updateCustomer(Long id, @NonNull Customer customer) {
         Customer existingCustomer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
         if(!customer.getEmail().equals(existingCustomer.getEmail())){
             existingCustomer.setEmail(customer.getEmail());

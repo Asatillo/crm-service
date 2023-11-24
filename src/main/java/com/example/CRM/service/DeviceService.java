@@ -12,6 +12,7 @@ import com.example.CRM.repository.DeviceRepository;
 import com.example.CRM.repository.DeviceTemplateRepository;
 import com.example.CRM.repository.SubscriptionRepository;
 import com.example.CRM.utils.AppUtils;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -57,12 +58,13 @@ public class DeviceService {
 
     public ResponseEntity<Device> addDevice(DeviceRequest deviceRequest) {
         DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId()).orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
+    public ResponseEntity<Device> addDevice(@NonNull DeviceRequest deviceRequest) {
 
         Device device = new Device(deviceTemplate, LocalDateTime.now(), deviceRequest.getColor());
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
     }
 
-    public ResponseEntity<Device> updateDevice(Long id, DeviceRequest deviceRequest) {
+    public ResponseEntity<Device> updateDevice(Long id, @NonNull DeviceRequest deviceRequest) {
         Device device = deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
 
         if(!deviceRequest.getDeviceTemplateId().equals(device.getDeviceTemplate().getId())){

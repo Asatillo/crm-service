@@ -8,6 +8,7 @@ import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.payload.request.SubscriptionRequest;
 import com.example.CRM.repository.*;
 import com.example.CRM.utils.AppUtils;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +56,7 @@ public class SubscriptionService {
         return new ResponseEntity<>(subscription, HttpStatus.OK);
     }
 
-    public ResponseEntity<Subscription> addSubscription(SubscriptionRequest subscriptionRequest) {
+    public ResponseEntity<Subscription> addSubscription(@NonNull SubscriptionRequest subscriptionRequest) {
         Long networkEntityId = subscriptionRequest.getNetworkEntity();
         Long planId = subscriptionRequest.getPlanId();
         Long deviceId = subscriptionRequest.getDeviceId();

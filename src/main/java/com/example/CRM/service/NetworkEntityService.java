@@ -9,6 +9,7 @@ import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.NetworkEntityRepository;
 import com.example.CRM.utils.AppUtils;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -72,7 +73,7 @@ public class NetworkEntityService {
         return new ResponseEntity<>(networkEntity, HttpStatus.OK);
     }
 
-    public ResponseEntity<NetworkEntity> addNetworkEntity(NetworkEntityRequest networkEntityRequest) {
+    public ResponseEntity<NetworkEntity> addNetworkEntity(@NonNull NetworkEntityRequest networkEntityRequest) {
         Customer owner = customerRepository.findById(networkEntityRequest.getOwner_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntityRequest.getOwner_id()));
 
@@ -82,7 +83,7 @@ public class NetworkEntityService {
         return new ResponseEntity<>(networkEntityRepository.save(networkEntity), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<NetworkEntity> updateNetworkEntity(Long id, NetworkEntityRequest networkEntityRequest) {
+    public ResponseEntity<NetworkEntity> updateNetworkEntity(Long id, @NonNull NetworkEntityRequest networkEntityRequest) {
         NetworkEntity existingNetworkEntity = networkEntityRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("NetworkEntity", "id", id));
 

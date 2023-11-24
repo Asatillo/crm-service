@@ -11,6 +11,7 @@ import com.example.CRM.repository.PlanRepository;
 import com.example.CRM.repository.ServiceRepository;
 import com.example.CRM.repository.SubscriptionRepository;
 import com.example.CRM.utils.AppUtils;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -66,7 +67,7 @@ public class PlanService {
         return pagedResponse.returnPagedResponse(plans);
     }
 
-    public ResponseEntity<Plan> addPlan(PlanRequest planRequest) {
+    public ResponseEntity<Plan> addPlan(@NonNull PlanRequest planRequest) {
         List<Service> services = validateServiceIds(planRequest.getServices(), planRequest.getDesignatedDeviceType());
 
         Plan plan = new Plan(planRequest.getName(), planRequest.getDuration(), planRequest.getDescription(),
@@ -75,7 +76,7 @@ public class PlanService {
         return new ResponseEntity<>(planRepository.save(plan), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Plan> updatePlan(Long id, PlanRequest planRequest) {
+    public ResponseEntity<Plan> updatePlan(Long id, @NonNull PlanRequest planRequest) {
         Plan existingPlan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
 
         existingPlan.setServices(validateServiceIds(planRequest.getServices(), planRequest.getDesignatedDeviceType()));
@@ -134,7 +135,7 @@ public class PlanService {
         return new ResponseEntity<>(new ApiResponse(true, "Plan activated successfully"), HttpStatus.OK);
     }
 
-    private List<Service> convertServiceIdsToService(List<Long> serviceIds){
+    private List<Service> convertServiceIdsToService(@NonNull List<Long> serviceIds){
         List<Service> services = new ArrayList<>();
         for(Long serviceId: serviceIds){
             Service service = serviceRepository.findById(serviceId)
@@ -144,7 +145,7 @@ public class PlanService {
         return services;
     }
 
-    private void validateServiceDeviceTypes(List<Service> services, String deviceType){
+    private void validateServiceDeviceTypes(@NonNull List<Service> services, String deviceType){
         for(Service service: services){
             if(!service.getDesignatedDeviceType().equals(deviceType)){
                 throw new InvalidInputException(new ApiResponse(false,
@@ -154,7 +155,7 @@ public class PlanService {
         }
     }
 
-    private List<Service> validateServiceIds(List<Long> serviceIds, String deviceType){
+    private @NonNull List<Service> validateServiceIds(List<Long> serviceIds, String deviceType){
         List<Service> services = convertServiceIdsToService(serviceIds);
         validateServiceDeviceTypes(services, deviceType);
 
