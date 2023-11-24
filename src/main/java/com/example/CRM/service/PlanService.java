@@ -117,21 +117,21 @@ public class PlanService {
     public ResponseEntity<ApiResponse> deactivatePlan(Long id) {
         Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
         if(!plan.isActive()){
-            return new ResponseEntity<>(new ApiResponse(Boolean.FALSE, "Plan already deactivated"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(false, "Plan already deactivated"), HttpStatus.OK);
         }
         plan.setActive(false);
         planRepository.save(plan);
-        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan deactivated successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Plan deactivated successfully"), HttpStatus.OK);
     }
 
     public ResponseEntity<ApiResponse> activatePlan(Long id) {
         Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
         if(plan.isActive()){
-            return new ResponseEntity<>(new ApiResponse(Boolean.FALSE, "Plan already activated"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(false, "Plan already activated"), HttpStatus.OK);
         }
         plan.setActive(true);
         planRepository.save(plan);
-        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Plan activated successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Plan activated successfully"), HttpStatus.OK);
     }
 
     private List<Service> convertServiceIdsToService(List<Long> serviceIds){

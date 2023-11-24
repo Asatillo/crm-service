@@ -15,7 +15,7 @@ public class CRMApiException extends RuntimeException{
     public CRMApiException(String message) {
         super();
         this.status = HttpStatus.BAD_REQUEST;
-        this.apiResponse = new ApiResponse(Boolean.FALSE, message);
+        this.apiResponse = new ApiResponse(false, message);
     }
 
 }

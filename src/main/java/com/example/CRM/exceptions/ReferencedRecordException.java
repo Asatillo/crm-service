@@ -19,6 +19,6 @@ public class ReferencedRecordException extends RuntimeException {
         this.recordTable = recordTable;
         this.referenceTable = referenceTable;
         this.fieldValue = fieldValue;
-        this.apiResponse = new ApiResponse(Boolean.FALSE, String.format("%s record with value '%s' has a reference in %s table", recordTable, fieldValue, referenceTable));
+        this.apiResponse = new ApiResponse(false, String.format("%s record with value '%s' has a reference in %s table", recordTable, fieldValue, referenceTable));
     }
 }

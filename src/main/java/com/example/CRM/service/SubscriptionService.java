@@ -67,15 +67,15 @@ public class SubscriptionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
 
         if(!plan.isActive()){
-            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s with id value '%s' is inactive", "plan", planId)));
+            throw new InvalidInputException(new ApiResponse(false, String.format("%s with id value '%s' is inactive", "plan", planId)));
         }
 
         if(!networkEntity.isActive()){
-            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s  '%s' is inactive", "Network Entity", networkEntity.getNetworkIdentifier())));
+            throw new InvalidInputException(new ApiResponse(false, String.format("%s  '%s' is inactive", "Network Entity", networkEntity.getNetworkIdentifier())));
         }
 
         if(startDate.isBefore(LocalDateTime.now())){
-            throw new InvalidInputException(new ApiResponse(Boolean.FALSE, String.format("%s cannot be before the current date", "start date")));
+            throw new InvalidInputException(new ApiResponse(false, String.format("%s cannot be before the current date", "start date")));
         }
 
         if(!plan.getDesignatedDeviceType().equals(networkEntity.getDeviceType())){
@@ -136,26 +136,26 @@ public class SubscriptionService {
     public ResponseEntity<ApiResponse> deleteSubscription(Long id) {
         subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
         subscriptionRepository.deleteById(id);
-        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription deleted successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Subscription deleted successfully"), HttpStatus.OK);
     }
 
     public ResponseEntity<ApiResponse> deactivateSubscription(Long id) {
         Subscription subscription = subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
         if(!subscription.isActive()){
-            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription is already deactivated"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(false, "Subscription is already deactivated"), HttpStatus.OK);
         }
         subscription.setActive(false);
         subscriptionRepository.save(subscription);
-        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription deactivated successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Subscription deactivated successfully"), HttpStatus.OK);
     }
 
     public ResponseEntity<ApiResponse> activateSubscription(Long id) {
         Subscription subscription = subscriptionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Subscription", "id", id));
         if(subscription.isActive()){
-            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription is already active"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse(false, "Subscription is already active"), HttpStatus.OK);
         }
         subscription.setActive(true);
         subscriptionRepository.save(subscription);
-        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "Subscription activated successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "Subscription activated successfully"), HttpStatus.OK);
     }
 }
