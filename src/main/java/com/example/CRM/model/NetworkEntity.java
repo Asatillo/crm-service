@@ -26,12 +26,10 @@ public class NetworkEntity {
     @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
     private String deviceType;
 
-    @NotNull(message = "Owner cannot be null")
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Customer owner;
 
-    @NotNull(message = "Tag cannot be null")
     @Size(min = 1, max = 50, message = "Tag must be between 1 and 50 characters")
     private String tag;
 
@@ -49,7 +47,7 @@ public class NetworkEntity {
         this.deviceType = deviceType;
         this.owner = owner;
         this.tag = tag;
-        this.isActive = true;
+        this.isActive = (owner != null);
         if (isMobile()){
             processPhoneNumber();
         }

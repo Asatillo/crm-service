@@ -94,11 +94,17 @@ public class NetworkEntityService {
             existingNetworkEntity.setDeviceType(networkEntityRequest.getDeviceType());
         }
 
-        if(!existingNetworkEntity.getTag().equals(networkEntityRequest.getTag())){
+        if(networkEntityRequest.getTag() == null){
+            existingNetworkEntity.setTag(null);
+        } else if(!existingNetworkEntity.getTag().equals(networkEntityRequest.getTag())){
             existingNetworkEntity.setTag(networkEntityRequest.getTag());
         }
 
-        if(!existingNetworkEntity.getOwner().getId().equals(networkEntityRequest.getOwner_id())){
+        if(networkEntityRequest.getOwner_id() == null){
+            existingNetworkEntity.setOwner(null);
+            existingNetworkEntity.setActive(false);
+            existingNetworkEntity.setTag(null);
+        } else if(!existingNetworkEntity.getOwner().getId().equals(networkEntityRequest.getOwner_id())){
             Customer newOwner = customerRepository.findById(networkEntityRequest.getOwner_id())
                     .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntityRequest.getOwner_id()));
             existingNetworkEntity.setOwner(newOwner);
