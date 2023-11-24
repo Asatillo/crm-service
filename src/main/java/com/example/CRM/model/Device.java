@@ -18,27 +18,22 @@ public class Device{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Active indicator cannot be null")
+    private boolean isOwned = false;
+
     @ManyToOne
     @JoinColumn(name = "device_template_id")
     @NotNull(message = "Device template cannot be null")
     private DeviceTemplate deviceTemplate;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    @NotNull(message = "Customer cannot be null")
-    private Customer owner;
+    @NotNull(message = "Color cannot be null")
+    private String color;
 
-    @NotNull(message = "Purchase date cannot be null")
     private LocalDateTime purchaseDate;
 
-    @NotNull(message = "Warranty date cannot be null")
-    private LocalDateTime warrantyExpirationDate;
-
-    public Device(DeviceTemplate deviceTemplate, Customer owner, LocalDateTime purchaseDate) {
+    public Device(DeviceTemplate deviceTemplate, LocalDateTime purchaseDate, String color) {
         this.deviceTemplate = deviceTemplate;
-        this.owner = owner;
         this.purchaseDate = purchaseDate;
-        Period period = deviceTemplate.getWarrantyDurationPeriod();
-        this.warrantyExpirationDate = purchaseDate.plus(period);
+        this.color = color;
     }
 }

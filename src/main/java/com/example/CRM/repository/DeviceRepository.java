@@ -15,7 +15,5 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     Page<Device> findByDeviceTemplate_Id(Long id, Pageable pageable);
 
-    Page<Device> findByOwner_Id(Long id, Pageable pageable);
-
     Page<Device> findByDeviceTemplate_DeviceType(String deviceType, Pageable pageable);
 }

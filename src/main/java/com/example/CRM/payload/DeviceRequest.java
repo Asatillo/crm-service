@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class DeviceRequest {
     @NotNull(message = "Device template id cannot be null")
     private Long deviceTemplateId;
-    @NotNull(message = "Customer id cannot be null")
-    private Long customerId;
+
+    @NotNull(message = "Color cannot be null")
+    private String color;
 }

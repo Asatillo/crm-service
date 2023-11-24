@@ -53,9 +53,8 @@ public class DeviceService {
 
     public ResponseEntity<Device> addDevice(DeviceRequest deviceRequest) {
         DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId()).orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
-        Customer customer = customerRepository.findById(deviceRequest.getCustomerId()).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", deviceRequest.getCustomerId()));
 
-        Device device = new Device(deviceTemplate, customer, LocalDateTime.now());
+        Device device = new Device(deviceTemplate, LocalDateTime.now(), deviceRequest.getColor());
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
     }
 
