@@ -56,11 +56,11 @@ public class DeviceService {
         return new ResponseEntity<>(device, HttpStatus.OK);
     }
 
-    public ResponseEntity<Device> addDevice(DeviceRequest deviceRequest) {
-        DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId()).orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
     public ResponseEntity<Device> addDevice(@NonNull DeviceRequest deviceRequest) {
+        DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId())
+                .orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
 
-        Device device = new Device(deviceTemplate, LocalDateTime.now(), deviceRequest.getColor());
+        Device device = new Device(deviceTemplate, deviceRequest.getPurchaseDate(), deviceRequest.getColor());
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
     }
 
