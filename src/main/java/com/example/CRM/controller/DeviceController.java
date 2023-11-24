@@ -57,9 +57,9 @@ public class DeviceController {
         return deviceService.getByCustomerId(id, page - 1, size, sort);
     }
 
-    @Operation(summary = "Get mobile Devices")
+    @Operation(summary = "Get Devices by Type")
     @GetMapping("/devices/type/{deviceType}")
-    public PagedResponse<Device> getMobile(@PathVariable String deviceType,
+    public PagedResponse<Device> getByDeviceType(@PathVariable String deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
