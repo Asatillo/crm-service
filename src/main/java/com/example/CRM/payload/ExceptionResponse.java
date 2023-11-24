@@ -10,7 +10,7 @@ public class ExceptionResponse {
     private String error;
     private Integer status;
     private String message;
-    private HashMap<String, String> validationErrors;
+    private HashMap<String, String> validationErrors = new HashMap<>();
     private Instant timestamp;
 
     public ExceptionResponse(String message, String error, Integer status) {
