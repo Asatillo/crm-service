@@ -2,7 +2,6 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
-import com.example.CRM.model.Customer;
 import com.example.CRM.model.Device;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.payload.ApiResponse;
@@ -11,6 +10,7 @@ import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.DeviceRepository;
 import com.example.CRM.repository.DeviceTemplateRepository;
+import com.example.CRM.repository.SubscriptionRepository;
 import com.example.CRM.utils.AppUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -100,7 +100,7 @@ public class DeviceService {
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Device> devices = deviceRepository.findByOwner_Id(id, pageable);
+        Page<Device> devices = subscriptionRepository.findAllByDevice_Id(id, pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>();
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
