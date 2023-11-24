@@ -7,6 +7,8 @@ import com.example.CRM.payload.ApiResponse;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import static com.example.CRM.utils.AppConstants.MAJORITY_AGE;
+
 public class AppUtils {
 
     // Pagination and sorting validation methods
@@ -60,7 +62,7 @@ public class AppUtils {
     }
 
     public static void validateDOB(LocalDate dob) {
-        if (dob.plusYears(18).isBefore(LocalDate.now())){
+        if (!dob.plusYears(MAJORITY_AGE).isBefore(LocalDate.now())){
             throw new InvalidInputException(new ApiResponse(false, "Customer must be older than 18"));
         }
     }

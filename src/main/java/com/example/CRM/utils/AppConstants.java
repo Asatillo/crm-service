@@ -36,4 +36,6 @@ public class AppConstants {
     public static final String SEGMENT_TYPES_REGEX = "PREMIUM|GOLD|SILVER|BRONZE|EXPLORE";
 
     public static final List<String> CITIES_WITH_WIRED_INTERNET = List.of("Budapest");
+
+    public static final Integer MAJORITY_AGE = 16;
 }
