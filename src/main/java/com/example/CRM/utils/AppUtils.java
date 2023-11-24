@@ -53,11 +53,6 @@ public class AppUtils {
         }
     }
 
-    // TODO: implement
-    public static boolean isValidCity(String city) {
-        return true;
-    }
-
     public static void validateDeviceType(String deviceType) {
         if(!deviceType.equals("MOBILE") && !deviceType.equals("ROUTER")){
             throw new CRMApiException(String.format("Device type must be one of the following: %s", AppConstants.DEVICE_TYPES_REGEX));

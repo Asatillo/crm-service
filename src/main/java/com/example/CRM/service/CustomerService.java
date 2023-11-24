@@ -67,10 +67,6 @@ public class CustomerService {
             existingCustomer.setDob(customer.getDob());
         }
         if(!customer.getCity().equals(existingCustomer.getCity())){
-            // TODO: create a city validator
-            if(!AppUtils.isValidCity(customer.getCity())){
-                throw new InvalidInputException("Customer", "city", customer.getCity());
-            }
             existingCustomer.setCity(customer.getCity());
         }
         if(!customer.getAddress().equals(existingCustomer.getAddress())){
