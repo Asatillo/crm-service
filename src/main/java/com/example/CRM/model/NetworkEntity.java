@@ -20,10 +20,12 @@ public class NetworkEntity {
     @Column(unique = true)
     @NotNull(message = "Network identifier cannot be null")
     @Pattern(regexp = AppConstants.REGEX_NETWORK_IDENTIFIER, message = "Network identifier must be a valid format. Public IP address of the router or phone number of the SIM card")
+    @Size(max = 20, message = "Network identifier must not exceed 20 characters")
     private String networkIdentifier;
 
     @NotNull(message = "Device type cannot be null")
     @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    @Size(max = 20, message = "Device type must not exceed 20 characters")
     private String deviceType;
 
     @ManyToOne

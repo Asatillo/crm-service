@@ -36,15 +36,15 @@ public class Customer {
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Email must be valid")
     @Column(unique = true)
-    @Size(max = 50)
+    @Size(max = 50, message = "Email must be between 1 and 50 characters long")
     private String email;
 
     @NotBlank(message = "Address cannot be blank")
-    @Size(max = 100)
+    @Size(max = 100, message = "Address must be between 1 and 100 characters long")
     private String address;
 
     @NotBlank(message = "City cannot be blank")
-    @Size(max = 30)
+    @Size(max = 25, message = "City must be between 1 and 25 characters long")
     private String city;
 
     @NotNull(message = "Date of birth cannot be null")
@@ -54,6 +54,7 @@ public class Customer {
 
     @NotNull(message = "Segment cannot be null")
     @Pattern(regexp = AppConstants.SEGMENT_TYPES_REGEX, message = "Segment must be one of the following: " + AppConstants.SEGMENT_TYPES_REGEX)
+    @Size(max = 20, message = "Segment must be between 1 and 20 characters long")
     private String segment;
 
     @Column(updatable = false)

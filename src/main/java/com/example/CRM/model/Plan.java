@@ -39,6 +39,7 @@ public class Plan {
 
     @NotNull(message = "Designated device type cannot be null")
     @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    @Size(min = 1, max = 20, message = "Designated device type must be between 1 and 20 characters")
     private String designatedDeviceType;
 
     @ManyToMany

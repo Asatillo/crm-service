@@ -3,6 +3,7 @@ package com.example.CRM.model;
 import com.example.CRM.model.template.DeviceTemplate;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class Device{
     private DeviceTemplate deviceTemplate;
 
     @NotNull(message = "Color cannot be null")
+    @Size(min = 1, max = 25, message = "Color must be between 1 and 25 characters")
     private String color;
 
     private LocalDateTime purchaseDate;

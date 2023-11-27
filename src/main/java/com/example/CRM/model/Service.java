@@ -28,6 +28,7 @@ public class Service {
     @NotNull(message = "Service type cannot be null")
     @Pattern(regexp = AppConstants.SERVICE_TYPES_REGEX,
             message = "Package type must be one of the following: " + AppConstants.SERVICE_TYPES_REGEX)
+    @Size(min = 1, max = 20, message = "Service type must be between 1 and 20 characters")
     private String type;
 
     @NotNull(message = "Amount cannot be null")
@@ -39,6 +40,7 @@ public class Service {
 
     @NotNull(message = "Designated device type cannot be null")
     @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
+    @Size(min = 1, max = 20, message = "Designated device type must be between 1 and 20 characters")
     private String designatedDeviceType;
 
     public Service(String name, String type, Float amount, String designatedDeviceType) {
