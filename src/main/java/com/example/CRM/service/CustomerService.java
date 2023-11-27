@@ -1,6 +1,5 @@
 package com.example.CRM.service;
 
-import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.Subscription;
