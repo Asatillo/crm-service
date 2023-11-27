@@ -43,8 +43,8 @@ public class AppUtils {
 
     /* Checks if the requested page number is less than the total number of pages */
     public static void validatePageNumberLessThanTotalPages(int page, int totalPages) {
-        if (page > totalPages) {
-            throw new CRMApiException(String.format("Requested page does not exist. Total pages: %d", totalPages+1));
+        if (page >= totalPages) {
+            throw new CRMApiException(String.format("Requested page does not exist. Total pages: %d", totalPages));
         }
     }
 

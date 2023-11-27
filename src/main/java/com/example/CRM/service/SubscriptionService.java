@@ -42,7 +42,8 @@ public class SubscriptionService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Subscription> subscriptions = subscriptionRepository.findAll(pageable);
-        PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+        PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions.getContent(), subscriptions.getNumber(), subscriptions.getSize(),
+                subscriptions.getTotalElements(), subscriptions.getTotalPages());
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
@@ -113,7 +114,8 @@ public class SubscriptionService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Subscription> subscriptions = subscriptionRepository.findAllByNetworkEntity_Owner_Id(id, pageable);
-        PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+        PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions.getContent(), subscriptions.getNumber(), subscriptions.getSize(),
+                subscriptions.getTotalElements(), subscriptions.getTotalPages());
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
@@ -127,7 +129,8 @@ public class SubscriptionService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Subscription> subscriptions = subscriptionRepository.findAllByPlanId(id, pageable);
-        PagedResponse<Subscription> pagedResponse = new PagedResponse<>();
+        PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions.getContent(), subscriptions.getNumber(), subscriptions.getSize(),
+                subscriptions.getTotalElements(), subscriptions.getTotalPages());
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 

@@ -39,7 +39,8 @@ public class CustomerService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Customer> customers = customerRepository.findAll(pageable);
-        PagedResponse<Customer> pagedResponse = new PagedResponse<>();
+        PagedResponse<Customer> pagedResponse = new PagedResponse<>(customers.getContent(), customers.getNumber(), customers.getSize(),
+                customers.getTotalElements(), customers.getTotalPages());
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 

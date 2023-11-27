@@ -42,7 +42,8 @@ public class PlanService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Plan> plans = planRepository.findAll(pageable);
-        PagedResponse<Plan> pagedResponse = new PagedResponse<>();
+        PagedResponse<Plan> pagedResponse = new PagedResponse<>(plans.getContent(), plans.getNumber(), plans.getSize(),
+                plans.getTotalElements(), plans.getTotalPages());
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
@@ -60,7 +61,8 @@ public class PlanService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Plan> plans = planRepository.findAllByDesignatedDeviceType(deviceType, pageable);
-        PagedResponse<Plan> pagedResponse = new PagedResponse<>();
+        PagedResponse<Plan> pagedResponse = new PagedResponse<>(plans.getContent(), plans.getNumber(), plans.getSize(),
+                plans.getTotalElements(), plans.getTotalPages());
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
