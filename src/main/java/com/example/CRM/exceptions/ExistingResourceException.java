@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.CONFLICT)
 public class ExistingResourceException extends RuntimeException{
 
-    private ApiResponse apiResponse;
+    private final ApiResponse apiResponse;
 
     public ExistingResourceException(ApiResponse apiResponse) {
         super();

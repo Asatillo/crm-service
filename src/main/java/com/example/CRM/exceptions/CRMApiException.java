@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class CRMApiException extends RuntimeException{
 
-    private transient ApiResponse apiResponse;
+    private final transient ApiResponse apiResponse;
 
-    private HttpStatus status;
+    private final HttpStatus status;
 
 
     public CRMApiException(String message) {

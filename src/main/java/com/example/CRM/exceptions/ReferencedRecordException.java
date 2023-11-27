@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Getter
 @ResponseStatus(value = HttpStatus.CONFLICT)
 public class ReferencedRecordException extends RuntimeException {
-    private transient ApiResponse apiResponse;
+    private final transient ApiResponse apiResponse;
 
-    private String recordTable;
-    private String referenceTable;
-    private Object fieldValue;
+    private final String recordTable;
+    private final String referenceTable;
+    private final Object fieldValue;
 
     public ReferencedRecordException(String recordTable, Object fieldValue, String referenceTable) {
         super();
