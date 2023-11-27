@@ -1,7 +1,5 @@
 package com.example.CRM.model;
 
-import com.example.CRM.exceptions.InvalidInputException;
-import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.utils.AppConstants;
 import com.example.CRM.utils.AppUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
