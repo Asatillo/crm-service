@@ -25,10 +25,12 @@ public class Customer {
 
     @NotBlank(message = "First name cannot be blank")
     @Size(max = 25, message = "First name must be between 1 and 25 characters long")
+    @Column(columnDefinition = "VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String firstName;
 
     @NotBlank(message = "Last name cannot be blank")
     @Size(max = 25, message = "Last name must be between 1 and 25 characters long")
+    @Column(columnDefinition = "VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String lastName;
 
     @NotBlank(message = "Email cannot be blank")
@@ -39,10 +41,12 @@ public class Customer {
 
     @NotBlank(message = "Address cannot be blank")
     @Size(max = 100, message = "Address must be between 1 and 100 characters long")
+    @Column(columnDefinition = "VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String address;
 
     @NotBlank(message = "City cannot be blank")
-    @Size(max = 25, message = "City must be between 1 and 25 characters long")
+    @Size(max = 50, message = "City must be between 1 and 50 characters long")
+    @Column(columnDefinition = "VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String city;
 
     @NotNull(message = "Date of birth cannot be null")

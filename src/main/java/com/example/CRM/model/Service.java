@@ -1,10 +1,7 @@
 package com.example.CRM.model;
 
 import com.example.CRM.utils.AppConstants;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
@@ -23,6 +20,7 @@ public class Service {
 
     @NotNull(message = "Name cannot be null")
     @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
+    @Column(columnDefinition = "VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String name;
 
     @NotNull(message = "Service type cannot be null")

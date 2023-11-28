@@ -23,6 +23,7 @@ public class Plan {
 
     @NotBlank(message = "Name cannot be blank")
     @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
+    @Column(columnDefinition = "VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String name;
 
     @NotBlank(message = "Duration cannot be blank")
@@ -30,7 +31,8 @@ public class Plan {
     private String duration;
 
     @NotBlank(message = "Description cannot be blank")
-    @Size(min = 10, max = 250, message = "Description must be between 1 and 250 characters")
+    @Size(min = 10, max = 255, message = "Description must be between 1 and 255 characters")
+    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String description;
 
     @NotNull(message = "Price cannot be null")

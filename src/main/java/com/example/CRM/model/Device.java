@@ -28,6 +28,7 @@ public class Device{
 
     @NotNull(message = "Color cannot be null")
     @Size(min = 1, max = 25, message = "Color must be between 1 and 25 characters")
+    @Column(columnDefinition = "VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String color;
 
     private LocalDateTime purchaseDate;
