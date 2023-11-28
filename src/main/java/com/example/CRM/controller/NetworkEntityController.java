@@ -11,10 +11,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.CRM.utils.AppConstants.API_URL;
-
 @RestController
-@RequestMapping(API_URL)
+@RequestMapping()
 public class NetworkEntityController {
 
     final NetworkEntityService networkEntityService;
