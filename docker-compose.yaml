@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysql-db:
-    image: mysql:5.7
+    image: mysql:8.1.0
     ports:
       - ${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT}
     env_file:
