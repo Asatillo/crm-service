@@ -1,15 +1,11 @@
 # CRM API Documentation 
 
----
-
 ## Table of Contents
 ### [1. Introduction](#introduction)
 ### [2. How to Set Up and Run the CRM API](#how-to-set-up-and-run-the-crm-api)
 ### [3. API Documentation](#api-documentation)
 
 ## Introduction
-
----
 This is a CRM API that allows you to manage customers and their subscriptions. It is built with Java 17, Spring Boot, 
 Spring Data JPA, and MySQL. It is a RESTful API that uses JSON for data exchange. It is also a Dockerized application 
 that can be run in a Docker container. The CRM API manages what kind of subscription the customer has, and create 
@@ -18,8 +14,6 @@ subscription plans. Subscriptions have expiration dates and if customers want ma
 different service varieties such as data, voice, or SMS. If a customer has a subscription he might purchase a mobile 
 phone from the company. Routers are provided for the wired internet.
 ## How to Set Up and Run the CRM API
-
----
 
 ### Prerequisites:
 - Docker
@@ -67,7 +61,5 @@ docker-compose down
 ```
 
 ## API Documentation
-
----
 
 All documentation for API is available at http://localhost:6868/api/swagger-ui.html.
