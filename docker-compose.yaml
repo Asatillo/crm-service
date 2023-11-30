@@ -31,7 +31,7 @@ services:
         "spring.jackson.generate-ddl": "true",
         "spring.jpa.hibernate.ddl-auto": "create",
         "server.servlet.context-path": "/api",
-        "springdoc.swagger-ui.path": "/swagger-ui.html"
+        "springdoc.swagger-ui.path": "/docs"
       }'
     depends_on:
       - mysql-db
