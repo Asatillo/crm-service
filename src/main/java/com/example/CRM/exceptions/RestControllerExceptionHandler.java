@@ -20,9 +20,9 @@ import java.util.HashMap;
 @ControllerAdvice
 public class RestControllerExceptionHandler {
 
-    @ExceptionHandler(value = {CRMApiException.class})
+    @ExceptionHandler(value = {ApiException.class})
     @ResponseBody
-    public ResponseEntity<ApiResponse> resolveException(CRMApiException exception){
+    public ResponseEntity<ApiResponse> resolveException(ApiException exception){
         ApiResponse apiResponse = exception.getApiResponse();
 
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);

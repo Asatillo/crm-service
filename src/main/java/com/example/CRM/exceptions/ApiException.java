@@ -5,14 +5,14 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class CRMApiException extends RuntimeException{
+public class ApiException extends RuntimeException{
 
     private final transient ApiResponse apiResponse;
 
     private final HttpStatus status;
 
 
-    public CRMApiException(String message) {
+    public ApiException(String message) {
         super();
         this.status = HttpStatus.BAD_REQUEST;
         this.apiResponse = new ApiResponse(false, message);
