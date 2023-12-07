@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("services")
 public class ServiceController {
 
     final ServiceService serviceService;
@@ -21,7 +21,7 @@ public class ServiceController {
     }
 
     @Operation(summary = "Get All Services")
-    @GetMapping("/services")
+    @GetMapping
     public PagedResponse<Service> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -31,13 +31,13 @@ public class ServiceController {
     }
 
     @Operation(summary = "Get Service by Id")
-    @GetMapping("/services/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Service> getById(@PathVariable Long id){
         return serviceService.getById(id);
     }
 
     @Operation(summary = "Get Services by Designated Device Type")
-    @GetMapping("/services/device-type/{deviceType}")
+    @GetMapping("/device-type/{deviceType}")
     public PagedResponse<Service> getServicesByDesignatedDeviceType(@PathVariable String deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -46,31 +46,31 @@ public class ServiceController {
     }
 
     @Operation(summary = "Add Service")
-    @PostMapping("/services")
+    @PostMapping
     public ResponseEntity<Service> addService(@Valid @RequestBody Service service){
         return serviceService.addService(service);
     }
 
     @Operation(summary = "Update Service")
-    @PutMapping("/services/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Service> updateService(@PathVariable Long id, @Valid @RequestBody Service service){
         return serviceService.updateService(id, service);
     }
 
     @Operation(summary = "Deactivate Service")
-    @PatchMapping("/services/{id}/deactivate")
+    @PatchMapping("/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivateService(@PathVariable Long id){
         return serviceService.deactivateService(id);
     }
 
     @Operation(summary = "Activate Service")
-    @PatchMapping("/services/{id}/activate")
+    @PatchMapping("/{id}/activate")
     public ResponseEntity<ApiResponse> activateService(@PathVariable Long id){
         return serviceService.activateService(id);
     }
 
     @Operation(summary = "Delete Service")
-    @DeleteMapping("/services/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteService(@PathVariable Long id){
         return serviceService.deleteService(id);
     }

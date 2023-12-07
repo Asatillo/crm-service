@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("devices")
 public class DeviceController {
 
     DeviceService deviceService;
@@ -22,7 +22,7 @@ public class DeviceController {
     }
 
     @Operation(summary = "Get All Devices")
-    @GetMapping("/devices")
+    @GetMapping
     public PagedResponse<Device> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -32,13 +32,13 @@ public class DeviceController {
     }
 
     @Operation(summary = "Get Device by Id")
-    @GetMapping("/devices/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Device> getById(@PathVariable Long id){
         return deviceService.getById(id);
     }
 
     @Operation(summary = "Get Device by Device Template id")
-    @GetMapping("/devices/template/{id}")
+    @GetMapping("/template/{id}")
     public PagedResponse<Device> getByDeviceTemplateId(@PathVariable Long id,
            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -46,17 +46,10 @@ public class DeviceController {
         return deviceService.getByDeviceTemplateId(id, page - 1, size, sort);
     }
 
-    @Operation(summary = "Get Device by Customer id")
-    @GetMapping("/customers/{id}/devices")
-    public PagedResponse<Device> getByCustomerId(@PathVariable Long id,
-           @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
-           @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-           @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return deviceService.getByCustomerId(id, page - 1, size, sort);
-    }
+
 
     @Operation(summary = "Get Devices by Type")
-    @GetMapping("/devices/type/{deviceType}")
+    @GetMapping("/type/{deviceType}")
     public PagedResponse<Device> getByDeviceType(@PathVariable String deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -66,19 +59,19 @@ public class DeviceController {
     }
 
     @Operation(summary = "Add Device")
-    @PostMapping("/devices")
+    @PostMapping
     public ResponseEntity<Device> addDevice(@Valid @RequestBody DeviceRequest deviceRequest){
         return deviceService.addDevice(deviceRequest);
     }
 
     @Operation(summary = "Update Device")
-    @PutMapping("/devices/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable Long id, @Valid @RequestBody DeviceRequest deviceRequest){
         return deviceService.updateDevice(id, deviceRequest);
     }
 
     @Operation(summary = "Delete Device")
-    @DeleteMapping("/devices/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteDevice(@PathVariable Long id){
         return deviceService.deleteDevice(id);
     }

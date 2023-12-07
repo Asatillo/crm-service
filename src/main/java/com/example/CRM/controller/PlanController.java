@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("plans")
 public class PlanController {
     final
     PlanService planService;
@@ -23,7 +23,7 @@ public class PlanController {
 
     // TODO: add filters, sortorder
     @Operation(summary = "Get All Plans")
-    @GetMapping("/plans")
+    @GetMapping
     public PagedResponse<Plan> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -33,25 +33,25 @@ public class PlanController {
     }
 
     @Operation(summary = "Get Plan by Id")
-    @GetMapping("/plans/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Plan> getById(@PathVariable Long id){
         return planService.getById(id);
     }
 
     @Operation(summary = "Add Plan")
-    @PostMapping("/plans")
+    @PostMapping
     public ResponseEntity<Plan> addPlan(@Valid @RequestBody PlanRequest planRequest){
         return planService.addPlan(planRequest);
     }
 
     @Operation(summary = "Update Plan")
-    @PutMapping("/plans/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @Valid @RequestBody PlanRequest planRequest){
         return planService.updatePlan(id, planRequest);
     }
 
     @Operation(summary = "Get Plans by Designated Device Type")
-    @GetMapping("/plans/device-type/{deviceType}")
+    @GetMapping("/device-type/{deviceType}")
     public PagedResponse<Plan> getPlansByDesignatedDeviceType(@PathVariable String deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -60,19 +60,19 @@ public class PlanController {
     }
 
     @Operation(summary = "Deactivate Plan")
-    @PatchMapping("/plans/{id}/deactivate")
+    @PatchMapping("/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivatePlan(@PathVariable Long id){
         return planService.deactivatePlan(id);
     }
 
     @Operation(summary = "Activate Plan")
-    @PatchMapping("/plans/{id}/activate")
+    @PatchMapping("/{id}/activate")
     public ResponseEntity<ApiResponse> activatePlan(@PathVariable Long id){
         return planService.activatePlan(id);
     }
 
     @Operation(summary = "Delete Plan")
-    @DeleteMapping("/plans/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deletePlan(@PathVariable Long id){
         return planService.deletePlan(id);
     }

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("subscriptions")
 public class SubscriptionController {
 
     final
@@ -24,7 +24,7 @@ public class SubscriptionController {
 
     // TODO: add filters, sortorder
     @Operation(summary = "Get All Subscriptions")
-    @GetMapping("/subscriptions")
+    @GetMapping
     public PagedResponse<Subscription> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -34,13 +34,13 @@ public class SubscriptionController {
     }
 
     @Operation(summary = "Get Subscription by Id")
-    @GetMapping("/subscriptions/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Subscription> getById(@PathVariable Long id){
         return subscriptionService.getById(id);
     }
 
     @Operation(summary = "Get Subscriptions by Customer Id")
-    @GetMapping("/subscriptions/customer/{id}")
+    @GetMapping("/customer/{id}")
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(@PathVariable Long id,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -49,7 +49,7 @@ public class SubscriptionController {
     }
 
     @Operation(summary = "Get Subscriptions by Plan Id")
-    @GetMapping("/subscriptions/plan/{id}")
+    @GetMapping("/plan/{id}")
     public PagedResponse<Subscription> getSubscriptionsByPlanId(@PathVariable Long id,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -58,25 +58,25 @@ public class SubscriptionController {
     }
 
     @Operation(summary = "Add Subscription")
-    @PostMapping("/subscriptions")
+    @PostMapping
     public ResponseEntity<Subscription> addSubscription(@Valid @RequestBody SubscriptionRequest subscriptionRequest){
         return subscriptionService.addSubscription(subscriptionRequest);
     }
 
     @Operation(summary = "Delete Subscription")
-    @DeleteMapping("/subscriptions/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteSubscription(@PathVariable Long id){
         return subscriptionService.deleteSubscription(id);
     }
 
     @Operation(summary = "Deactivate Subscription")
-    @PatchMapping("/subscriptions/{id}/deactivate")
+    @PatchMapping("/{id}/deactivate")
     public ResponseEntity<ApiResponse> deactivateSubscription(@PathVariable Long id){
         return subscriptionService.deactivateSubscription(id);
     }
 
     @Operation(summary = "Activate Subscription")
-    @PatchMapping("/subscriptions/{id}/activate")
+    @PatchMapping("/{id}/activate")
     public ResponseEntity<ApiResponse> activateSubscription(@PathVariable Long id){
         return subscriptionService.activateSubscription(id);
     }
