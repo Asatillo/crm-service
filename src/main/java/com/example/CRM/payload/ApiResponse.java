@@ -15,7 +15,7 @@ import java.io.Serializable;
         "success",
         "message"
 })
-public class ApiResponse implements Serializable {
+public class ApiResponse {
 
     @JsonProperty("success")
     private Boolean success;
