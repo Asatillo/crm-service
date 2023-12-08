@@ -11,6 +11,8 @@ public class ExistingResourceException extends RuntimeException{
 
     private final ApiResponse apiResponse;
 
+    private final HttpStatus status = HttpStatus.CONFLICT;
+
     public ExistingResourceException(ApiResponse apiResponse) {
         super();
         this.apiResponse = apiResponse;

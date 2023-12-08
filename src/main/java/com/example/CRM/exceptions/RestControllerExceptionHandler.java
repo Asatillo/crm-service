@@ -23,57 +23,45 @@ public class RestControllerExceptionHandler {
     @ExceptionHandler(value = {ApiException.class})
     @ResponseBody
     public ResponseEntity<ApiResponse> resolveException(ApiException exception){
-        ApiResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getApiResponse(), exception.getStatus());
     }
 
     @ExceptionHandler(value = {BadRequestException.class})
     @ResponseBody
     public ResponseEntity<ApiResponse> resolveException(BadRequestException exception){
-        ApiResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getApiResponse(), exception.getStatus());
     }
 
     @ExceptionHandler(value = {ResourceNotFoundException.class})
     @ResponseBody
     public ResponseEntity<ApiResponse> resolveException(ResourceNotFoundException exception){
-        ApiResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exception.getApiResponse(), exception.getStatus());
     }
 
     @ExceptionHandler(value = {InvalidInputException.class})
     @ResponseBody
     public ResponseEntity<ApiResponse> resolveException(InvalidInputException exception){
-        ApiResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exception.getApiResponse(), exception.getStatus());
     }
 
     @ExceptionHandler(value = {ExistingResourceException.class})
     @ResponseBody
     public ResponseEntity<ApiResponse> resolveException(ExistingResourceException exception){
-        ApiResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(exception.getApiResponse(), exception.getStatus());
     }
 
     @ExceptionHandler(value = {ReferencedRecordException.class})
     @ResponseBody
     public ResponseEntity<ApiResponse> resolveException(ReferencedRecordException exception){
-        ApiResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(exception.getApiResponse(), exception.getStatus());
     }
 
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ResponseBody
     public ResponseEntity<ExceptionResponse> resolveException(HttpRequestMethodNotSupportedException exception){
-        String message = "Requested method '" + exception.getMethod() + "' is not allowed for this endpoint. " +
-                "Allowed methods are: " + exception.getSupportedHttpMethods();
+        String message = String.format("Requested method '%s' is not allowed for this endpoint. " +
+                "Allowed methods are: %s", exception.getMethod(), exception.getSupportedHttpMethods());
 
         return new ResponseEntity<>(new ExceptionResponse(message, HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase(),
                 HttpStatus.METHOD_NOT_ALLOWED.value()), HttpStatus.METHOD_NOT_ALLOWED);

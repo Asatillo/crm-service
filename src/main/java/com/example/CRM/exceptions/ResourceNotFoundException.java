@@ -10,15 +10,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ResourceNotFoundException extends RuntimeException {
 
     private final transient ApiResponse apiResponse;
-    private final String resourceName;
-    private final String fieldName;
-    private final Object fieldValue;
+
+    private final HttpStatus status = HttpStatus.NOT_FOUND;
 
     public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
         super();
-        this.resourceName = resourceName;
-        this.fieldName = fieldName;
-        this.fieldValue = fieldValue;
         this.apiResponse = new ApiResponse(false, String.format("%s with %s '%s' not found", resourceName, fieldName, fieldValue));
     }
 }
