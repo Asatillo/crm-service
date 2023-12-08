@@ -11,7 +11,7 @@ public class BadRequestException extends RuntimeException {
 
     private final ApiResponse apiResponse;
 
-    private HttpStatus status = HttpStatus.BAD_REQUEST;
+    private final HttpStatus status = HttpStatus.BAD_REQUEST;
 
     public BadRequestException(ApiResponse apiResponse) {
         super();
