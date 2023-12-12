@@ -41,10 +41,15 @@ public class Service {
     @Size(min = 1, max = 20, message = "Designated device type must be between 1 and 20 characters")
     private String designatedDeviceType;
 
-    public Service(String name, String type, Float amount, String designatedDeviceType) {
+    @NotNull(message = "Price cannot be null")
+    @Positive(message = "Price must be positive")
+    private Double price;
+
+    public Service(String name, String type, Float amount, String designatedDeviceType, Double price) {
         this.name = name;
         this.type = type;
         this.amount = amount;
         this.designatedDeviceType = designatedDeviceType;
+        this.price = price;
     }
 }
