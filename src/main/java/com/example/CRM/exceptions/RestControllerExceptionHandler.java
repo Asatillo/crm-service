@@ -60,8 +60,8 @@ public class RestControllerExceptionHandler {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ResponseBody
     public ResponseEntity<ExceptionResponse> resolveException(HttpRequestMethodNotSupportedException exception){
-        String message = String.format("Requested method '%s' is not allowed for this endpoint. " +
-                "Allowed methods are: %s", exception.getMethod(), exception.getSupportedHttpMethods());
+        String message = String.format("Requested method '%s' is not supported for this endpoint. " +
+                "Allowed methods: %s", exception.getMethod(), exception.getSupportedHttpMethods());
 
         return new ResponseEntity<>(new ExceptionResponse(message, HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase(),
                 HttpStatus.METHOD_NOT_ALLOWED.value()), HttpStatus.METHOD_NOT_ALLOWED);
@@ -94,13 +94,15 @@ public class RestControllerExceptionHandler {
                 HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
+    // TODO: Do i need this?
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = {MissingServletRequestParameterException.class})
     @ResponseBody
     public ResponseEntity<ExceptionResponse> resolveException(MissingServletRequestParameterException exception){
 
-        return new ResponseEntity<>(new ExceptionResponse("Required request parameter for method is not present", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ExceptionResponse(
+                String.format("Required request parameter %s is not present", exception.getParameterName()),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -108,7 +110,7 @@ public class RestControllerExceptionHandler {
     @ResponseBody
     public ResponseEntity<ExceptionResponse> resolveException(HttpMessageNotReadableException exception){
 
-        return new ResponseEntity<>(new ExceptionResponse("Required request body is missing", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+        return new ResponseEntity<>(new ExceptionResponse("Malformed JSON request", HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 }
