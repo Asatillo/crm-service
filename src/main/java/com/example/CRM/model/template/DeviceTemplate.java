@@ -3,10 +3,7 @@ package com.example.CRM.model.template;
 import com.example.CRM.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,17 +33,22 @@ public class DeviceTemplate{
     @Size(max = 20, message = "Device type must not exceed 20 characters")
     private String deviceType;
 
+    @NotNull(message = "Price cannot be null")
+    @PositiveOrZero(message = "Price must be positive")
+    private Double price;
+
     private boolean isActive = true;
 
     @NotNull(message = "Warranty duration cannot be null")
     @Size(min = 3, max = 10, message = "Warranty duration must be between 3 and 10 characters")
     private String warrantyDuration;
 
-    public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration) {
+    public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration, Double price) {
         this.model = model;
         this.brand = brand;
         this.deviceType = deviceType;
         this.warrantyDuration = warrantyDuration;
+        this.price = price;
     }
 
     @JsonIgnore

@@ -96,13 +96,13 @@ public class DBPopulate implements CommandLineRunner {
                 networkRouter1, networkRouter2, networkRouter3, networkRouter4, networkRouter5, networkRouter6,
                 networkRouter7, networkRouter8, networkRouter9, networkRouter10));
 
-        DeviceTemplate deviceMobileTemplate1 = new DeviceTemplate("Galaxy S20", "Samsung", "MOBILE", Period.ZERO.toString());
-        DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", "MOBILE", Period.ofYears(1).toString());
-        DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", "MOBILE", Period.ofYears(1).toString());
-        DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", "MOBILE", Period.ofYears(2).toString());
-        DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", "ROUTER", Period.ZERO.toString());
-        DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", "ROUTER", Period.ZERO.toString());
-        DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", "ROUTER", Period.ZERO.toString());
+        DeviceTemplate deviceMobileTemplate1 = new DeviceTemplate("Galaxy S20", "Samsung", "MOBILE", Period.ZERO.toString(), 300000.0);
+        DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", "MOBILE", Period.ofYears(1).toString(), 200000.0);
+        DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", "MOBILE", Period.ofYears(1).toString(), 400000.0);
+        DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", "MOBILE", Period.ofYears(2).toString(), 340000.0);
+        DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0);
+        DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", "ROUTER", Period.ZERO.toString(), 0.0);
+        DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0);
         deviceTemplateRepository.saveAll(List.of(deviceMobileTemplate1, deviceMobileTemplate2, deviceMobileTemplate3,
                 deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3));
 
