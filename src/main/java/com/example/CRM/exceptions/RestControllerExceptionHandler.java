@@ -109,7 +109,7 @@ public class RestControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = {HttpMessageNotReadableException.class})
     @ResponseBody
-    public ResponseEntity<ExceptionResponse> resolveException(HttpMessageNotReadableException exception){
+    public ResponseEntity<ExceptionResponse> resolveException(){
 
         return new ResponseEntity<>(new ExceptionResponse("Malformed JSON request", HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
