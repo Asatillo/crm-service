@@ -2,6 +2,7 @@ package com.example.CRM.exceptions;
 
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.ExceptionResponse;
+import com.example.CRM.payload.ValidationErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,7 +71,7 @@ public class RestControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ValidationErrorResponse> handleValidationExceptions(MethodArgumentNotValidException exception) {
         HashMap<String, String> validationErrors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -79,7 +80,7 @@ public class RestControllerExceptionHandler {
         });
 
         return new ResponseEntity<>(
-                new ExceptionResponse(validationErrors.size() == 1 ? "Validation error" : "Validation errors",
+                new ValidationErrorResponse(validationErrors.size() == 1 ? "Validation error" : "Validation errors",
                         HttpStatus.BAD_REQUEST.getReasonPhrase(), HttpStatus.BAD_REQUEST.value(), validationErrors),
                 HttpStatus.BAD_REQUEST);
     }
