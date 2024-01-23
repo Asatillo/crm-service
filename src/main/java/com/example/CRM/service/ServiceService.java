@@ -66,12 +66,20 @@ public class ServiceService {
             existingService.setName(service.getName());
         }
 
+        if(!existingService.getDesignatedDeviceType().equals(service.getDesignatedDeviceType())){
+            existingService.setDesignatedDeviceType(service.getDesignatedDeviceType());
+        }
+
         if(!existingService.getType().equals(service.getType())){
             existingService.setType(service.getType());
         }
 
         if(existingService.getAmount() != service.getAmount()){
             existingService.setAmount(service.getAmount());
+        }
+
+        if(!existingService.getPrice().equals(service.getPrice())){
+            existingService.setPrice(service.getPrice());
         }
 
         if(existingService.isActive() != service.isActive()){
