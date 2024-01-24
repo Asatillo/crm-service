@@ -21,7 +21,7 @@ public class PlanRequest {
     private String duration;
 
     @NotBlank(message = "Description cannot be blank")
-    @Size(min = 10, max = 250, message = "Description must be between 1 and 250 characters")
+    @Size(min = 10, max = 250, message = "Description must be between 10 and 250 characters")
     private String description;
 
     @NotNull(message = "Price cannot be null")
