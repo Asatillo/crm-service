@@ -95,7 +95,7 @@ public class PlanService {
             existingPlan.setPrice(planRequest.getPrice());
         }
 
-        if(existingPlan.getDuration().equals(planRequest.getDuration())){
+        if(!existingPlan.getDuration().equals(planRequest.getDuration())){
             existingPlan.setDuration(planRequest.getDuration());
         }
 
@@ -117,24 +117,10 @@ public class PlanService {
         return new ResponseEntity<>(new ApiResponse(true, "Plan deleted successfully"), HttpStatus.OK);
     }
 
-    public ResponseEntity<ApiResponse> deactivatePlan(Long id) {
+    public ResponseEntity<Plan> changePlanActive(Long id, boolean active) {
         Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
-        if(!plan.isActive()){
-            return new ResponseEntity<>(new ApiResponse(false, "Plan already deactivated"), HttpStatus.OK);
-        }
-        plan.setActive(false);
-        planRepository.save(plan);
-        return new ResponseEntity<>(new ApiResponse(true, "Plan deactivated successfully"), HttpStatus.OK);
-    }
-
-    public ResponseEntity<ApiResponse> activatePlan(Long id) {
-        Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
-        if(plan.isActive()){
-            return new ResponseEntity<>(new ApiResponse(false, "Plan already activated"), HttpStatus.OK);
-        }
-        plan.setActive(true);
-        planRepository.save(plan);
-        return new ResponseEntity<>(new ApiResponse(true, "Plan activated successfully"), HttpStatus.OK);
+        plan.setActive(active);
+        return new ResponseEntity<>(planRepository.save(plan), HttpStatus.OK);
     }
 
     private List<Service> convertServiceIdsToService(@NonNull List<Long> serviceIds){

@@ -61,14 +61,14 @@ public class PlanController {
 
     @Operation(summary = "Deactivate Plan")
     @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<ApiResponse> deactivatePlan(@PathVariable Long id){
-        return planService.deactivatePlan(id);
+    public ResponseEntity<Plan> deactivatePlan(@PathVariable Long id){
+        return planService.changePlanActive(id, false);
     }
 
     @Operation(summary = "Activate Plan")
     @PatchMapping("/{id}/activate")
-    public ResponseEntity<ApiResponse> activatePlan(@PathVariable Long id){
-        return planService.activatePlan(id);
+    public ResponseEntity<Plan> activatePlan(@PathVariable Long id){
+        return planService.changePlanActive(id, true);
     }
 
     @Operation(summary = "Delete Plan")

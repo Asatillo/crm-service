@@ -89,26 +89,11 @@ public class ServiceService {
         return new ResponseEntity<>(serviceRepository.save(existingService), HttpStatus.OK);
     }
 
-    public ResponseEntity<ApiResponse> deactivateService(Long id) {
+    public ResponseEntity<Service> changeActive(Long id, boolean active) {
         Service service = serviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Service", "id", id));
 
-        if(!service.isActive()){
-            return new ResponseEntity<>(new ApiResponse(false, "Service is already deactivated"), HttpStatus.BAD_REQUEST);
-        }
-        service.setActive(false);
-        serviceRepository.save(service);
-        return new ResponseEntity<>(new ApiResponse(true, "Service deactivated successfully"), HttpStatus.OK);
-    }
-
-    public ResponseEntity<ApiResponse> activateService(Long id) {
-        Service service = serviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Service", "id", id));
-
-        if(service.isActive()){
-            return new ResponseEntity<>(new ApiResponse(false, "Service is already activated"), HttpStatus.BAD_REQUEST);
-        }
-        service.setActive(true);
-        serviceRepository.save(service);
-        return new ResponseEntity<>(new ApiResponse(true, "Service activated successfully"), HttpStatus.OK);
+        service.setActive(active);
+        return new ResponseEntity<>(serviceRepository.save(service), HttpStatus.OK);
     }
 
     public ResponseEntity<ApiResponse> deleteService(Long id) {

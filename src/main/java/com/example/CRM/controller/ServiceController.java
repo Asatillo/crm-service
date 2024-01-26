@@ -59,14 +59,14 @@ public class ServiceController {
 
     @Operation(summary = "Deactivate Service")
     @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<ApiResponse> deactivateService(@PathVariable Long id){
-        return serviceService.deactivateService(id);
+    public ResponseEntity<Service> deactivateService(@PathVariable Long id){
+        return serviceService.changeActive(id, false);
     }
 
     @Operation(summary = "Activate Service")
     @PatchMapping("/{id}/activate")
-    public ResponseEntity<ApiResponse> activateService(@PathVariable Long id){
-        return serviceService.activateService(id);
+    public ResponseEntity<Service> activateService(@PathVariable Long id){
+        return serviceService.changeActive(id, true);
     }
 
     @Operation(summary = "Delete Service")
