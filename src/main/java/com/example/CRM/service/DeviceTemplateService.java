@@ -90,6 +90,10 @@ public class DeviceTemplateService {
             existingDeviceTemplate.setDeviceType(deviceTemplate.getDeviceType());
         }
 
+        if(!deviceTemplate.getStorage().equals(existingDeviceTemplate.getStorage())){
+            existingDeviceTemplate.setStorage(deviceTemplate.getStorage());
+        }
+
         if(!deviceTemplate.getWarrantyDuration().equals(existingDeviceTemplate.getWarrantyDuration())){
             existingDeviceTemplate.setWarrantyDuration(deviceTemplate.getWarrantyDuration());
         }

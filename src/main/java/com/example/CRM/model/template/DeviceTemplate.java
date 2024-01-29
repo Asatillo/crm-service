@@ -37,18 +37,48 @@ public class DeviceTemplate{
     @PositiveOrZero(message = "Price must be positive")
     private Double price;
 
+    @NotNull(message = "Storage cannot be null")
+    @Column(columnDefinition = "INT(11) UNSIGNED")
+    private Integer storage;
+
+    @NotNull(message = "Image URL cannot be null")
+    @Size(min = 100, max = 255, message = "Image URL must be between 1 and 255 characters")
+    private String imageUrl;
+
+    @NotNull(message = "Color cannot be null")
+    @Size(min = 1, max = 25, message = "Color must be between 1 and 25 characters")
+    @Column(columnDefinition = "VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci")
+    private String color;
+
     private boolean isActive = true;
 
     @NotNull(message = "Warranty duration cannot be null")
     @Size(min = 3, max = 10, message = "Warranty duration must be between 3 and 10 characters")
     private String warrantyDuration;
 
-    public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration, Double price) {
+    public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration, Double price,
+                          String color, Integer storage) {
         this.model = model;
         this.brand = brand;
         this.deviceType = deviceType;
         this.warrantyDuration = warrantyDuration;
         this.price = price;
+        this.color = color;
+        this.storage = storage;
+        this.imageUrl = constructImageUrl();
+    }
+
+    private String constructImageUrl() {
+        if(!deviceType.equals("MOBILE")){
+            return "https://www.raneen.com/media/catalog/product/n/4/n41584596-a-1_mam7elzfeladrsb6.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=250&width=250&canvas=250:250";
+        }else{
+            String width = "250";
+            String height = "250";
+            String bg_color = "ffffff";
+            return String.format("https://images.daisycon.io/mobile-device/?width=%s&height=%s&color=%s&mobile_device_brand=%s&mobile_device_model=%s+%sGB&mobile_device_color=%s",
+                    width, height, bg_color, brand.toLowerCase().replace(" ", "+"), model.toLowerCase().replace(" ", "+"), storage.toString().toLowerCase().replace(" ", "+"),
+                    color.toLowerCase().replace(" ", "+"));
+        }
     }
 
     @JsonIgnore

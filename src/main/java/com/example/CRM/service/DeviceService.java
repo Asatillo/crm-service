@@ -59,7 +59,7 @@ public class DeviceService {
         DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId())
                 .orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
 
-        Device device = new Device(deviceTemplate, deviceRequest.getPurchaseDate(), deviceRequest.getColor());
+        Device device = new Device(deviceTemplate, deviceRequest.getPurchaseDate());
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
     }
 

@@ -15,7 +15,4 @@ public class DeviceRequest {
     private Long deviceTemplateId;
 
     private LocalDateTime purchaseDate;
-
-    @NotNull(message = "Color cannot be null")
-    private String color;
 }
