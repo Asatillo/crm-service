@@ -96,32 +96,32 @@ public class DBPopulate implements CommandLineRunner {
                 networkRouter1, networkRouter2, networkRouter3, networkRouter4, networkRouter5, networkRouter6,
                 networkRouter7, networkRouter8, networkRouter9, networkRouter10));
 
-        DeviceTemplate deviceMobileTemplate1 = new DeviceTemplate("Galaxy S20", "Samsung", "MOBILE", Period.ZERO.toString(), 300000.0);
-        DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", "MOBILE", Period.ofYears(1).toString(), 200000.0);
-        DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", "MOBILE", Period.ofYears(1).toString(), 400000.0);
-        DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", "MOBILE", Period.ofYears(2).toString(), 340000.0);
-        DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0);
-        DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", "ROUTER", Period.ZERO.toString(), 0.0);
-        DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0);
+        DeviceTemplate deviceMobileTemplate1 = new DeviceTemplate("Galaxy S20", "Samsung", "MOBILE", Period.ZERO.toString(), 300000.0, "white", 128);
+        DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", "MOBILE", Period.ofYears(1).toString(), 200000.0, "black", 128);
+        DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", "MOBILE", Period.ofYears(1).toString(), 400000.0, "silver", 256);
+        DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", "MOBILE", Period.ofYears(2).toString(), 340000.0, "black", 128);
+        DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0, "white", 0);
+        DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", "ROUTER", Period.ZERO.toString(), 0.0, "black", 0);
+        DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0, "silver", 0);
         deviceTemplateRepository.saveAll(List.of(deviceMobileTemplate1, deviceMobileTemplate2, deviceMobileTemplate3,
                 deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3));
 
-        Device deviceMobile1 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay(), "white");
-        Device deviceMobile2 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay(), "black");
-        Device deviceMobile3 = new Device(deviceMobileTemplate3, LocalDate.now().atStartOfDay(), "silver");
-        Device deviceMobile4 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay(), "black");
-        Device deviceMobile5 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay(), "red");
-        Device deviceMobile6 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay(), "yellow");
-        Device deviceMobile7 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay(), "navy blue");
-        Device deviceRouter1 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay(), "white");
-        Device deviceRouter2 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay(), "black");
-        Device deviceRouter3 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay(), "silver");
-        Device deviceRouter4 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay(), "black");
-        Device deviceRouter5 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay(), "red");
-        Device deviceRouter6 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay(), "yellow");
-        Device deviceRouter7 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay(), "navy blue");
-        Device deviceRouter8 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay(), "white");
-        Device deviceRouter9 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay(), "black");
+        Device deviceMobile1 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay());
+        Device deviceMobile2 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay());
+        Device deviceMobile3 = new Device(deviceMobileTemplate3, LocalDate.now().atStartOfDay());
+        Device deviceMobile4 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay());
+        Device deviceMobile5 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay());
+        Device deviceMobile6 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay());
+        Device deviceMobile7 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay());
+        Device deviceRouter1 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
+        Device deviceRouter2 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
+        Device deviceRouter3 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
+        Device deviceRouter4 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
+        Device deviceRouter5 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
+        Device deviceRouter6 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
+        Device deviceRouter7 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
+        Device deviceRouter8 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
+        Device deviceRouter9 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
         deviceRepository.saveAll(List.of(deviceMobile1, deviceMobile2, deviceMobile3, deviceMobile4, deviceMobile5,
                 deviceMobile6, deviceMobile7, deviceRouter1, deviceRouter2, deviceRouter3, deviceRouter4, deviceRouter5,
                 deviceRouter6, deviceRouter7, deviceRouter8, deviceRouter9));
