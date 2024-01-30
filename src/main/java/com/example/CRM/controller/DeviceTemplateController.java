@@ -25,8 +25,9 @@ public class DeviceTemplateController {
     public PagedResponse<DeviceTemplate> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return deviceTemplateService.getAllDeviceTemplates(page-1, size, sort);
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "paginate", required = false, defaultValue = "true") Boolean paginate){
+        return deviceTemplateService.getAllDeviceTemplates(page-1, size, sort, paginate);
     }
 
     @Operation(summary = "Get Device Template by Id")
@@ -40,7 +41,8 @@ public class DeviceTemplateController {
     public PagedResponse<DeviceTemplate> getByBrand(@PathVariable String brand,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "paginate", required = false, defaultValue = "true") Boolean paginate){
         return deviceTemplateService.getByBrand(brand, page-1, size, sort);
     }
 
