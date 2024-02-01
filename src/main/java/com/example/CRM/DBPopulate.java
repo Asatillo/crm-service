@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+import static com.example.CRM.model.enums.SegmentTypes.*;
+
 @Component
 public class DBPopulate implements CommandLineRunner {
 
@@ -59,18 +61,18 @@ public class DBPopulate implements CommandLineRunner {
         Plan planRouter9 = new Plan("30GB router plan", Period.ofYears(1).toString(), "30GB for Router subscription", 6999., List.of(serviceRouter3), "ROUTER");
         planRepository.saveAll(List.of(planMobile1, planMobile2, planMobile3, planMobile4, planMobile5, planMobile6, planRouter7, planRouter8, planRouter9));
 
-        Customer customer1 = new Customer("Alice", "Smith", "alice@example.com", "123 Main St", "Budapest", LocalDate.of(1990, 5, 15), "PREMIUM");
-        Customer customer2 = new Customer("Bob", "Johnson", "bob@example.com", "456 Elm St", "Debrecen", LocalDate.of(1985, 3, 10), "GOLD");
-        Customer customer3 = new Customer("Eva", "Andersen", "eva@example.com", "789 Oak St", "Szeged", LocalDate.of(1988, 8, 20), "SILVER");
-        Customer customer4 = new Customer("David", "Brown", "david@example.com", "567 Pine St", "Pécs", LocalDate.of(1995, 2, 5), "BRONZE");
-        Customer customer5 = new Customer("Sophie", "Miller", "sophie@example.com", "987 Cedar St", "Győr", LocalDate.of(1982, 11, 30), "EXPLORE");
-        Customer customer6 = new Customer("Michael", "Wilson", "michael@example.com", "345 Oak St", "Budapest", LocalDate.of(1975, 9, 12), "PREMIUM");
-        Customer customer7 = new Customer("Emily", "Harris", "emily@example.com", "678 Elm St", "Debrecen", LocalDate.of(1992, 4, 25), "GOLD");
-        Customer customer8 = new Customer("Oliver", "Anderson", "oliver@example.com", "456 Pine St", "Szeged", LocalDate.of(1970, 7, 7), "SILVER");
-        Customer customer9 = new Customer("Sophia", "Lee", "sophia@example.com", "789 Maple St", "Pécs", LocalDate.of(1987, 12, 15), "BRONZE");
-        Customer customer10 = new Customer("Liam", "Taylor", "liam@example.com", "123 Cedar St", "Győr", LocalDate.of(1986, 2, 28), "EXPLORE");
-        Customer customer11 = new Customer("Noah", "Thomas", "noah.thomas@gmail.com", "123 Cedar St", "Budapest", LocalDate.of(1986, 2, 28), "EXPLORE");
-        Customer customer12 = new Customer("Olivia", "Roberts", "olivia.roberts@gmail.com", "123 Cedar St", "Eger", LocalDate.of(1986, 2, 28), "EXPLORE");
+        Customer customer1 = new Customer("Alice", "Smith", "alice@example.com", "123 Main St", "Budapest", LocalDate.of(1990, 5, 15), PREMIUM);
+        Customer customer2 = new Customer("Bob", "Johnson", "bob@example.com", "456 Elm St", "Debrecen", LocalDate.of(1985, 3, 10), GOLD);
+        Customer customer3 = new Customer("Eva", "Andersen", "eva@example.com", "789 Oak St", "Szeged", LocalDate.of(1988, 8, 20), SILVER);
+        Customer customer4 = new Customer("David", "Brown", "david@example.com", "567 Pine St", "Pécs", LocalDate.of(1995, 2, 5), BRONZE);
+        Customer customer5 = new Customer("Sophie", "Miller", "sophie@example.com", "987 Cedar St", "Győr", LocalDate.of(1982, 11, 30), EXPLORE);
+        Customer customer6 = new Customer("Michael", "Wilson", "michael@example.com", "345 Oak St", "Budapest", LocalDate.of(1975, 9, 12), PREMIUM);
+        Customer customer7 = new Customer("Emily", "Harris", "emily@example.com", "678 Elm St", "Debrecen", LocalDate.of(1992, 4, 25), GOLD);
+        Customer customer8 = new Customer("Oliver", "Anderson", "oliver@example.com", "456 Pine St", "Szeged", LocalDate.of(1970, 7, 7), SILVER);
+        Customer customer9 = new Customer("Sophia", "Lee", "sophia@example.com", "789 Maple St", "Pécs", LocalDate.of(1987, 12, 15), BRONZE);
+        Customer customer10 = new Customer("Liam", "Taylor", "liam@example.com", "123 Cedar St", "Győr", LocalDate.of(1986, 2, 28), EXPLORE);
+        Customer customer11 = new Customer("Noah", "Thomas", "noah.thomas@gmail.com", "123 Cedar St", "Budapest", LocalDate.of(1986, 2, 28), EXPLORE);
+        Customer customer12 = new Customer("Olivia", "Roberts", "olivia.roberts@gmail.com", "123 Cedar St", "Eger", LocalDate.of(1986, 2, 28), EXPLORE);
         customerRepository.saveAll(List.of(customer1, customer2, customer3, customer4, customer5, customer6, customer7, customer8, customer9, customer10, customer11, customer12));
 
         NetworkEntity networkMobile1 = new NetworkEntity("+36201234567", "MOBILE", customer1, "Personal Mobile Network");

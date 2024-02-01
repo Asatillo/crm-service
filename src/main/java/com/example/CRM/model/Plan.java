@@ -50,7 +50,6 @@ public class Plan {
 
     // field for the allowed segment types
 //    @NotNull(message = "Segment cannot be null")
-//    @Pattern(regexp = AppConstants.SEGMENT_TYPES_REGEX, message = "Segment must be one of the following: " + AppConstants.SEGMENT_TYPES_REGEX)
 //    private String segment;
 
     public Plan(String name, String duration, String description, Double price, List<Service> services, String designatedDeviceType) {

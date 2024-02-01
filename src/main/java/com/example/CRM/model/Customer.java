@@ -1,5 +1,6 @@
 package com.example.CRM.model;
 
+import com.example.CRM.model.enums.SegmentTypes;
 import com.example.CRM.utils.AppConstants;
 import com.example.CRM.utils.AppUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -55,15 +56,14 @@ public class Customer {
     private LocalDate dob;
 
     @NotNull(message = "Segment cannot be null")
-    @Pattern(regexp = AppConstants.SEGMENT_TYPES_REGEX, message = "Segment must be one of the following: " + AppConstants.SEGMENT_TYPES_REGEX)
-    @Size(max = 20, message = "Segment must be between 1 and 20 characters long")
-    private String segment;
+    @Enumerated(EnumType.STRING)
+    private SegmentTypes segment;
 
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime accCreationDate;
 
-    public Customer(String firstName, String lastName, String email, String address, String city, LocalDate dob, String segment) {
+    public Customer(String firstName, String lastName, String email, String address, String city, LocalDate dob, SegmentTypes segment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
