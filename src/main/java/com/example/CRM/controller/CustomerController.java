@@ -64,14 +64,14 @@ public class CustomerController {
 
     @Operation(summary = "Deactivate Customer")
     @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<ApiResponse> deactivateCustomer(@PathVariable Long id){
-        return customerService.deactivateCustomer(id);
+    public ResponseEntity<Customer> deactivateCustomer(@PathVariable Long id){
+        return customerService.changeActiveCustomer(id, false);
     }
 
     @Operation(summary = "Activate Customer")
     @PatchMapping("/{id}/activate")
-    public ResponseEntity<ApiResponse> activateCustomer(@PathVariable Long id){
-        return customerService.activateCustomer(id);
+    public ResponseEntity<Customer> activateCustomer(@PathVariable Long id){
+        return customerService.changeActiveCustomer(id, true);
     }
 
     @Operation(summary = "Delete Customer")
