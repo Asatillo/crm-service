@@ -69,7 +69,9 @@ public class DBPopulate implements CommandLineRunner {
         Customer customer8 = new Customer("Oliver", "Anderson", "oliver@example.com", "456 Pine St", "Szeged", LocalDate.of(1970, 7, 7), "SILVER");
         Customer customer9 = new Customer("Sophia", "Lee", "sophia@example.com", "789 Maple St", "Pécs", LocalDate.of(1987, 12, 15), "BRONZE");
         Customer customer10 = new Customer("Liam", "Taylor", "liam@example.com", "123 Cedar St", "Győr", LocalDate.of(1986, 2, 28), "EXPLORE");
-        customerRepository.saveAll(List.of(customer1, customer2, customer3, customer4, customer5, customer6, customer7, customer8, customer9, customer10));
+        Customer customer11 = new Customer("Noah", "Thomas", "noah.thomas@gmail.com", "123 Cedar St", "Budapest", LocalDate.of(1986, 2, 28), "EXPLORE");
+        Customer customer12 = new Customer("Olivia", "Roberts", "olivia.roberts@gmail.com", "123 Cedar St", "Eger", LocalDate.of(1986, 2, 28), "EXPLORE");
+        customerRepository.saveAll(List.of(customer1, customer2, customer3, customer4, customer5, customer6, customer7, customer8, customer9, customer10, customer11, customer12));
 
         NetworkEntity networkMobile1 = new NetworkEntity("+36201234567", "MOBILE", customer1, "Personal Mobile Network");
         NetworkEntity networkMobile2 = new NetworkEntity("+36201234568", "MOBILE", null, "");
