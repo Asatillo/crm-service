@@ -25,8 +25,8 @@ public class PagedResponse<T> {
 
     public PagedResponse<T> returnPagedResponse(Page<T> resource){
         if(resource.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), resource.getNumber() + 1, resource.getSize(),
-                    resource.getTotalElements(), resource.getTotalPages());
+            return new PagedResponse<>(List.of(), 0, 0,
+                    0, 0);
         }
 
         List<T> list = resource.getContent();
