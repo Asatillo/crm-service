@@ -1,5 +1,6 @@
 package com.example.CRM.model;
 
+import com.example.CRM.model.enums.ServiceTypes;
 import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -24,10 +25,8 @@ public class Service {
     private String name;
 
     @NotNull(message = "Service type cannot be null")
-    @Pattern(regexp = AppConstants.SERVICE_TYPES_REGEX,
-            message = "Package type must be one of the following: " + AppConstants.SERVICE_TYPES_REGEX)
-    @Size(min = 1, max = 20, message = "Service type must be between 1 and 20 characters")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ServiceTypes type;
 
     @NotNull(message = "Amount cannot be null")
     @Positive(message = "Amount must be positive")
@@ -45,7 +44,7 @@ public class Service {
     @Positive(message = "Price must be positive")
     private Double price;
 
-    public Service(String name, String type, Float amount, String designatedDeviceType, Double price) {
+    public Service(String name, ServiceTypes type, Float amount, String designatedDeviceType, Double price) {
         this.name = name;
         this.type = type;
         this.amount = amount;

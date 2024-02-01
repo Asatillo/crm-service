@@ -12,6 +12,7 @@ import java.time.Period;
 import java.util.List;
 
 import static com.example.CRM.model.enums.SegmentTypes.*;
+import static com.example.CRM.model.enums.ServiceTypes.*;
 
 @Component
 public class DBPopulate implements CommandLineRunner {
@@ -33,18 +34,18 @@ public class DBPopulate implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Service serviceMobile1 = new Service("1.5 GB Internet", "DATA", 1.5F, "MOBILE", 2000D);
-        Service serviceMobile2 = new Service("1 hour of Voice", "VOICE", 60F, "MOBILE", 1000D);
-        Service serviceMobile3 = new Service("100 SMS", "SMS", 100F, "MOBILE", 2500D);
-        Service serviceMobile4 = new Service("3 GB Internet", "DATA", 3F, "MOBILE", 2500D);
-        Service serviceMobile5 = new Service("2 hours of Voice", "VOICE", 120F, "MOBILE", 1800D);
-        Service serviceMobile6 = new Service("200 SMS", "SMS", 200F, "MOBILE", 3000D);
-        Service serviceMobile7 = new Service("5 GB Internet", "DATA", 5F, "MOBILE", 3000D);
-        Service serviceMobile8 = new Service("3 hours of Voice", "VOICE", 180F, "MOBILE", 2000D);
-        Service serviceMobile9 = new Service("300 SMS", "SMS", 300F, "MOBILE", 3500D);
-        Service serviceRouter1 = new Service("10 GB Internet", "DATA", 10F, "ROUTER", 5000D);
-        Service serviceRouter2 = new Service("20 GB Internet", "DATA", 20F, "ROUTER", 6000D);
-        Service serviceRouter3 = new Service("30 GB Internet", "DATA", 30F, "ROUTER", 7000D);
+        Service serviceMobile1 = new Service("1.5 GB Internet", DATA, 1.5F, "MOBILE", 2000D);
+        Service serviceMobile2 = new Service("1 hour of Voice", VOICE, 60F, "MOBILE", 1000D);
+        Service serviceMobile3 = new Service("100 SMS", SMS, 100F, "MOBILE", 2500D);
+        Service serviceMobile4 = new Service("3 GB Internet", DATA, 3F, "MOBILE", 2500D);
+        Service serviceMobile5 = new Service("2 hours of Voice", VOICE, 120F, "MOBILE", 1800D);
+        Service serviceMobile6 = new Service("200 SMS", SMS, 200F, "MOBILE", 3000D);
+        Service serviceMobile7 = new Service("5 GB Internet", DATA, 5F, "MOBILE", 3000D);
+        Service serviceMobile8 = new Service("3 hours of Voice", VOICE, 180F, "MOBILE", 2000D);
+        Service serviceMobile9 = new Service("300 SMS", SMS, 300F, "MOBILE", 3500D);
+        Service serviceRouter1 = new Service("10 GB Internet", DATA, 10F, "ROUTER", 5000D);
+        Service serviceRouter2 = new Service("20 GB Internet", DATA, 20F, "ROUTER", 6000D);
+        Service serviceRouter3 = new Service("30 GB Internet", DATA, 30F, "ROUTER", 7000D);
 
         serviceRepository.saveAll(List.of(serviceMobile1, serviceMobile2, serviceMobile3, serviceMobile4,
                 serviceMobile5, serviceMobile6, serviceMobile7, serviceMobile8, serviceMobile9, serviceRouter1,

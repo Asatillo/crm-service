@@ -24,14 +24,6 @@ public class AppConstants {
 
     public static final String REGEX_NETWORK_IDENTIFIER = REGEX_PHONE_NUMBER + "|" + REGEX_ROUTER_IDENTIFIER;
 
-    /*
-     * The default quantity measures are:
-     * Voice: Minutes
-     * Data: GB
-     * SMS: Number of SMS
-     */
-    public static final String SERVICE_TYPES_REGEX = "VOICE|DATA|SMS";
-
     public static final List<String> CITIES_WITH_WIRED_INTERNET = List.of("Budapest");
 
     public static final Integer MAJORITY_AGE = 16;
