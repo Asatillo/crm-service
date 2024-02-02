@@ -28,8 +28,7 @@ public class ServiceService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Service> services = serviceRepository.findAll(pageable);
-        PagedResponse<Service> pagedResponse = new PagedResponse<>(services.getContent(), services.getNumber(), services.getSize(),
-                services.getTotalElements(), services.getTotalPages());
+        PagedResponse<Service> pagedResponse = new PagedResponse<>(services);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -47,8 +46,7 @@ public class ServiceService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Service> services = serviceRepository.findByDesignatedDeviceType(deviceType, pageable);
-        PagedResponse<Service> pagedResponse = new PagedResponse<>(services.getContent(), services.getNumber(), services.getSize(),
-                services.getTotalElements(), services.getTotalPages());
+        PagedResponse<Service> pagedResponse = new PagedResponse<>(services);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 

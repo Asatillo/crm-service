@@ -42,8 +42,7 @@ public class DeviceService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = deviceRepository.findAll(pageable);
-        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
-                devices.getTotalElements(), devices.getTotalPages());
+        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -83,8 +82,7 @@ public class DeviceService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = deviceRepository.findByDeviceTemplate_Id(id, pageable);
-        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
-                devices.getTotalElements(), devices.getTotalPages());
+        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -104,8 +102,7 @@ public class DeviceService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = subscriptionRepository.findAllByDevice_Id(id, pageable);
-        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
-                devices.getTotalElements(), devices.getTotalPages());
+        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -118,8 +115,7 @@ public class DeviceService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Device> devices = deviceRepository.findByDeviceTemplate_DeviceType(deviceType, pageable);
-        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
-                devices.getTotalElements(), devices.getTotalPages());
+        PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 

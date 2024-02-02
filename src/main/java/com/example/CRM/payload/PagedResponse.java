@@ -22,4 +22,12 @@ public class PagedResponse<T> {
         this.totalElements = totalElements;
         this.totalPages = totalPages;
     }
+
+    public PagedResponse(Page<T> page) {
+        this.content = page.getContent();
+        this.page = page.getNumber();
+        this.size = page.getSize();
+        this.totalElements = page.getTotalElements();
+        this.totalPages = page.getTotalPages();
+    }
 }

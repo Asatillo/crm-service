@@ -43,8 +43,7 @@ public class CustomerService {
         }else{
             customers = customerRepository.searchCustomers(pageable, search);
         }
-        PagedResponse<Customer> pagedResponse = new PagedResponse<>(customers.getContent(), customers.getNumber(), customers.getSize(),
-                customers.getTotalElements(), customers.getTotalPages());
+        PagedResponse<Customer> pagedResponse = new PagedResponse<>(customers);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 

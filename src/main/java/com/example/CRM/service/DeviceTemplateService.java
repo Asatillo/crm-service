@@ -33,8 +33,7 @@ public class DeviceTemplateService {
             AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
             pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
             Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findAll(pageable);
-            pagedResponse = new PagedResponse<>(deviceTemplates.getContent(), deviceTemplates.getNumber(), deviceTemplates.getSize(),
-                    deviceTemplates.getTotalElements(), deviceTemplates.getTotalPages());
+            pagedResponse = new PagedResponse<>(deviceTemplates);
             AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
         } else {
             AppUtils.validateSortFieldExists(sort, DeviceTemplate.class);
@@ -58,8 +57,7 @@ public class DeviceTemplateService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findByBrand(brand, pageable);
-        PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates.getContent(), deviceTemplates.getNumber(), deviceTemplates.getSize(),
-                deviceTemplates.getTotalElements(), deviceTemplates.getTotalPages());
+        PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -72,8 +70,7 @@ public class DeviceTemplateService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findByDeviceType(deviceType, pageable);
-        PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates.getContent(), deviceTemplates.getNumber(), deviceTemplates.getSize(),
-                deviceTemplates.getTotalElements(), deviceTemplates.getTotalPages());
+        PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 

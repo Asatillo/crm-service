@@ -34,8 +34,7 @@ public class NetworkEntityService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<NetworkEntity> networkEntities = networkEntityRepository.findAll(pageable);
-        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities.getContent(), networkEntities.getNumber(), networkEntities.getSize(),
-                networkEntities.getTotalElements(), networkEntities.getTotalPages());
+        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -48,8 +47,7 @@ public class NetworkEntityService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<NetworkEntity> networkEntities = networkEntityRepository.findAllByDeviceType(deviceType, pageable);
-        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities.getContent(), networkEntities.getNumber(), networkEntities.getSize(),
-                networkEntities.getTotalElements(), networkEntities.getTotalPages());
+        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
@@ -63,8 +61,7 @@ public class NetworkEntityService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerId(ownerId, pageable);
-        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities.getContent(), networkEntities.getNumber(), networkEntities.getSize(),
-                networkEntities.getTotalElements(), networkEntities.getTotalPages());
+        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
