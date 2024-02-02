@@ -33,7 +33,7 @@ public class ServiceService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(services);
+        return pagedResponse;
     }
 
     public ResponseEntity<com.example.CRM.model.Service> getById(Long id) {
@@ -52,7 +52,7 @@ public class ServiceService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(services);
+        return pagedResponse;
     }
 
     public ResponseEntity<com.example.CRM.model.Service> addService(Service service) {

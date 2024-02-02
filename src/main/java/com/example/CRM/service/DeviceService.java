@@ -47,7 +47,7 @@ public class DeviceService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(devices);
+        return pagedResponse;
     }
 
     public ResponseEntity<Device> getById(Long id) {
@@ -88,7 +88,7 @@ public class DeviceService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(devices);
+        return pagedResponse;
     }
 
     public ResponseEntity<ApiResponse> deleteDevice(Long id) {
@@ -109,7 +109,7 @@ public class DeviceService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(devices);
+        return pagedResponse;
     }
 
     public PagedResponse<Device> getByDeviceType(String deviceType, int page, Integer size, String sort) {
@@ -123,6 +123,6 @@ public class DeviceService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(devices);
+        return pagedResponse;
     }
 }

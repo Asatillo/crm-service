@@ -50,7 +50,7 @@ public class CustomerService {
             AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
         }
 
-        return pagedResponse.returnPagedResponse(customers);
+        return pagedResponse;
     }
 
     public ResponseEntity<Customer> getById(Long id) {

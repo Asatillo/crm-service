@@ -39,7 +39,7 @@ public class NetworkEntityService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(networkEntities);
+        return pagedResponse;
     }
 
     public PagedResponse<NetworkEntity> getAllByDeviceType(String deviceType, int page, int size, String sort) {
@@ -53,7 +53,7 @@ public class NetworkEntityService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(networkEntities);
+        return pagedResponse;
     }
 
     public PagedResponse<NetworkEntity> getAllByOwnerId(Long ownerId, int page, Integer size, String sort) {
@@ -68,7 +68,7 @@ public class NetworkEntityService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(networkEntities);
+        return pagedResponse;
     }
 
     public ResponseEntity<NetworkEntity> getById(Long id) {

@@ -47,7 +47,7 @@ public class PlanService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(plans);
+        return pagedResponse;
     }
 
     public ResponseEntity<Plan> getById(Long id) {
@@ -66,7 +66,7 @@ public class PlanService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(plans);
+        return pagedResponse;
     }
 
     public ResponseEntity<Plan> addPlan(@NonNull PlanRequest planRequest) {

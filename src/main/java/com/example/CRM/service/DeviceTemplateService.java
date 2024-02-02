@@ -63,7 +63,7 @@ public class DeviceTemplateService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(deviceTemplates);
+        return pagedResponse;
     }
 
     public PagedResponse<DeviceTemplate> getByDeviceType(String deviceType, int page, int size, String sort) {
@@ -77,7 +77,7 @@ public class DeviceTemplateService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(deviceTemplates);
+        return pagedResponse;
     }
 
     public ResponseEntity<DeviceTemplate> createDeviceTemplate(DeviceTemplate deviceTemplate) {

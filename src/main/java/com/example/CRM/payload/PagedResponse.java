@@ -22,16 +22,4 @@ public class PagedResponse<T> {
         this.totalElements = totalElements;
         this.totalPages = totalPages;
     }
-
-    public PagedResponse<T> returnPagedResponse(Page<T> resource){
-        if(resource.getNumberOfElements() == 0){
-            return new PagedResponse<>(List.of(), 0, 0,
-                    0, 0);
-        }
-
-        List<T> list = resource.getContent();
-
-        return new PagedResponse<>(list, resource.getNumber() + 1, resource.getSize(), resource.getTotalElements(),
-                resource.getTotalPages());
-    }
 }

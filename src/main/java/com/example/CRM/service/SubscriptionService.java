@@ -47,7 +47,7 @@ public class SubscriptionService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(subscriptions);
+        return pagedResponse;
     }
 
     public ResponseEntity<Subscription> getById(Long id) {
@@ -119,7 +119,7 @@ public class SubscriptionService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(subscriptions);
+        return pagedResponse;
     }
 
     public PagedResponse<Subscription> getSubscriptionsByPlanId(Long id, Integer page, Integer size, String sort) {
@@ -134,7 +134,7 @@ public class SubscriptionService {
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
 
-        return pagedResponse.returnPagedResponse(subscriptions);
+        return pagedResponse;
     }
 
     public ResponseEntity<ApiResponse> deleteSubscription(Long id) {
