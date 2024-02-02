@@ -40,7 +40,7 @@ public class SubscriptionController {
     }
 
     @Operation(summary = "Get Subscriptions by Customer Id")
-    @GetMapping("/customer/{id}")
+    @GetMapping("/customers/{id}")
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(@PathVariable Long id,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
