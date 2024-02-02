@@ -35,7 +35,7 @@ public class DeviceTemplateService {
             Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findAll(pageable);
             pagedResponse = new PagedResponse<>(deviceTemplates.getContent(), deviceTemplates.getNumber(), deviceTemplates.getSize(),
                     deviceTemplates.getTotalElements(), deviceTemplates.getTotalPages());
-            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
         } else {
             AppUtils.validateSortFieldExists(sort, DeviceTemplate.class);
             pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort.Direction.ASC, sort);
@@ -61,7 +61,7 @@ public class DeviceTemplateService {
         PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates.getContent(), deviceTemplates.getNumber(), deviceTemplates.getSize(),
                 deviceTemplates.getTotalElements(), deviceTemplates.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -75,7 +75,7 @@ public class DeviceTemplateService {
         PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates.getContent(), deviceTemplates.getNumber(), deviceTemplates.getSize(),
                 deviceTemplates.getTotalElements(), deviceTemplates.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }

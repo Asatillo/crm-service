@@ -46,9 +46,7 @@ public class CustomerService {
         PagedResponse<Customer> pagedResponse = new PagedResponse<>(customers.getContent(), customers.getNumber(), customers.getSize(),
                 customers.getTotalElements(), customers.getTotalPages());
 
-        if(customers.getTotalElements() > 0){
-            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
-        }
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }

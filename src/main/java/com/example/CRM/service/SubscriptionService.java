@@ -45,7 +45,7 @@ public class SubscriptionService {
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions.getContent(), subscriptions.getNumber(), subscriptions.getSize(),
                 subscriptions.getTotalElements(), subscriptions.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -117,7 +117,7 @@ public class SubscriptionService {
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions.getContent(), subscriptions.getNumber(), subscriptions.getSize(),
                 subscriptions.getTotalElements(), subscriptions.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -132,7 +132,7 @@ public class SubscriptionService {
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions.getContent(), subscriptions.getNumber(), subscriptions.getSize(),
                 subscriptions.getTotalElements(), subscriptions.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }

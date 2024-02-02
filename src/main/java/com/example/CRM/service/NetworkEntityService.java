@@ -37,7 +37,7 @@ public class NetworkEntityService {
         PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities.getContent(), networkEntities.getNumber(), networkEntities.getSize(),
                 networkEntities.getTotalElements(), networkEntities.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -51,7 +51,7 @@ public class NetworkEntityService {
         PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities.getContent(), networkEntities.getNumber(), networkEntities.getSize(),
                 networkEntities.getTotalElements(), networkEntities.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -66,7 +66,7 @@ public class NetworkEntityService {
         PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities.getContent(), networkEntities.getNumber(), networkEntities.getSize(),
                 networkEntities.getTotalElements(), networkEntities.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }

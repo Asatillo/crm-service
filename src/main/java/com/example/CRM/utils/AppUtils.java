@@ -42,8 +42,8 @@ public class AppUtils {
     }
 
     /* Checks if the requested page number is less than the total number of pages */
-    public static void validatePageNumberLessThanTotalPages(int page, int totalPages) {
-        if (page >= totalPages) {
+    public static void validatePageNumberLessThanTotalPages(int page, int totalPages, long totalElements) {
+        if (totalElements > 0 && page >= totalPages) {
             throw new ApiException(String.format("Requested page does not exist. Total pages: %d", totalPages));
         }
     }

@@ -45,7 +45,7 @@ public class PlanService {
         PagedResponse<Plan> pagedResponse = new PagedResponse<>(plans.getContent(), plans.getNumber(), plans.getSize(),
                 plans.getTotalElements(), plans.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -64,7 +64,7 @@ public class PlanService {
         PagedResponse<Plan> pagedResponse = new PagedResponse<>(plans.getContent(), plans.getNumber(), plans.getSize(),
                 plans.getTotalElements(), plans.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }

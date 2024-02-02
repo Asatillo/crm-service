@@ -31,7 +31,7 @@ public class ServiceService {
         PagedResponse<Service> pagedResponse = new PagedResponse<>(services.getContent(), services.getNumber(), services.getSize(),
                 services.getTotalElements(), services.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -50,7 +50,7 @@ public class ServiceService {
         PagedResponse<Service> pagedResponse = new PagedResponse<>(services.getContent(), services.getNumber(), services.getSize(),
                 services.getTotalElements(), services.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }

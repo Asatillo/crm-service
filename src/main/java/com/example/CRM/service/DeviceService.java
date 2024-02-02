@@ -45,7 +45,7 @@ public class DeviceService {
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
                 devices.getTotalElements(), devices.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -86,7 +86,7 @@ public class DeviceService {
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
                 devices.getTotalElements(), devices.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -107,7 +107,7 @@ public class DeviceService {
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
                 devices.getTotalElements(), devices.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
@@ -121,7 +121,7 @@ public class DeviceService {
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices.getContent(), devices.getNumber(), devices.getSize(),
                 devices.getTotalElements(), devices.getTotalPages());
 
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages());
+        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
     }
