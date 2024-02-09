@@ -105,11 +105,15 @@ public class DBPopulate implements CommandLineRunner {
         DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", "MOBILE", Period.ofYears(1).toString(), 200000.0, "black", 128);
         DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", "MOBILE", Period.ofYears(1).toString(), 400000.0, "silver", 256);
         DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", "MOBILE", Period.ofYears(2).toString(), 340000.0, "black", 128);
+        DeviceTemplate deviceMobileTemplate5 = new DeviceTemplate("Galaxy S21", "Samsung", "MOBILE", Period.ZERO.toString(), 300000.0, "white", 128);
+        DeviceTemplate deviceMobileTemplate6 = new DeviceTemplate("Iphone X", "Apple", "MOBILE", Period.ofYears(1).toString(), 340000.0, "black", 64);
+        DeviceTemplate deviceMobileTemplate7 = new DeviceTemplate("Pixel", "Google", "MOBILE", Period.ZERO.toString(), 300000.0, "white", 128);
         DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0, "white", 0);
         DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", "ROUTER", Period.ZERO.toString(), 0.0, "black", 0);
         DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0, "silver", 0);
         deviceTemplateRepository.saveAll(List.of(deviceMobileTemplate1, deviceMobileTemplate2, deviceMobileTemplate3,
-                deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3));
+                deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3,
+                deviceMobileTemplate5, deviceMobileTemplate6, deviceMobileTemplate7));
 
         Device deviceMobile1 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay());
         Device deviceMobile2 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay());
@@ -118,6 +122,9 @@ public class DBPopulate implements CommandLineRunner {
         Device deviceMobile5 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay());
         Device deviceMobile6 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay());
         Device deviceMobile7 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay());
+        Device deviceMobile8 = new Device(deviceMobileTemplate5, LocalDate.now().atStartOfDay());
+        Device deviceMobile9 = new Device(deviceMobileTemplate6, LocalDate.now().atStartOfDay());
+        Device deviceMobile10 = new Device(deviceMobileTemplate7, LocalDate.now().atStartOfDay());
         Device deviceRouter1 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
         Device deviceRouter2 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
         Device deviceRouter3 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
@@ -128,8 +135,9 @@ public class DBPopulate implements CommandLineRunner {
         Device deviceRouter8 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
         Device deviceRouter9 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
         deviceRepository.saveAll(List.of(deviceMobile1, deviceMobile2, deviceMobile3, deviceMobile4, deviceMobile5,
-                deviceMobile6, deviceMobile7, deviceRouter1, deviceRouter2, deviceRouter3, deviceRouter4, deviceRouter5,
-                deviceRouter6, deviceRouter7, deviceRouter8, deviceRouter9));
+                deviceMobile6, deviceMobile7, deviceMobile8, deviceMobile9, deviceMobile10, deviceRouter1,
+                deviceRouter2, deviceRouter3, deviceRouter4, deviceRouter5, deviceRouter6, deviceRouter7, deviceRouter8,
+                deviceRouter9));
 
         Subscription subscription1 = new Subscription(networkMobile1, planMobile1, deviceMobile1, LocalDate.now().atStartOfDay());
         Subscription subscription2 = new Subscription(networkMobile8, planMobile2, deviceMobile2, LocalDate.now().atStartOfDay());
