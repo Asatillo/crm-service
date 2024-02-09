@@ -56,11 +56,11 @@ public class CustomerController {
 
     @Operation(summary = "Get Devices by Customer id")
     @GetMapping("/{id}/devices")
-    public PagedResponse<Device> getByCustomerId(@PathVariable Long id,
+    public PagedResponse<Device> getDevicesByCustomerId(@PathVariable Long id,
              @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
              @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
              @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return deviceService.getByCustomerId(id, page - 1, size, sort);
+        return deviceService.getDevicesByCustomerId(id, page - 1, size, sort);
     }
 
     @Operation(summary = "Deactivate Customer")

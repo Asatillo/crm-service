@@ -41,8 +41,8 @@ public class NetworkEntityController {
         return networkEntityService.getAllByDeviceType(deviceType, page-1, size, sort);
     }
 
-    @Operation(summary = "Get All Network Entities by Owner Id")
-    @GetMapping("/owner/{id}")
+    @Operation(summary = "Get All Network Entities by Customer Id")
+    @GetMapping("/customer/{id}")
     public PagedResponse<NetworkEntity> getAllByOwnerId(@PathVariable Long id,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
