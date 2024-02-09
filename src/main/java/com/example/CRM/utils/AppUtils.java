@@ -5,6 +5,7 @@ import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.payload.ApiResponse;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static com.example.CRM.utils.AppConstants.MAJORITY_AGE;
@@ -65,5 +66,9 @@ public class AppUtils {
         if (!dob.plusYears(MAJORITY_AGE).isBefore(LocalDate.now())){
             throw new InvalidInputException(new ApiResponse(false, "Customer must be older than 18"));
         }
+    }
+
+    public static LocalDateTime getCurrentTime() {
+        return LocalDateTime.now();
     }
 }
