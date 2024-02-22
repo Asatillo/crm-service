@@ -14,5 +14,7 @@ public class DeviceRequest {
     @NotNull(message = "Device template id cannot be null")
     private Long deviceTemplateId;
 
+    private Integer amount;
+
     private LocalDateTime purchaseDate;
 }

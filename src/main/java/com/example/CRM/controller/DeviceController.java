@@ -59,10 +59,10 @@ public class DeviceController {
         return deviceService.getByDeviceType(deviceType, page - 1, size, sort, search);
     }
 
-    @Operation(summary = "Add Device")
+    @Operation(summary = "Add Devices")
     @PostMapping
-    public ResponseEntity<Device> addDevice(@Valid @RequestBody DeviceRequest deviceRequest){
-        return deviceService.addDevice(deviceRequest);
+    public ResponseEntity<ApiResponse> addDevices(@Valid @RequestBody DeviceRequest deviceRequest){
+        return deviceService.addDevices(deviceRequest);
     }
 
     @Operation(summary = "Update Device")

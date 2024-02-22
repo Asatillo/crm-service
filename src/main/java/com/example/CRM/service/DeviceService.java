@@ -54,12 +54,16 @@ public class DeviceService {
         return new ResponseEntity<>(device, HttpStatus.OK);
     }
 
-    public ResponseEntity<Device> addDevice(@NonNull DeviceRequest deviceRequest) {
+    public ResponseEntity<ApiResponse> addDevices(@NonNull DeviceRequest deviceRequest) {
         DeviceTemplate deviceTemplate = deviceTemplateRepository.findById(deviceRequest.getDeviceTemplateId())
                 .orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
 
-        Device device = new Device(deviceTemplate, deviceRequest.getPurchaseDate());
-        return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
+        for(int i = 0; i<deviceRequest.getAmount(); i++){
+            deviceRepository.save(new Device(deviceTemplate, deviceRequest.getPurchaseDate()));
+        }
+        return new ResponseEntity<>(new ApiResponse(true,
+                String.format("Successfully created %d %s %s devices", deviceRequest.getAmount(),
+                        deviceTemplate.getBrand(), deviceTemplate.getModel())), HttpStatus.OK);
     }
 
     public ResponseEntity<Device> updateDevice(Long id, @NonNull DeviceRequest deviceRequest) {
