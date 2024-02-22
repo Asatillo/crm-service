@@ -45,13 +45,14 @@ public class DeviceTemplateController {
         return deviceTemplateService.getByBrand(brand, page-1, size, sort);
     }
 
-    @Operation(summary = "Get Mobile Device Templates")
+    @Operation(summary = "Get Mobile Device Templates By Type")
     @GetMapping("/type/{deviceType}")
     public PagedResponse<DeviceTemplate> getByType(@PathVariable String deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){
-        return deviceTemplateService.getByDeviceType(deviceType, page-1, size, sort);
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search){
+        return deviceTemplateService.getByDeviceType(deviceType, page-1, size, sort, search);
     }
 
     @Operation(summary = "Create Device Template")

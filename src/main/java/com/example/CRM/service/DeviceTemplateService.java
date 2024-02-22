@@ -64,12 +64,12 @@ public class DeviceTemplateService {
         return pagedResponse;
     }
 
-    public PagedResponse<DeviceTemplate> getByDeviceType(String deviceType, int page, int size, String sort) {
+    public PagedResponse<DeviceTemplate> getByDeviceType(String deviceType, int page, int size, String sort, String search) {
         AppUtils.validateDeviceType(deviceType);
         AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.findByDeviceType(deviceType, pageable);
+        Page<DeviceTemplate> deviceTemplates = deviceTemplateRepository.searchByDeviceType(pageable, deviceType, search);
         PagedResponse<DeviceTemplate> pagedResponse = new PagedResponse<>(deviceTemplates);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
