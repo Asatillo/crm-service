@@ -16,8 +16,6 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     Page<Device> findByDeviceTemplate_Id(Long id, Pageable pageable);
 
-    Page<Device> findByDeviceTemplate_DeviceType(String deviceType, Pageable pageable);
-
     @Query("SELECT d FROM Device d WHERE d.deviceTemplate.deviceType = ?1  and CONCAT(d.deviceTemplate.brand, ' ', d.deviceTemplate.model, ' ', d.deviceTemplate.storage) LIKE %?2%")
     Page<Device> searchDevicesByDeviceType(Pageable pageable, String deviceType, String search);
 }
