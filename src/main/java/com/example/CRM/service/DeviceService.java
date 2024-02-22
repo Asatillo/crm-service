@@ -109,12 +109,12 @@ public class DeviceService {
         return pagedResponse;
     }
 
-    public PagedResponse<Device> getByDeviceType(String deviceType, int page, Integer size, String sort) {
+    public PagedResponse<Device> getByDeviceType(String deviceType, int page, Integer size, String sort, String search) {
         AppUtils.validateDeviceType(deviceType);
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Device> devices = deviceRepository.findByDeviceTemplate_DeviceType(deviceType, pageable);
+        Page<Device> devices = deviceRepository.searchDevicesByDeviceType(pageable, deviceType, search);
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
