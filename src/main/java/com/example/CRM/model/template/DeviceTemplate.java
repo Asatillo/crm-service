@@ -13,7 +13,7 @@ import java.time.Period;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"model", "brand"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"model", "brand", "storage", "color"})})
 public class DeviceTemplate{
 
     @Id
@@ -38,16 +38,13 @@ public class DeviceTemplate{
     private Double price;
 
     @NotNull(message = "Storage cannot be null")
-    @Column(columnDefinition = "INT(11) UNSIGNED")
     private Integer storage;
 
-    @NotNull(message = "Image URL cannot be null")
-    @Size(min = 100, max = 255, message = "Image URL must be between 1 and 255 characters")
+    @Size(min = 15, max = 255, message = "Image URL must be between 15 and 255 characters")
     private String imageUrl;
 
     @NotNull(message = "Color cannot be null")
     @Size(min = 1, max = 25, message = "Color must be between 1 and 25 characters")
-    @Column(columnDefinition = "VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci")
     private String color;
 
     private boolean isActive = true;
