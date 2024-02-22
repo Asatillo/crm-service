@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.Period;
 
 
@@ -52,6 +53,8 @@ public class DeviceTemplate{
     @NotNull(message = "Warranty duration cannot be null")
     @Size(min = 3, max = 10, message = "Warranty duration must be between 3 and 10 characters")
     private String warrantyDuration;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration, Double price,
                           String color, Integer storage) {

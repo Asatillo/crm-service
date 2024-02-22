@@ -26,6 +26,8 @@ public class Device{
     @NotNull(message = "Device template cannot be null")
     private DeviceTemplate deviceTemplate;
 
+    private LocalDateTime addedAt = LocalDateTime.now();
+
     private LocalDateTime purchaseDate;
 
     public Device(DeviceTemplate deviceTemplate, LocalDateTime purchaseDate) {
