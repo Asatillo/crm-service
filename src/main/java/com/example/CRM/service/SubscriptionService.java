@@ -75,7 +75,7 @@ public class SubscriptionService {
         }
 
         if(startDate.isBefore(LocalDateTime.now().minusMinutes(1))){
-            throw new InvalidInputException(new ApiResponse(false, String.format("start date cannot be before the current date")));
+            throw new InvalidInputException(new ApiResponse(false, "start date cannot be before the current date"));
         }
 
         if(!plan.getDesignatedDeviceType().equals(networkEntity.getDeviceType())){
