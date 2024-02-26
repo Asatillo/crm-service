@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class DBPopulate implements CommandLineRunner {
     NetworkEntityRepository networkEntityRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Service serviceMobile1 = new Service("1.5 GB Internet", DATA, 1.5F, "MOBILE", 2000D);
         Service serviceMobile2 = new Service("1 hour of Voice", VOICE, 60F, "MOBILE", 1000D);
         Service serviceMobile3 = new Service("100 SMS", SMS, 100F, "MOBILE", 2500D);
@@ -115,49 +116,49 @@ public class DBPopulate implements CommandLineRunner {
                 deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3,
                 deviceMobileTemplate5, deviceMobileTemplate6, deviceMobileTemplate7));
 
-        Device deviceMobile1 = new Device(deviceMobileTemplate1);
-        Device deviceMobile2 = new Device(deviceMobileTemplate2);
-        Device deviceMobile3 = new Device(deviceMobileTemplate3);
-        Device deviceMobile4 = new Device(deviceMobileTemplate4);
+        Device deviceMobile1 = new Device(deviceMobileTemplate1, LocalDateTime.now().minus(Period.ofMonths(1)), customer1);
+        Device deviceMobile2 = new Device(deviceMobileTemplate2, LocalDateTime.now().minus(Period.ofMonths(2)), customer2);
+        Device deviceMobile3 = new Device(deviceMobileTemplate3, LocalDateTime.now().minus(Period.ofMonths(3)), customer3);
+        Device deviceMobile4 = new Device(deviceMobileTemplate4, LocalDateTime.now().minus(Period.ofMonths(4)), customer4);
         Device deviceMobile5 = new Device(deviceMobileTemplate2);
         Device deviceMobile6 = new Device(deviceMobileTemplate4);
-        Device deviceMobile7 = new Device(deviceMobileTemplate1);
-        Device deviceMobile8 = new Device(deviceMobileTemplate5);
+        Device deviceMobile7 = new Device(deviceMobileTemplate1, LocalDateTime.now().minus(Period.ofMonths(5)), customer5);
+        Device deviceMobile8 = new Device(deviceMobileTemplate5, LocalDateTime.now().minus(Period.ofMonths(6)), customer6);
         Device deviceMobile9 = new Device(deviceMobileTemplate6);
-        Device deviceMobile10 = new Device(deviceMobileTemplate7);
+        Device deviceMobile10 = new Device(deviceMobileTemplate7, LocalDateTime.now().minus(Period.ofMonths(7)), customer1);
         Device deviceRouter1 = new Device(deviceRouterTemplate1);
-        Device deviceRouter2 = new Device(deviceRouterTemplate2);
+        Device deviceRouter2 = new Device(deviceRouterTemplate2, LocalDateTime.now().minus(Period.ofMonths(8)), customer2);
         Device deviceRouter3 = new Device(deviceRouterTemplate3);
         Device deviceRouter4 = new Device(deviceRouterTemplate1);
         Device deviceRouter5 = new Device(deviceRouterTemplate2);
-        Device deviceRouter6 = new Device(deviceRouterTemplate3);
-        Device deviceRouter7 = new Device(deviceRouterTemplate1);
+        Device deviceRouter6 = new Device(deviceRouterTemplate3, LocalDateTime.now().minus(Period.ofMonths(9)), customer3);
+        Device deviceRouter7 = new Device(deviceRouterTemplate1, LocalDateTime.now().minus(Period.ofMonths(10)), customer4);
         Device deviceRouter8 = new Device(deviceRouterTemplate2);
-        Device deviceRouter9 = new Device(deviceRouterTemplate3);
+        Device deviceRouter9 = new Device(deviceRouterTemplate3, LocalDateTime.now().minus(Period.ofMonths(11)), customer5);
         deviceRepository.saveAll(List.of(deviceMobile1, deviceMobile2, deviceMobile3, deviceMobile4, deviceMobile5,
                 deviceMobile6, deviceMobile7, deviceMobile8, deviceMobile9, deviceMobile10, deviceRouter1,
                 deviceRouter2, deviceRouter3, deviceRouter4, deviceRouter5, deviceRouter6, deviceRouter7, deviceRouter8,
                 deviceRouter9));
 
-        Subscription subscription1 = new Subscription(networkMobile1, planMobile1, deviceMobile1, LocalDate.now().atStartOfDay());
-        Subscription subscription2 = new Subscription(networkMobile8, planMobile2, deviceMobile2, LocalDate.now().atStartOfDay());
-        Subscription subscription3 = new Subscription(networkMobile3, planMobile3, null, LocalDate.now().plus(Period.ofMonths(1)).atStartOfDay());
-        Subscription subscription4 = new Subscription(networkMobile4, planMobile4, deviceMobile3, LocalDate.now().plus(Period.ofDays(1)).atStartOfDay());
-        Subscription subscription5 = new Subscription(networkMobile5, planMobile5, deviceMobile4, LocalDate.now().plus(Period.ofDays(2)).atStartOfDay());
-        Subscription subscription6 = new Subscription(networkMobile6, planMobile5, null, LocalDate.now().plus(Period.ofDays(3)).atStartOfDay());
-        Subscription subscription7 = new Subscription(networkMobile1, planMobile3, deviceMobile5, LocalDate.now().plus(Period.ofDays(4)).atStartOfDay());
-        Subscription subscription8 = new Subscription(networkMobile8, planMobile3, null, LocalDate.now().plus(Period.ofDays(5)).atStartOfDay());
-        Subscription subscription9 = new Subscription(networkMobile9, planMobile2, deviceMobile6, LocalDate.now().plus(Period.ofDays(6)).atStartOfDay());
-        Subscription subscription10 = new Subscription(networkMobile10, planMobile4, deviceMobile7, LocalDate.now().plus(Period.ofDays(7)).atStartOfDay());
-        Subscription subscription11 = new Subscription(networkRouter1, planRouter7, deviceRouter1, LocalDate.now().plus(Period.ofDays(8)).atStartOfDay());
-        Subscription subscription12 = new Subscription(networkRouter2, planRouter9, deviceRouter2, LocalDate.now().plus(Period.ofDays(9)).atStartOfDay());
-        Subscription subscription13 = new Subscription(networkRouter8, planRouter9, deviceRouter3, LocalDate.now().plus(Period.ofDays(10)).atStartOfDay());
-        Subscription subscription14 = new Subscription(networkRouter4, planRouter8, deviceRouter4, LocalDate.now().plus(Period.ofDays(11)).atStartOfDay());
-        Subscription subscription15 = new Subscription(networkRouter5, planRouter7, deviceRouter5, LocalDate.now().plus(Period.ofDays(12)).atStartOfDay());
-        Subscription subscription16 = new Subscription(networkRouter6, planRouter8, deviceRouter6, LocalDate.now().plus(Period.ofDays(13)).atStartOfDay());
-        Subscription subscription17 = new Subscription(networkRouter2, planRouter9, deviceRouter7, LocalDate.now().plus(Period.ofDays(14)).atStartOfDay());
-        Subscription subscription18 = new Subscription(networkRouter8, planRouter9, deviceRouter8, LocalDate.now().plus(Period.ofDays(15)).atStartOfDay());
-        Subscription subscription19 = new Subscription(networkRouter9, planRouter7, deviceRouter9, LocalDate.now().plus(Period.ofDays(16)).atStartOfDay());
+        Subscription subscription1 = new Subscription(networkMobile1, planMobile1, LocalDate.now().atStartOfDay());
+        Subscription subscription2 = new Subscription(networkMobile8, planMobile2, LocalDate.now().atStartOfDay());
+        Subscription subscription3 = new Subscription(networkMobile3, planMobile3, LocalDate.now().plus(Period.ofMonths(1)).atStartOfDay());
+        Subscription subscription4 = new Subscription(networkMobile4, planMobile4, LocalDate.now().plus(Period.ofDays(1)).atStartOfDay());
+        Subscription subscription5 = new Subscription(networkMobile5, planMobile5, LocalDate.now().plus(Period.ofDays(2)).atStartOfDay());
+        Subscription subscription6 = new Subscription(networkMobile6, planMobile5, LocalDate.now().plus(Period.ofDays(3)).atStartOfDay());
+        Subscription subscription7 = new Subscription(networkMobile1, planMobile3, LocalDate.now().plus(Period.ofDays(4)).atStartOfDay());
+        Subscription subscription8 = new Subscription(networkMobile8, planMobile3, LocalDate.now().plus(Period.ofDays(5)).atStartOfDay());
+        Subscription subscription9 = new Subscription(networkMobile9, planMobile2, LocalDate.now().plus(Period.ofDays(6)).atStartOfDay());
+        Subscription subscription10 = new Subscription(networkMobile10, planMobile4, LocalDate.now().plus(Period.ofDays(7)).atStartOfDay());
+        Subscription subscription11 = new Subscription(networkRouter1, planRouter7, LocalDate.now().plus(Period.ofDays(8)).atStartOfDay());
+        Subscription subscription12 = new Subscription(networkRouter2, planRouter9, LocalDate.now().plus(Period.ofDays(9)).atStartOfDay());
+        Subscription subscription13 = new Subscription(networkRouter8, planRouter9, LocalDate.now().plus(Period.ofDays(10)).atStartOfDay());
+        Subscription subscription14 = new Subscription(networkRouter4, planRouter8, LocalDate.now().plus(Period.ofDays(11)).atStartOfDay());
+        Subscription subscription15 = new Subscription(networkRouter5, planRouter7, LocalDate.now().plus(Period.ofDays(12)).atStartOfDay());
+        Subscription subscription16 = new Subscription(networkRouter6, planRouter8, LocalDate.now().plus(Period.ofDays(13)).atStartOfDay());
+        Subscription subscription17 = new Subscription(networkRouter2, planRouter9, LocalDate.now().plus(Period.ofDays(14)).atStartOfDay());
+        Subscription subscription18 = new Subscription(networkRouter8, planRouter9, LocalDate.now().plus(Period.ofDays(15)).atStartOfDay());
+        Subscription subscription19 = new Subscription(networkRouter9, planRouter7, LocalDate.now().plus(Period.ofDays(16)).atStartOfDay());
 
         subscriptionRepository.saveAll(List.of(subscription1, subscription2, subscription3, subscription4,
                 subscription5, subscription6, subscription7, subscription8, subscription9, subscription10,
