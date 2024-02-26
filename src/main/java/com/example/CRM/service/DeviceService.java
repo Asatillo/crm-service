@@ -99,13 +99,13 @@ public class DeviceService {
         return new ResponseEntity<>(new ApiResponse(true, "Device deleted successfully"), HttpStatus.OK);
     }
 
-    public PagedResponse<Device> getDevicesByCustomerId(Long id, int page, int size, String sort, String search) {
+    public PagedResponse<Device> getByCustomerId(Long id, int page, int size, String sort, String search) {
         customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Device> devices = subscriptionRepository.findAllDevicesByOwner_Id(id, search, pageable);
+        Page<Device> devices = deviceRepository.findAllDevicesByOwner_Id(id, search, pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
@@ -124,5 +124,20 @@ public class DeviceService {
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
+    public PagedResponse<Device> getAvailableDevices(int page, Integer size, String sort, String search, String type) {
+        AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
+
+        if(size == -1){
+            List<Device> allDevices = deviceRepository.findAllAvailableDevices(search, type);
+            return new PagedResponse<>(allDevices, 0, allDevices.size(), allDevices.size(), 1);
+        }else{
+            Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+            Page<Device> devices = deviceRepository.findAllAvailableDevices(search, type, pageable);
+            PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
+
+            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
+
+            return pagedResponse;
+        }
     }
 }

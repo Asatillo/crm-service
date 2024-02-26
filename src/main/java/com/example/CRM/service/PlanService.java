@@ -49,6 +49,23 @@ public class PlanService {
         return pagedResponse;
     }
 
+    public PagedResponse<Plan> getAllActiveByType(int page, Integer size, String sort, String search, String deviceType) {
+        AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
+
+        if(size == -1){
+            List<Plan> plans = planRepository.findAllByActiveTrue(deviceType, search);
+            return new PagedResponse<>(plans, 0, plans.size(), plans.size(), 1);
+        }else{
+            Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+            Page<Plan> plans = planRepository.findAllByActiveTrue(pageable, deviceType, search);
+            PagedResponse<Plan> pagedResponse = new PagedResponse<>(plans);
+
+            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
+
+            return pagedResponse;
+        }
+    }
+
     public ResponseEntity<Plan> getById(Long id) {
         Plan plan = planRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Plan", "id", id));
         return new ResponseEntity<>(plan, HttpStatus.OK);

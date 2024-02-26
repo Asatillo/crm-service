@@ -4,6 +4,7 @@ import com.example.CRM.model.Device;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.DeviceRequest;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.request.DeviceSellRequest;
 import com.example.CRM.service.DeviceService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +31,18 @@ public class DeviceController {
     ){
         return deviceService.getAllDevices(page - 1, size, sort);
     }
+
+    @Operation(summary = "Get Available Devices")
+    @GetMapping("/type/{deviceType}/available")
+    public PagedResponse<Device> getAvailable(
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+            @PathVariable String deviceType){
+        return deviceService.getAvailableDevices(page - 1, size, sort, search, deviceType);
+    }
+
 
     @Operation(summary = "Get Device by Id")
     @GetMapping("/{id}")

@@ -32,6 +32,17 @@ public class PlanController {
         return planService.getAll(page-1, size, sort);
     }
 
+    @Operation(summary = "Get All Active Plans")
+    @GetMapping("/device-type/{deviceType}/active")
+    public PagedResponse<Plan> getAllActive(
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+            @PathVariable String deviceType){
+        return planService.getAllActiveByType(page-1, size, sort, search, deviceType);
+    }
+
     @Operation(summary = "Get Plan by Id")
     @GetMapping("/{id}")
     public ResponseEntity<Plan> getById(@PathVariable Long id){

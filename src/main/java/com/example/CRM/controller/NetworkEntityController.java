@@ -50,6 +50,16 @@ public class NetworkEntityController {
         return networkEntityService.getAllByOwnerId(id, page-1, size, sort);
     }
 
+    @Operation(summary = "Get All Network Entities by Customer Id and Device Type")
+    @GetMapping("/customer/{id}/device-type/{deviceType}")
+    public PagedResponse<NetworkEntity> getAllByOwnerIdAndDeviceType(@PathVariable Long id, @PathVariable String deviceType,
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search){
+        return networkEntityService.getAllByOwnerIdAndDeviceType(id, deviceType, page-1, size, sort, search);
+    }
+
     @Operation(summary = "Get Network Entity by Id")
     @GetMapping("/{id}")
     public ResponseEntity<NetworkEntity> getById(@PathVariable Long id){
