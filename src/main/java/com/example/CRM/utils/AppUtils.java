@@ -31,8 +31,8 @@ public class AppUtils {
     }
 
     public static void validateSizeNumberGreaterThanZero(int size){
-        if(size < 0){
-            throw new ApiException("Size number must be greater than zero.");
+        if(size < -1){
+            throw new ApiException("Incorrect size number.");
         }
     }
 
