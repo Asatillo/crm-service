@@ -115,25 +115,25 @@ public class DBPopulate implements CommandLineRunner {
                 deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3,
                 deviceMobileTemplate5, deviceMobileTemplate6, deviceMobileTemplate7));
 
-        Device deviceMobile1 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay());
-        Device deviceMobile2 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay());
-        Device deviceMobile3 = new Device(deviceMobileTemplate3, LocalDate.now().atStartOfDay());
-        Device deviceMobile4 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay());
-        Device deviceMobile5 = new Device(deviceMobileTemplate2, LocalDate.now().atStartOfDay());
-        Device deviceMobile6 = new Device(deviceMobileTemplate4, LocalDate.now().atStartOfDay());
-        Device deviceMobile7 = new Device(deviceMobileTemplate1, LocalDate.now().atStartOfDay());
-        Device deviceMobile8 = new Device(deviceMobileTemplate5, LocalDate.now().atStartOfDay());
-        Device deviceMobile9 = new Device(deviceMobileTemplate6, LocalDate.now().atStartOfDay());
-        Device deviceMobile10 = new Device(deviceMobileTemplate7, LocalDate.now().atStartOfDay());
-        Device deviceRouter1 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
-        Device deviceRouter2 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
-        Device deviceRouter3 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
-        Device deviceRouter4 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
-        Device deviceRouter5 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
-        Device deviceRouter6 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
-        Device deviceRouter7 = new Device(deviceRouterTemplate1, LocalDate.now().atStartOfDay());
-        Device deviceRouter8 = new Device(deviceRouterTemplate2, LocalDate.now().atStartOfDay());
-        Device deviceRouter9 = new Device(deviceRouterTemplate3, LocalDate.now().atStartOfDay());
+        Device deviceMobile1 = new Device(deviceMobileTemplate1);
+        Device deviceMobile2 = new Device(deviceMobileTemplate2);
+        Device deviceMobile3 = new Device(deviceMobileTemplate3);
+        Device deviceMobile4 = new Device(deviceMobileTemplate4);
+        Device deviceMobile5 = new Device(deviceMobileTemplate2);
+        Device deviceMobile6 = new Device(deviceMobileTemplate4);
+        Device deviceMobile7 = new Device(deviceMobileTemplate1);
+        Device deviceMobile8 = new Device(deviceMobileTemplate5);
+        Device deviceMobile9 = new Device(deviceMobileTemplate6);
+        Device deviceMobile10 = new Device(deviceMobileTemplate7);
+        Device deviceRouter1 = new Device(deviceRouterTemplate1);
+        Device deviceRouter2 = new Device(deviceRouterTemplate2);
+        Device deviceRouter3 = new Device(deviceRouterTemplate3);
+        Device deviceRouter4 = new Device(deviceRouterTemplate1);
+        Device deviceRouter5 = new Device(deviceRouterTemplate2);
+        Device deviceRouter6 = new Device(deviceRouterTemplate3);
+        Device deviceRouter7 = new Device(deviceRouterTemplate1);
+        Device deviceRouter8 = new Device(deviceRouterTemplate2);
+        Device deviceRouter9 = new Device(deviceRouterTemplate3);
         deviceRepository.saveAll(List.of(deviceMobile1, deviceMobile2, deviceMobile3, deviceMobile4, deviceMobile5,
                 deviceMobile6, deviceMobile7, deviceMobile8, deviceMobile9, deviceMobile10, deviceRouter1,
                 deviceRouter2, deviceRouter3, deviceRouter4, deviceRouter5, deviceRouter6, deviceRouter7, deviceRouter8,
