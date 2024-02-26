@@ -17,8 +17,5 @@ public class SubscriptionRequest {
     @NotNull(message = "Plan cannot be null")
     private Long planId;
 
-    private Long deviceId;
-
-    @NotNull(message = "Start date cannot be null")
-    private LocalDateTime startDate;
+    private LocalDateTime startDate = LocalDateTime.now();
 }

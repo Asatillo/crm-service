@@ -30,18 +30,13 @@ public class Subscription {
     @NotNull(message = "Plan cannot be null")
     private Plan plan;
 
-    @ManyToOne
-    @JoinColumn(name = "device_id")
-    private Device device;
-
     @NotNull(message = "Start date cannot be null")
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Subscription(NetworkEntity networkEntity, Plan plan, Device device, LocalDateTime startDate) {
+    public Subscription(NetworkEntity networkEntity, Plan plan, LocalDateTime startDate) {
         this.networkEntity = networkEntity;
         this.plan = plan;
-        this.device = device;
         this.startDate = startDate;
         assignEndDate();
     }

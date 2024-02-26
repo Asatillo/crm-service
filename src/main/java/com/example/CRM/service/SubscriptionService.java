@@ -59,22 +59,12 @@ public class SubscriptionService {
     public ResponseEntity<Subscription> addSubscription(@NonNull SubscriptionRequest subscriptionRequest) {
         Long networkEntityId = subscriptionRequest.getNetworkEntity();
         Long planId = subscriptionRequest.getPlanId();
-        Long deviceId = subscriptionRequest.getDeviceId();
         LocalDateTime startDate = subscriptionRequest.getStartDate();
 
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
         NetworkEntity networkEntity = networkEntityRepository.findById(networkEntityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
-
-        if(deviceId != null){
-            Device device = deviceRepository.findById(deviceId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
-            if(device.isOwned()){
-                throw new InvalidInputException(new ApiResponse(false, "Device is already owned"));
-            }
-            device.setOwner(networkEntity.getOwner());
-        }
 
         if(!plan.isActive()){
             throw new InvalidInputException(new ApiResponse(false, String.format("%s with id value '%s' is inactive", "plan", planId)));
@@ -96,22 +86,7 @@ public class SubscriptionService {
             throw new InvalidInputException(new ApiResponse(false, "Wired internet is not available in this area"));
         }
 
-        Device device = null;
-        if(deviceId != null){
-            device = deviceRepository.findById(deviceId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
-        }
-
-        // if device is null and plan is designated to router, throw error
-        if(device == null && plan.getDesignatedDeviceType().equals("ROUTER")){
-            throw new InvalidInputException(new ApiResponse(false, "Router device is required for this Plan"));
-        }
-        // if device is not null and plan is designated to router, check if device is router
-        if(device != null && plan.getDesignatedDeviceType().equals("ROUTER") && !device.getDeviceTemplate().getDeviceType().equals("ROUTER")){
-                throw new InvalidInputException(new ApiResponse(false, "Router device is required for this Plan"));
-        }
-
-        Subscription subscription = new Subscription(networkEntity, plan, device, startDate);
+        Subscription subscription = new Subscription(networkEntity, plan, startDate);
         return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
     }
 
