@@ -99,13 +99,13 @@ public class DeviceService {
         return new ResponseEntity<>(new ApiResponse(true, "Device deleted successfully"), HttpStatus.OK);
     }
 
-    public PagedResponse<Device> getDevicesByCustomerId(Long id, int page, int size, String sort) {
+    public PagedResponse<Device> getDevicesByCustomerId(Long id, int page, int size, String sort, String search) {
         customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Device> devices = subscriptionRepository.findAllDevicesByOwner_Id(id, pageable);
+        Page<Device> devices = subscriptionRepository.findAllDevicesByOwner_Id(id, search, pageable);
         PagedResponse<Device> pagedResponse = new PagedResponse<>(devices);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
