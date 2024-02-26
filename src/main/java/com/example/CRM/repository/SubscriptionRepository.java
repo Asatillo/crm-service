@@ -19,9 +19,5 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
 
     Page<Subscription> findAllByPlanId(Long id, Pageable pageable);
 
-    @Query("SELECT s.device FROM Subscription s WHERE s.networkEntity.owner.id = ?1 and " +
-            "CONCAT(s.device.deviceTemplate.brand, ' ', s.device.deviceTemplate.model) LIKE %?2%")
-    Page<Device> findAllDevicesByOwner_Id(Long id, String search, Pageable pageable);
-
     boolean existsByPlan_Id(Long id);
 }
