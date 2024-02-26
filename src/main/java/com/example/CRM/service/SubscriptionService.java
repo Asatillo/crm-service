@@ -74,8 +74,8 @@ public class SubscriptionService {
             throw new InvalidInputException(new ApiResponse(false, String.format("%s  '%s' is inactive", "Network Entity", networkEntity.getNetworkIdentifier())));
         }
 
-        if(startDate.isBefore(LocalDateTime.now())){
-            throw new InvalidInputException(new ApiResponse(false, String.format("%s cannot be before the current date", "start date")));
+        if(startDate.isBefore(LocalDateTime.now().minusMinutes(1))){
+            throw new InvalidInputException(new ApiResponse(false, String.format("start date cannot be before the current date")));
         }
 
         if(!plan.getDesignatedDeviceType().equals(networkEntity.getDeviceType())){

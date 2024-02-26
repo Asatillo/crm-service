@@ -69,6 +69,11 @@ public class DeviceController {
         return deviceService.getByCustomerId(id, page - 1, size, sort, search);
     }
 
+    @Operation(summary = "Sell device to Customer")
+    @PostMapping("/{id}/sell")
+    public ResponseEntity<Device> sellDevice(@PathVariable Long id, @RequestBody DeviceSellRequest deviceSellRequest){
+        return deviceService.sellDevice(id, deviceSellRequest);
+    }
 
     @Operation(summary = "Get Devices by Type")
     @GetMapping("/type/{deviceType}")

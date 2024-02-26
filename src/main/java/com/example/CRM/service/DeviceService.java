@@ -2,11 +2,13 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
+import com.example.CRM.model.Customer;
 import com.example.CRM.model.Device;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.DeviceRequest;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.request.DeviceSellRequest;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.DeviceRepository;
 import com.example.CRM.repository.DeviceTemplateRepository;
@@ -20,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class DeviceService {
@@ -59,7 +62,7 @@ public class DeviceService {
                 .orElseThrow(() -> new ResourceNotFoundException("Device Template", "id", deviceRequest.getDeviceTemplateId()));
 
         for(int i = 0; i<deviceRequest.getAmount(); i++){
-            deviceRepository.save(new Device(deviceTemplate, deviceRequest.getPurchaseDate()));
+            deviceRepository.save(new Device(deviceTemplate));
         }
         return new ResponseEntity<>(new ApiResponse(true,
                 String.format("Successfully created %d %s %s devices", deviceRequest.getAmount(),
@@ -124,6 +127,18 @@ public class DeviceService {
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
         return pagedResponse;
+    }
+
+    public ResponseEntity<Device> sellDevice(Long id, DeviceSellRequest customerRequest) {
+        Device device = deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
+        Customer customer = customerRepository.findById(customerRequest.getCustomerId()).orElseThrow(() ->
+                new ResourceNotFoundException("Customer", "id", customerRequest.getCustomerId()));
+
+        device.setOwner(customer);
+        device.setPurchaseDate(AppUtils.getCurrentTime());
+        return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
+    }
+
     public PagedResponse<Device> getAvailableDevices(int page, Integer size, String sort, String search, String type) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
