@@ -67,6 +67,15 @@ public class SubscriptionService {
         NetworkEntity networkEntity = networkEntityRepository.findById(networkEntityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Network Entity", "id", networkEntityId));
 
+        if(deviceId != null){
+            Device device = deviceRepository.findById(deviceId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Device", "id", deviceId));
+            if(device.isOwned()){
+                throw new InvalidInputException(new ApiResponse(false, "Device is already owned"));
+            }
+            device.setOwner(networkEntity.getOwner());
+        }
+
         if(!plan.isActive()){
             throw new InvalidInputException(new ApiResponse(false, String.format("%s with id value '%s' is inactive", "plan", planId)));
         }

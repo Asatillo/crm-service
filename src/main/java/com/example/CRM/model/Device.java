@@ -3,7 +3,6 @@ package com.example.CRM.model;
 import com.example.CRM.model.template.DeviceTemplate;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +17,9 @@ public class Device{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Active indicator cannot be null")
-    private boolean isOwned = false;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Customer owner;
 
     @ManyToOne
     @JoinColumn(name = "device_template_id")
@@ -30,8 +30,17 @@ public class Device{
 
     private LocalDateTime purchaseDate;
 
-    public Device(DeviceTemplate deviceTemplate, LocalDateTime purchaseDate) {
+    public boolean isOwned(){
+        return owner != null;
+    }
+
+    public Device(DeviceTemplate deviceTemplate, LocalDateTime purchaseDate, Customer owner) {
         this.deviceTemplate = deviceTemplate;
         this.purchaseDate = purchaseDate;
+        this.owner = owner;
+    }
+
+    public Device(DeviceTemplate deviceTemplate) {
+        this.deviceTemplate = deviceTemplate;
     }
 }
