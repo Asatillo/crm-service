@@ -46,6 +46,15 @@ public class DeviceController {
         return deviceService.getByDeviceTemplateId(id, page - 1, size, sort);
     }
 
+    @Operation(summary = "Get Devices by Customer id")
+    @GetMapping("/customer/{id}")
+    public PagedResponse<Device> getByCustomerId(@PathVariable Long id,
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search){
+        return deviceService.getByCustomerId(id, page - 1, size, sort, search);
+    }
 
 
     @Operation(summary = "Get Devices by Type")

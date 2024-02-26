@@ -1,7 +1,6 @@
 package com.example.CRM.controller;
 
 import com.example.CRM.model.Customer;
-import com.example.CRM.model.Device;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.service.CustomerService;
@@ -52,16 +51,6 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customer){
         return customerService.updateCustomer(id, customer);
-    }
-
-    @Operation(summary = "Get Devices by Customer id")
-    @GetMapping("/{id}/devices")
-    public PagedResponse<Device> getDevicesByCustomerId(@PathVariable Long id,
-             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
-             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
-             @RequestParam(name = "search", required = false, defaultValue = "") String search){
-        return deviceService.getDevicesByCustomerId(id, page - 1, size, sort, search);
     }
 
     @Operation(summary = "Deactivate Customer")
