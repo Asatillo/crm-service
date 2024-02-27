@@ -49,7 +49,7 @@ public class NetworkEntity {
         this.deviceType = deviceType;
         this.owner = owner;
         this.tag = tag;
-        this.isActive = (owner != null);
+        this.isActive = true;
         if (isMobile()){
             processPhoneNumber();
         }
