@@ -18,4 +18,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     @Query("SELECT p FROM Plan p WHERE p.isActive AND p.designatedDeviceType = :deviceType AND (p.name LIKE %:search% OR p.description LIKE %:search%)")
     Page<Plan> findAllByActiveTrue(Pageable pageable, String deviceType, String search);
+
+    @Query("SELECT p FROM Plan p WHERE CONCAT(p.name, '', p.description) LIKE %:search%")
+    Page<Plan> findAllWithSearch(String search, Pageable pageable);
 }

@@ -37,11 +37,11 @@ public class PlanService {
         this.serviceRepository = serviceRepository;
     }
 
-    public PagedResponse<Plan> getAll(int page, int size, String sort) {
+    public PagedResponse<Plan> getAll(int page, int size, String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Plan> plans = planRepository.findAll(pageable);
+        Page<Plan> plans = planRepository.findAllWithSearch(search, pageable);
         PagedResponse<Plan> pagedResponse = new PagedResponse<>(plans);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
