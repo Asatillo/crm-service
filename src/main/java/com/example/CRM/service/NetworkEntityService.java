@@ -6,6 +6,7 @@ import com.example.CRM.model.NetworkEntity;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.NetworkEntityRequest;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.request.NetworkEntitySellRequest;
 import com.example.CRM.repository.CustomerRepository;
 import com.example.CRM.repository.NetworkEntityRepository;
 import com.example.CRM.utils.AppUtils;
@@ -180,5 +181,27 @@ public class NetworkEntityService {
 
             return pagedResponse;
         }
+    }
+
+    public ResponseEntity<ApiResponse> assignNetworkEntity(Long id, NetworkEntitySellRequest networkEntitySellRequest) {
+        NetworkEntity existingNetworkEntity = networkEntityRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("NetworkEntity", "id", id));
+
+        if(!existingNetworkEntity.isActive()){
+            return new ResponseEntity<>(new ApiResponse(false, "NetworkEntity is inactive"), HttpStatus.BAD_REQUEST);
+        }
+
+        if(existingNetworkEntity.getOwner() != null){
+            return new ResponseEntity<>(new ApiResponse(false, "NetworkEntity is already owned by the same customer"), HttpStatus.BAD_REQUEST);
+        }
+
+        Customer newOwner = customerRepository.findById(networkEntitySellRequest.getOwnerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntitySellRequest.getOwnerId()));
+
+        existingNetworkEntity.setOwner(newOwner);
+        existingNetworkEntity.setTag(networkEntitySellRequest.getTag());
+
+        networkEntityRepository.save(existingNetworkEntity);
+        return new ResponseEntity<>(new ApiResponse(true, "Network Entity assigned successfully"), HttpStatus.OK);
     }
 }

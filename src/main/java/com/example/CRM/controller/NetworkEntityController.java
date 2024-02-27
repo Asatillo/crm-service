@@ -4,6 +4,7 @@ import com.example.CRM.model.NetworkEntity;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.NetworkEntityRequest;
 import com.example.CRM.payload.PagedResponse;
+import com.example.CRM.payload.request.NetworkEntitySellRequest;
 import com.example.CRM.service.NetworkEntityService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
@@ -86,6 +87,12 @@ public class NetworkEntityController {
     @PutMapping("/{id}")
     public ResponseEntity<NetworkEntity> updateNetworkEntity(@PathVariable Long id, @Valid @RequestBody NetworkEntityRequest networkEntityRequest){
         return networkEntityService.updateNetworkEntity(id, networkEntityRequest);
+    }
+
+    @Operation(summary = "Assign Network Entity To Customer")
+    @PutMapping("/{id}/sell")
+    public ResponseEntity<ApiResponse> assignNetworkEntity(@PathVariable Long id, @Valid @RequestBody NetworkEntitySellRequest networkEntitySellRequest){
+        return networkEntityService.assignNetworkEntity(id, networkEntitySellRequest);
     }
 
     @Operation(summary = "Deactivate Network Entity")
