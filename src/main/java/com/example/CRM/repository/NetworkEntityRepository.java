@@ -12,7 +12,9 @@ public interface NetworkEntityRepository extends JpaRepository<NetworkEntity, Lo
 
     Page<NetworkEntity> findAllByDeviceType(String deviceType, Pageable pageable);
 
-    Page<NetworkEntity> findAllByOwnerId(Long ownerId, Pageable pageable);
+    @Query("SELECT n FROM NetworkEntity n " +
+            "WHERE n.owner.id = ?1 AND (n.networkIdentifier LIKE %?2%)")
+    Page<NetworkEntity> findAllByOwnerId(Long ownerId, String search, Pageable pageable);
 
     @Query("SELECT n FROM NetworkEntity n " +
             "WHERE n.owner.id = ?1 AND n.deviceType = ?2 AND (n.networkIdentifier LIKE %?3%)" +

@@ -56,13 +56,13 @@ public class NetworkEntityService {
         return pagedResponse;
     }
 
-    public PagedResponse<NetworkEntity> getAllByOwnerId(Long ownerId, int page, Integer size, String sort) {
+    public PagedResponse<NetworkEntity> getAllByOwnerId(Long ownerId, int page, Integer size, String sort, String search) {
         networkEntityRepository.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("NetworkEntity", "id", ownerId));
 
         AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerId(ownerId, pageable);
+        Page<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerId(ownerId, search, pageable);
         PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
