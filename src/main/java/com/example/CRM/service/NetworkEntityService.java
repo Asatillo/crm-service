@@ -69,6 +69,23 @@ public class NetworkEntityService {
         return pagedResponse;
     }
 
+    public PagedResponse<NetworkEntity> getAllAvailableByDeviceType(int page, Integer size, String sort, String search, String deviceType) {
+        AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
+
+        if(size == -1){
+            List<NetworkEntity> networkEntities = networkEntityRepository.findAllAvailableByDeviceType(deviceType, search);
+            return new PagedResponse<>(networkEntities, 0, networkEntities.size(), networkEntities.size(), 1);
+        }else{
+            Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+            Page<NetworkEntity> networkEntities = networkEntityRepository.findAllAvailableByDeviceType(deviceType, search, pageable);
+            PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
+
+            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
+
+            return pagedResponse;
+        }
+    }
+
     public ResponseEntity<NetworkEntity> getById(Long id) {
         NetworkEntity networkEntity = networkEntityRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("NetworkEntity", "id", id));
         return new ResponseEntity<>(networkEntity, HttpStatus.OK);
