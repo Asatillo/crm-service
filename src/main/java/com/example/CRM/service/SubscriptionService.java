@@ -37,11 +37,11 @@ public class SubscriptionService {
         this.deviceRepository = deviceRepository;
     }
 
-    public PagedResponse<Subscription> getAll(int page, int size, String sort) {
+    public PagedResponse<Subscription> getAll(int page, int size, String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Subscription> subscriptions = subscriptionRepository.findAll(pageable);
+        Page<Subscription> subscriptions = subscriptionRepository.findAllWithSearch(pageable, search);
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());

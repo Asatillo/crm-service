@@ -28,9 +28,9 @@ public class SubscriptionController {
     public PagedResponse<Subscription> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
-            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
-    ){
-        return subscriptionService.getAll(page-1, size, sort);
+            @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
+            @RequestParam(name = "search", required = false, defaultValue = "") String search){
+        return subscriptionService.getAll(page-1, size, sort, search);
     }
 
     @Operation(summary = "Get Subscription by Id")
