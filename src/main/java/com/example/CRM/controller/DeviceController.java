@@ -9,6 +9,7 @@ import com.example.CRM.service.DeviceService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,8 +72,9 @@ public class DeviceController {
 
     @Operation(summary = "Sell device to Customer")
     @PostMapping("/{id}/sell")
-    public ResponseEntity<Device> sellDevice(@PathVariable Long id, @RequestBody DeviceSellRequest deviceSellRequest){
-        return deviceService.sellDevice(id, deviceSellRequest);
+    public ResponseEntity<Device> sellDevice(@PathVariable Long id, @RequestBody DeviceSellRequest deviceSellRequest,
+                                             @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader){
+        return deviceService.sellDevice(id, deviceSellRequest, authHeader);
     }
 
     @Operation(summary = "Get Devices by Type")

@@ -2,6 +2,7 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
+import com.example.CRM.feign.SalesInterface;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.Device;
 import com.example.CRM.model.template.DeviceTemplate;
@@ -23,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.HashMap;
 
 @Service
 public class DeviceService {
@@ -31,13 +33,16 @@ public class DeviceService {
     DeviceTemplateRepository deviceTemplateRepository;
     CustomerRepository customerRepository;
     SubscriptionRepository subscriptionRepository;
+    SalesInterface salesInterface;
 
     public DeviceService(DeviceRepository deviceRepository, DeviceTemplateRepository deviceTemplateRepository,
-                         CustomerRepository customerRepository, SubscriptionRepository subscriptionRepository) {
+                         CustomerRepository customerRepository, SubscriptionRepository subscriptionRepository,
+                         SalesInterface salesInterface) {
         this.deviceRepository = deviceRepository;
         this.deviceTemplateRepository = deviceTemplateRepository;
         this.customerRepository = customerRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.salesInterface = salesInterface;
     }
 
     public PagedResponse<Device> getAllDevices(int page, int size, String sort) {
@@ -129,14 +134,41 @@ public class DeviceService {
         return pagedResponse;
     }
 
-    public ResponseEntity<Device> sellDevice(Long id, DeviceSellRequest customerRequest) {
+    public ResponseEntity<Device> sellDevice(Long id, DeviceSellRequest customerRequest, String authHeader) {
         Device device = deviceRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
         Customer customer = customerRepository.findById(customerRequest.getCustomerId()).orElseThrow(() ->
                 new ResourceNotFoundException("Customer", "id", customerRequest.getCustomerId()));
 
         device.setOwner(customer);
         device.setPurchaseDate(AppUtils.getCurrentTime());
+
+        HashMap<String, Object> sale = getSale(device, customer);
+
+        ResponseEntity<HashMap> saleResponse = salesInterface.add(authHeader, sale);
+        if(saleResponse.getStatusCode().equals(HttpStatus.CREATED.value())){
+            throw new InvalidInputException(new ApiResponse(false, "Sale creation failed"));
+        }
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
+    }
+
+    private static HashMap<String, Object> getSale(Device device, Customer customer) {
+        HashMap<String, Object> sale = new HashMap();
+
+//        {
+//            "promotionId": 1,
+//                "discountAmount": 10,
+//                "amount": 10000,
+//                "paymentMethod": "CASH",
+//                "paymentProgress": "PAID"
+//        }
+        sale.put("description", String.format("Device %s sold to %s %s", device.getDeviceTemplate().getModel(),
+                customer.getFirstName(), customer.getLastName()));
+        sale.put("productId", device.getId());
+        sale.put("productType", "DEVICE");
+        sale.put("customerId", customer.getId());
+        sale.put("customer", customer.getFirstName() + " " + customer.getLastName());
+        sale.put("amount", device.getDeviceTemplate().getPrice());
+        return sale;
     }
 
     public PagedResponse<Device> getAvailableDevices(int page, Integer size, String sort, String search, String type) {
