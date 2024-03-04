@@ -31,11 +31,11 @@ public class NetworkEntityService {
         this.customerRepository = customerRepository;
     }
 
-    public PagedResponse<NetworkEntity> getAll(int page, Integer size, String sort) {
+    public PagedResponse<NetworkEntity> getAll(int page, Integer size, String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<NetworkEntity> networkEntities = networkEntityRepository.findAll(pageable);
+        Page<NetworkEntity> networkEntities = networkEntityRepository.findAllWithSearch(search, pageable);
         PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());

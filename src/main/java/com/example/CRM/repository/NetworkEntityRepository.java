@@ -33,4 +33,8 @@ public interface NetworkEntityRepository extends JpaRepository<NetworkEntity, Lo
     @Query("SELECT n FROM NetworkEntity n " +
             "WHERE n.deviceType = ?1 AND n.owner IS NULL AND (n.networkIdentifier LIKE %?2%)")
     Page<NetworkEntity> findAllAvailableByDeviceType(String deviceType, String search,Pageable pageable);
+
+    @Query("SELECT n FROM NetworkEntity n " +
+            "WHERE CONCAT(n.networkIdentifier, ' ', n.deviceType, ' ', n.tag) LIKE %?1%")
+    Page<NetworkEntity> findAllWithSearch(String search, Pageable pageable);
 }
