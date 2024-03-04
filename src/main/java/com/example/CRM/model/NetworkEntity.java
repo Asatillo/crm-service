@@ -55,6 +55,17 @@ public class NetworkEntity {
         }
     }
 
+    public NetworkEntity(String networkIdentifier, String deviceType, String tag) {
+        this.networkIdentifier = networkIdentifier;
+        this.deviceType = deviceType;
+        this.owner = null;
+        this.tag = tag;
+        this.isActive = true;
+        if (isMobile()){
+            processPhoneNumber();
+        }
+    }
+
     @JsonIgnore
     public void processPhoneNumber(){
         this.networkIdentifier = this.networkIdentifier.replaceAll("[^0-9]", "");
