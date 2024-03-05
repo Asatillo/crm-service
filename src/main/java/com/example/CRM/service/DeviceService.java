@@ -153,14 +153,6 @@ public class DeviceService {
 
     private static HashMap<String, Object> getSale(Device device, Customer customer) {
         HashMap<String, Object> sale = new HashMap();
-
-//        {
-//            "promotionId": 1,
-//                "discountAmount": 10,
-//                "amount": 10000,
-//                "paymentMethod": "CASH",
-//                "paymentProgress": "PAID"
-//        }
         sale.put("description", String.format("Device %s sold to %s %s", device.getDeviceTemplate().getModel(),
                 customer.getFirstName(), customer.getLastName()));
         sale.put("productId", device.getId());
