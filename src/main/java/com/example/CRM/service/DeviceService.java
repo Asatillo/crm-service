@@ -145,7 +145,7 @@ public class DeviceService {
         HashMap<String, Object> sale = getSale(device, customer);
 
         ResponseEntity<HashMap> saleResponse = salesInterface.add(authHeader, sale);
-        if(saleResponse.getStatusCode().equals(HttpStatus.CREATED.value())){
+        if(!saleResponse.getStatusCode().equals(HttpStatus.CREATED)){
             throw new InvalidInputException(new ApiResponse(false, "Sale creation failed"));
         }
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
