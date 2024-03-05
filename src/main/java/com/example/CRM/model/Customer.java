@@ -77,4 +77,8 @@ public class Customer {
     public boolean isWiredInternetAvailable(){
         return AppConstants.CITIES_WITH_WIRED_INTERNET.contains(city);
     }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
 }

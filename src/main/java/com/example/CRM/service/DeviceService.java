@@ -166,7 +166,7 @@ public class DeviceService {
         sale.put("productId", device.getId());
         sale.put("productType", "DEVICE");
         sale.put("customerId", customer.getId());
-        sale.put("customer", customer.getFirstName() + " " + customer.getLastName());
+        sale.put("customer", customer.getFullName());
         sale.put("amount", device.getDeviceTemplate().getPrice());
         return sale;
     }
