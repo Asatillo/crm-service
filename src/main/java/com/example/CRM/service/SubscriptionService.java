@@ -2,6 +2,7 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
+import com.example.CRM.feign.SalesInterface;
 import com.example.CRM.model.*;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
@@ -31,11 +32,16 @@ public class SubscriptionService {
 
     final DeviceRepository deviceRepository;
 
-    public SubscriptionService(SubscriptionRepository subscriptionRepository, NetworkEntityRepository networkEntityRepository, PlanRepository planRepository, DeviceRepository deviceRepository) {
+    SalesInterface salesInterface;
+
+    public SubscriptionService(SubscriptionRepository subscriptionRepository,
+                               NetworkEntityRepository networkEntityRepository, PlanRepository planRepository,
+                               DeviceRepository deviceRepository, SalesInterface salesInterface) {
         this.subscriptionRepository = subscriptionRepository;
         this.networkEntityRepository = networkEntityRepository;
         this.planRepository = planRepository;
         this.deviceRepository = deviceRepository;
+        this.salesInterface = salesInterface;
     }
 
     public PagedResponse<Subscription> getAll(int page, int size, String sort, String search) {
@@ -57,7 +63,8 @@ public class SubscriptionService {
         return new ResponseEntity<>(subscription, HttpStatus.OK);
     }
 
-    public ResponseEntity<Subscription> addSubscription(@NonNull SubscriptionRequest subscriptionRequest) {
+    public ResponseEntity<Subscription> addSubscription(@NonNull SubscriptionRequest subscriptionRequest,
+                                                        String authorizationHeader) {
         Long networkEntityId = subscriptionRequest.getNetworkEntity();
         Long planId = subscriptionRequest.getPlanId();
         LocalDate startDate = subscriptionRequest.getStartDate();
@@ -87,8 +94,29 @@ public class SubscriptionService {
             throw new InvalidInputException(new ApiResponse(false, "Wired internet is not available in this area"));
         }
 
+        HashMap<String, Object> sale = getSale(plan, networkEntity.getOwner(), subscriptionRequest.getPromotionId());
+
+        ResponseEntity<HashMap> saleResponse = salesInterface.add(authorizationHeader, sale);
+        if(!saleResponse.getStatusCode().equals(HttpStatus.CREATED)){
+            throw new InvalidInputException(new ApiResponse(false, "Sale creation failed"));
+        }
+
         Subscription subscription = new Subscription(networkEntity, plan, startDate);
         return new ResponseEntity<>(subscriptionRepository.save(subscription), HttpStatus.CREATED);
+    }
+
+    private static HashMap<String, Object> getSale(Plan plan, Customer customer, Long promotionId) {
+        HashMap<String, Object> sale = new HashMap();
+        if(promotionId != null){
+            sale.put("promotionId", promotionId);
+        }
+        sale.put("description", String.format("Plan %s sold to %s %s", plan.getName(), customer.getFirstName(), customer.getLastName()));
+        sale.put("customerId", customer.getId());
+        sale.put("customer", customer.getFullName());
+        sale.put("productId", plan.getId());
+        sale.put("productType", "PLAN");
+        sale.put("amount", plan.getPrice());
+        return sale;
     }
 
     public PagedResponse<Subscription> getSubscriptionsByCustomerId(Long id, int page, int size, String sort) {

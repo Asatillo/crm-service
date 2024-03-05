@@ -59,8 +59,9 @@ public class SubscriptionController {
 
     @Operation(summary = "Add Subscription")
     @PostMapping
-    public ResponseEntity<Subscription> addSubscription(@Valid @RequestBody SubscriptionRequest subscriptionRequest){
-        return subscriptionService.addSubscription(subscriptionRequest);
+    public ResponseEntity<Subscription> addSubscription(@Valid @RequestBody SubscriptionRequest subscriptionRequest,
+                                                        @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader){
+        return subscriptionService.addSubscription(subscriptionRequest, authHeader);
     }
 
     @Operation(summary = "Delete Subscription")
