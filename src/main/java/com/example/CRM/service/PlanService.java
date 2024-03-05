@@ -49,6 +49,13 @@ public class PlanService {
         return pagedResponse;
     }
 
+    public PagedResponse<Plan> getAllActive(int page, Integer size, String sort, String search) {
+        AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
+
+        List<Plan> plans = planRepository.findAllByActiveTrue(search);
+        return new PagedResponse<>(plans, 0, plans.size(), plans.size(), 1);
+    }
+
     public PagedResponse<Plan> getAllActiveByType(int page, Integer size, String sort, String search, String deviceType) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
 

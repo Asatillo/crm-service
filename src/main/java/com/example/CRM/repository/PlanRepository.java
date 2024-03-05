@@ -21,4 +21,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     @Query("SELECT p FROM Plan p WHERE CONCAT(p.name, '', p.description) LIKE %:search%")
     Page<Plan> findAllWithSearch(String search, Pageable pageable);
+
+    @Query("SELECT p FROM Plan p WHERE CONCAT(p.name, ' ', p.description) LIKE %:search%")
+    List<Plan> findAllByActiveTrue(String search);
 }
