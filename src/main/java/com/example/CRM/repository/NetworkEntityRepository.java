@@ -17,13 +17,15 @@ public interface NetworkEntityRepository extends JpaRepository<NetworkEntity, Lo
     Page<NetworkEntity> findAllByOwnerId(Long ownerId, String search, Pageable pageable);
 
     @Query("SELECT n FROM NetworkEntity n " +
-            "WHERE n.owner.id = ?1 AND n.deviceType = ?2 AND (n.networkIdentifier LIKE %?3%)" +
-            "AND NOT EXISTS (SELECT s FROM Subscription s WHERE s.networkEntity.id = n.id AND s.isActive = true)")
+            "WHERE n.owner.id = ?1 AND (n.networkIdentifier LIKE %?2%)")
+    List<NetworkEntity> findAllByOwnerId(Long ownerId, String search);
+
+    @Query("SELECT n FROM NetworkEntity n " +
+            "WHERE n.owner.id = ?1 AND n.deviceType = ?2 AND (n.networkIdentifier LIKE %?3%)")
     List<NetworkEntity> findAllByOwnerIdAndDeviceType(Long id, String deviceType, String search);
 
     @Query("SELECT n FROM NetworkEntity n " +
-            "WHERE n.owner.id = ?1 AND n.deviceType = ?2 AND (n.networkIdentifier LIKE %?3%)" +
-            "AND NOT EXISTS (SELECT s FROM Subscription s WHERE s.networkEntity.id = n.id AND s.isActive = true)")
+            "WHERE n.owner.id = ?1 AND n.deviceType = ?2 AND (n.networkIdentifier LIKE %?3%)")
     Page<NetworkEntity> findAllByOwnerIdAndDeviceType(Long id, String deviceType, String search, Pageable pageable);
 
     @Query("SELECT n FROM NetworkEntity n " +
@@ -37,4 +39,8 @@ public interface NetworkEntityRepository extends JpaRepository<NetworkEntity, Lo
     @Query("SELECT n FROM NetworkEntity n " +
             "WHERE CONCAT(n.networkIdentifier, ' ', n.deviceType, ' ', n.tag) LIKE %?1%")
     Page<NetworkEntity> findAllWithSearch(String search, Pageable pageable);
+
+    @Query("SELECT n FROM NetworkEntity n " +
+            "WHERE n.owner IS NOT NULL AND n.networkIdentifier LIKE %?1%")
+    List<NetworkEntity> findAllByOwnerNotEmpty(String search);
 }

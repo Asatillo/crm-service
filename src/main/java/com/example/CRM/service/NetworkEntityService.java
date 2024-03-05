@@ -58,16 +58,19 @@ public class NetworkEntityService {
 
     public PagedResponse<NetworkEntity> getAllByOwnerId(Long ownerId, int page, Integer size, String sort, String search) {
         networkEntityRepository.findById(ownerId).orElseThrow(() -> new ResourceNotFoundException("NetworkEntity", "id", ownerId));
+        if(size == -1){
+            List<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerId(ownerId, search);
+            return new PagedResponse<>(networkEntities, 1, networkEntities.size(), networkEntities.size(), 1);
+        }else {
+            AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
+            Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
+            Page<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerId(ownerId, search, pageable);
+            PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
 
-        AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
+            AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
 
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerId(ownerId, search, pageable);
-        PagedResponse<NetworkEntity> pagedResponse = new PagedResponse<>(networkEntities);
-
-        AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
-
-        return pagedResponse;
+            return pagedResponse;
+        }
     }
 
     public PagedResponse<NetworkEntity> getAllAvailableByDeviceType(int page, Integer size, String sort, String search, String deviceType) {
@@ -181,6 +184,12 @@ public class NetworkEntityService {
 
             return pagedResponse;
         }
+    }
+
+    public PagedResponse<NetworkEntity> getAllOwned(int page, Integer size, String sort, String search) {
+        List<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerNotEmpty(search);
+
+        return new PagedResponse<>(networkEntities, 1, networkEntities.size(), networkEntities.size(), 1);
     }
 
     public ResponseEntity<ApiResponse> assignNetworkEntity(Long id, NetworkEntitySellRequest networkEntitySellRequest) {
