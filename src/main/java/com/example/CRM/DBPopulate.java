@@ -87,16 +87,16 @@ public class DBPopulate implements CommandLineRunner {
         NetworkEntity networkMobile8 = new NetworkEntity("+36201234574", "MOBILE", customer5, "Work Mobile");
         NetworkEntity networkMobile9 = new NetworkEntity("+36201234575", "MOBILE", customer7, "Development Mobile");
         NetworkEntity networkMobile10 = new NetworkEntity("+36201234576", "MOBILE", customer9, "Temporary Mobile");
-        NetworkEntity networkRouter1 = new NetworkEntity("192.168.1.1", "ROUTER", customer2, "Home Router");
-        NetworkEntity networkRouter2 = new NetworkEntity("10.0.0.1", "ROUTER", customer4, "Office Router");
-        NetworkEntity networkRouter3 = new NetworkEntity("172.16.0.1", "ROUTER", "");
-        NetworkEntity networkRouter4 = new NetworkEntity("192.168.2.1", "ROUTER", customer8, "Backup Router");
-        NetworkEntity networkRouter5 = new NetworkEntity("10.1.1.1", "ROUTER", customer10, "Holiday Router");
-        NetworkEntity networkRouter6 = new NetworkEntity("192.168.3.1", "ROUTER", customer2, "Guest Router");
-        NetworkEntity networkRouter7 = new NetworkEntity("10.2.2.2", "ROUTER", "");
-        NetworkEntity networkRouter8 = new NetworkEntity("192.168.4.1", "ROUTER", customer6, "Main Router");
-        NetworkEntity networkRouter9 = new NetworkEntity("10.3.3.3", "ROUTER", customer8, "Test Router");
-        NetworkEntity networkRouter10 = new NetworkEntity("192.168.5.1", "ROUTER", customer10, "Production Router");
+        NetworkEntity networkRouter1 = new NetworkEntity("TDST2200H0156", "ROUTER", customer2, "Home Router");
+        NetworkEntity networkRouter2 = new NetworkEntity("TDST2200H0153", "ROUTER", customer4, "Office Router");
+        NetworkEntity networkRouter3 = new NetworkEntity("TGST2200H0156", "ROUTER", "");
+        NetworkEntity networkRouter4 = new NetworkEntity("TDVR2200H0126", "ROUTER", customer8, "Backup Router");
+        NetworkEntity networkRouter5 = new NetworkEntity("TDST2200H3156", "ROUTER", customer10, "Holiday Router");
+        NetworkEntity networkRouter6 = new NetworkEntity("TDST2250H0156", "ROUTER", customer2, "Guest Router");
+        NetworkEntity networkRouter7 = new NetworkEntity("TDST2223H0156", "ROUTER", "");
+        NetworkEntity networkRouter8 = new NetworkEntity("TDFA2345L1234", "ROUTER", customer6, "Main Router");
+        NetworkEntity networkRouter9 = new NetworkEntity("TDST2200B2156", "ROUTER", customer8, "Test Router");
+        NetworkEntity networkRouter10 = new NetworkEntity("BDVC2312G2315", "ROUTER", customer10, "Production Router");
         networkEntityRepository.saveAll(List.of(networkMobile1, networkMobile2, networkMobile3, networkMobile4,
                 networkMobile5, networkMobile6, networkMobile7, networkMobile8, networkMobile9, networkMobile10,
                 networkRouter1, networkRouter2, networkRouter3, networkRouter4, networkRouter5, networkRouter6,
