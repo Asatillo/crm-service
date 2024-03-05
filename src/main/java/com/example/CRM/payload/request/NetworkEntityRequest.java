@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class NetworkEntityRequest {
     @NotNull(message = "Network identifier cannot be null")
-    @Pattern(regexp = AppConstants.REGEX_NETWORK_IDENTIFIER, message = "Network identifier must be a valid format. Public IP address of the router or phone number of the SIM card")
+//    @Pattern(regexp = AppConstants.REGEX_NETWORK_IDENTIFIER, message = "Network identifier must be a valid format. SSID of the router or phone number of the SIM card")
     private String networkIdentifier;
 
     @NotNull(message = "Device type cannot be null")
