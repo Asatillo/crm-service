@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Service
 public class SubscriptionService {
@@ -59,7 +60,7 @@ public class SubscriptionService {
     public ResponseEntity<Subscription> addSubscription(@NonNull SubscriptionRequest subscriptionRequest) {
         Long networkEntityId = subscriptionRequest.getNetworkEntity();
         Long planId = subscriptionRequest.getPlanId();
-        LocalDateTime startDate = subscriptionRequest.getStartDate();
+        LocalDate startDate = subscriptionRequest.getStartDate();
 
         Plan plan = planRepository.findById(planId)
                 .orElseThrow(() -> new ResourceNotFoundException("Plan", "id", planId));
@@ -74,7 +75,7 @@ public class SubscriptionService {
             throw new InvalidInputException(new ApiResponse(false, String.format("%s  '%s' is inactive", "Network Entity", networkEntity.getNetworkIdentifier())));
         }
 
-        if(startDate.isBefore(LocalDateTime.now().minusMinutes(1))){
+        if(startDate.isBefore(LocalDate.now())){
             throw new InvalidInputException(new ApiResponse(false, "start date cannot be before the current date"));
         }
 

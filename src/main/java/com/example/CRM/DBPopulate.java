@@ -140,25 +140,25 @@ public class DBPopulate implements CommandLineRunner {
                 deviceRouter2, deviceRouter3, deviceRouter4, deviceRouter5, deviceRouter6, deviceRouter7, deviceRouter8,
                 deviceRouter9));
 
-        Subscription subscription1 = new Subscription(networkMobile1, planMobile1, LocalDate.now().atStartOfDay());
-        Subscription subscription2 = new Subscription(networkMobile8, planMobile2, LocalDate.now().atStartOfDay());
-        Subscription subscription3 = new Subscription(networkMobile3, planMobile3, LocalDate.now().plus(Period.ofMonths(1)).atStartOfDay());
-        Subscription subscription4 = new Subscription(networkMobile4, planMobile4, LocalDate.now().plus(Period.ofDays(1)).atStartOfDay());
-        Subscription subscription5 = new Subscription(networkMobile5, planMobile5, LocalDate.now().plus(Period.ofDays(2)).atStartOfDay());
-        Subscription subscription6 = new Subscription(networkMobile6, planMobile5, LocalDate.now().plus(Period.ofDays(3)).atStartOfDay());
-        Subscription subscription7 = new Subscription(networkMobile1, planMobile3, LocalDate.now().plus(Period.ofDays(4)).atStartOfDay());
-        Subscription subscription8 = new Subscription(networkMobile8, planMobile3, LocalDate.now().plus(Period.ofDays(5)).atStartOfDay());
-        Subscription subscription9 = new Subscription(networkMobile9, planMobile2, LocalDate.now().plus(Period.ofDays(6)).atStartOfDay());
-        Subscription subscription10 = new Subscription(networkMobile10, planMobile4, LocalDate.now().plus(Period.ofDays(7)).atStartOfDay());
-        Subscription subscription11 = new Subscription(networkRouter1, planRouter7, LocalDate.now().plus(Period.ofDays(8)).atStartOfDay());
-        Subscription subscription12 = new Subscription(networkRouter2, planRouter9, LocalDate.now().plus(Period.ofDays(9)).atStartOfDay());
-        Subscription subscription13 = new Subscription(networkRouter8, planRouter9, LocalDate.now().plus(Period.ofDays(10)).atStartOfDay());
-        Subscription subscription14 = new Subscription(networkRouter4, planRouter8, LocalDate.now().plus(Period.ofDays(11)).atStartOfDay());
-        Subscription subscription15 = new Subscription(networkRouter5, planRouter7, LocalDate.now().plus(Period.ofDays(12)).atStartOfDay());
-        Subscription subscription16 = new Subscription(networkRouter6, planRouter8, LocalDate.now().plus(Period.ofDays(13)).atStartOfDay());
-        Subscription subscription17 = new Subscription(networkRouter2, planRouter9, LocalDate.now().plus(Period.ofDays(14)).atStartOfDay());
-        Subscription subscription18 = new Subscription(networkRouter8, planRouter9, LocalDate.now().plus(Period.ofDays(15)).atStartOfDay());
-        Subscription subscription19 = new Subscription(networkRouter9, planRouter7, LocalDate.now().plus(Period.ofDays(16)).atStartOfDay());
+        Subscription subscription1 = new Subscription(networkMobile1, planMobile1, LocalDate.now());
+        Subscription subscription2 = new Subscription(networkMobile8, planMobile2, LocalDate.now());
+        Subscription subscription3 = new Subscription(networkMobile3, planMobile3, LocalDate.now().plus(Period.ofMonths(1)));
+        Subscription subscription4 = new Subscription(networkMobile4, planMobile4, LocalDate.now().plus(Period.ofDays(1)));
+        Subscription subscription5 = new Subscription(networkMobile5, planMobile5, LocalDate.now().plus(Period.ofDays(2)));
+        Subscription subscription6 = new Subscription(networkMobile6, planMobile5, LocalDate.now().plus(Period.ofDays(3)));
+        Subscription subscription7 = new Subscription(networkMobile1, planMobile3, LocalDate.now().plus(Period.ofDays(4)));
+        Subscription subscription8 = new Subscription(networkMobile8, planMobile3, LocalDate.now().plus(Period.ofDays(5)));
+        Subscription subscription9 = new Subscription(networkMobile9, planMobile2, LocalDate.now().plus(Period.ofDays(6)));
+        Subscription subscription10 = new Subscription(networkMobile10, planMobile4, LocalDate.now().plus(Period.ofDays(7)));
+        Subscription subscription11 = new Subscription(networkRouter1, planRouter7, LocalDate.now().plus(Period.ofDays(8)));
+        Subscription subscription12 = new Subscription(networkRouter2, planRouter9, LocalDate.now().plus(Period.ofDays(9)));
+        Subscription subscription13 = new Subscription(networkRouter8, planRouter9, LocalDate.now().plus(Period.ofDays(10)));
+        Subscription subscription14 = new Subscription(networkRouter4, planRouter8, LocalDate.now().plus(Period.ofDays(11)));
+        Subscription subscription15 = new Subscription(networkRouter5, planRouter7, LocalDate.now().plus(Period.ofDays(12)));
+        Subscription subscription16 = new Subscription(networkRouter6, planRouter8, LocalDate.now().plus(Period.ofDays(13)));
+        Subscription subscription17 = new Subscription(networkRouter2, planRouter9, LocalDate.now().plus(Period.ofDays(14)));
+        Subscription subscription18 = new Subscription(networkRouter8, planRouter9, LocalDate.now().plus(Period.ofDays(15)));
+        Subscription subscription19 = new Subscription(networkRouter9, planRouter7, LocalDate.now().plus(Period.ofDays(16)));
 
         subscriptionRepository.saveAll(List.of(subscription1, subscription2, subscription3, subscription4,
                 subscription5, subscription6, subscription7, subscription8, subscription9, subscription10,

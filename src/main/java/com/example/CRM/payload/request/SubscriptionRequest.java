@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Getter
@@ -18,4 +18,5 @@ public class SubscriptionRequest {
     private Long planId;
 
     private LocalDateTime startDate = LocalDateTime.now();
+    private LocalDate startDate = LocalDate.now();
 }

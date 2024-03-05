@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
@@ -31,10 +31,10 @@ public class Subscription {
     private Plan plan;
 
     @NotNull(message = "Start date cannot be null")
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Subscription(NetworkEntity networkEntity, Plan plan, LocalDateTime startDate) {
+    public Subscription(NetworkEntity networkEntity, Plan plan, LocalDate startDate) {
         this.networkEntity = networkEntity;
         this.plan = plan;
         this.startDate = startDate;
