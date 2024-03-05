@@ -186,12 +186,6 @@ public class NetworkEntityService {
         }
     }
 
-    public PagedResponse<NetworkEntity> getAllOwned(int page, Integer size, String sort, String search) {
-        List<NetworkEntity> networkEntities = networkEntityRepository.findAllByOwnerNotEmpty(search);
-
-        return new PagedResponse<>(networkEntities, 1, networkEntities.size(), networkEntities.size(), 1);
-    }
-
     public ResponseEntity<ApiResponse> assignNetworkEntity(Long id, NetworkEntitySellRequest networkEntitySellRequest) {
         NetworkEntity existingNetworkEntity = networkEntityRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("NetworkEntity", "id", id));
