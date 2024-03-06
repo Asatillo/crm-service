@@ -55,6 +55,11 @@ public class CustomerService {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
+    public ResponseEntity<String> getCustomerNameById(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        return new ResponseEntity<>(customer.getFullName(), HttpStatus.OK);
+    }
+
     public ResponseEntity<Customer> addCustomer(Customer customer) {
         return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }

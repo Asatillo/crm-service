@@ -41,6 +41,12 @@ public class CustomerController {
         return customerService.getById(id);
     }
 
+    @Operation(summary = "Get Customers Full Name by Id")
+    @GetMapping("/{id}/fullname")
+    public ResponseEntity<String> getCustomerNameById(@PathVariable Long id){
+        return customerService.getCustomerNameById(id);
+    }
+
     @Operation(summary = "Add Customer")
     @PostMapping
     public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer){
