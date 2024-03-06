@@ -23,11 +23,11 @@ public class ServiceService {
     public ServiceService(ServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;
     }
-    public PagedResponse<Service> getAll(int page, int size, String sort) {
+    public PagedResponse<Service> getAll(int page, int size, String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, com.example.CRM.model.Service.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Service> services = serviceRepository.findAll(pageable);
+        Page<Service> services = serviceRepository.findAllWithSearch(search, pageable);
         PagedResponse<Service> pagedResponse = new PagedResponse<>(services);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());
