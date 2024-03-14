@@ -110,7 +110,7 @@ public class SubscriptionService {
         if(promotionId != null){
             sale.put("promotionId", promotionId);
         }
-        sale.put("description", String.format("Plan %s sold to %s %s", plan.getName(), customer.getFirstName(), customer.getLastName()));
+        sale.put("description", String.format("Plan %s sold to %s", plan.getName(), customer.getFullName()));
         sale.put("customerId", customer.getId());
         sale.put("customer", customer.getFullName());
         sale.put("productId", plan.getId());
