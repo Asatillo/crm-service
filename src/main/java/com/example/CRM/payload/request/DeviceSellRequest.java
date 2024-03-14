@@ -5,4 +5,6 @@ import lombok.Data;
 @Data
 public class DeviceSellRequest {
     Long customerId;
+
+    Long promotionId;
 }

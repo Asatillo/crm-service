@@ -142,19 +142,25 @@ public class DeviceService {
         device.setOwner(customer);
         device.setPurchaseDate(AppUtils.getCurrentTime());
 
-        HashMap<String, Object> sale = getSale(device, customer);
+        if(device.getDeviceTemplate().isRouter()){
+            HashMap<String, Object> sale = getSale(device, customer, customerRequest.getPromotionId());
 
-        ResponseEntity<HashMap> saleResponse = salesInterface.add(authHeader, sale);
-        if(!saleResponse.getStatusCode().equals(HttpStatus.CREATED)){
-            throw new InvalidInputException(new ApiResponse(false, "Sale creation failed"));
+            ResponseEntity<HashMap> saleResponse = salesInterface.add(authHeader, sale);
+            if(!saleResponse.getStatusCode().equals(HttpStatus.CREATED)){
+                throw new InvalidInputException(new ApiResponse(false, "Sale creation failed"));
+            }
         }
+
         return new ResponseEntity<>(deviceRepository.save(device), HttpStatus.OK);
     }
 
-    private static HashMap<String, Object> getSale(Device device, Customer customer) {
+    private static HashMap<String, Object> getSale(Device device, Customer customer, Long promotionId) {
         HashMap<String, Object> sale = new HashMap();
-        sale.put("description", String.format("Device %s sold to %s %s", device.getDeviceTemplate().getModel(),
-                customer.getFirstName(), customer.getLastName()));
+        if(promotionId != null){
+            sale.put("promotionId", promotionId);
+        }
+        sale.put("description", String.format("Device %s sold to %s", device.getDeviceTemplate().getModel(),
+                customer.getFullName()));
         sale.put("productId", device.getId());
         sale.put("productType", "DEVICE");
         sale.put("customerId", customer.getId());
