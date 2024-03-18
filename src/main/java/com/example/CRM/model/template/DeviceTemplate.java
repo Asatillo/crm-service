@@ -1,5 +1,6 @@
 package com.example.CRM.model.template;
 
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -29,10 +30,8 @@ public class DeviceTemplate{
     @Size(min = 1, max = 25, message = "Brand must be between 1 and 50 characters")
     private String brand;
 
-    @NotNull(message = "Device type cannot be null")
-    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
-    @Size(max = 20, message = "Device type must not exceed 20 characters")
-    private String deviceType;
+    @Enumerated(EnumType.STRING)
+    private DeviceType deviceType;
 
     @NotNull(message = "Price cannot be null")
     @PositiveOrZero(message = "Price must be positive")
@@ -56,7 +55,7 @@ public class DeviceTemplate{
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public DeviceTemplate(String model, String brand, String deviceType, String warrantyDuration, Double price,
+    public DeviceTemplate(String model, String brand, DeviceType deviceType, String warrantyDuration, Double price,
                           String color, Integer storage) {
         this.model = model;
         this.brand = brand;

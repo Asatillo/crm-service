@@ -2,6 +2,7 @@ package com.example.CRM.service;
 
 import com.example.CRM.exceptions.ReferencedRecordException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
@@ -64,8 +65,7 @@ public class DeviceTemplateService {
         return pagedResponse;
     }
 
-    public PagedResponse<DeviceTemplate> getByDeviceType(String deviceType, int page, int size, String sort, String search) {
-        AppUtils.validateDeviceType(deviceType);
+    public PagedResponse<DeviceTemplate> getByDeviceType(DeviceType deviceType, int page, int size, String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, DeviceTemplate.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);

@@ -1,6 +1,7 @@
 package com.example.CRM.controller;
 
 import com.example.CRM.model.NetworkEntity;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.NetworkEntityRequest;
 import com.example.CRM.payload.PagedResponse;
@@ -35,7 +36,7 @@ public class NetworkEntityController {
 
     @Operation(summary = "Get All Router Network Entities")
     @GetMapping("/device-type/{deviceType}")
-    public PagedResponse<NetworkEntity> getAllRouters(@PathVariable String deviceType,
+    public PagedResponse<NetworkEntity> getAllRouters(@PathVariable DeviceType deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort
@@ -55,7 +56,7 @@ public class NetworkEntityController {
 
     @Operation(summary = "Get All Network Entities by Customer Id and Device Type")
     @GetMapping("/customer/{id}/device-type/{deviceType}")
-    public PagedResponse<NetworkEntity> getAllByOwnerIdAndDeviceType(@PathVariable Long id, @PathVariable String deviceType,
+    public PagedResponse<NetworkEntity> getAllByOwnerIdAndDeviceType(@PathVariable Long id, @PathVariable DeviceType deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
@@ -65,7 +66,7 @@ public class NetworkEntityController {
 
     @Operation(summary = "Get All Available Network Entities By Type")
     @GetMapping("/available/device-type/{deviceType}")
-    public PagedResponse<NetworkEntity> getAllAvailableByDeviceType(@PathVariable String deviceType,
+    public PagedResponse<NetworkEntity> getAllAvailableByDeviceType(@PathVariable DeviceType deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,

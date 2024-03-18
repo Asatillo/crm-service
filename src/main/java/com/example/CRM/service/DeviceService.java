@@ -5,6 +5,7 @@ import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.feign.SalesInterface;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.Device;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.DeviceRequest;
@@ -121,8 +122,7 @@ public class DeviceService {
         return pagedResponse;
     }
 
-    public PagedResponse<Device> getByDeviceType(String deviceType, int page, Integer size, String sort, String search) {
-        AppUtils.validateDeviceType(deviceType);
+    public PagedResponse<Device> getByDeviceType(DeviceType deviceType, int page, Integer size, String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
@@ -142,7 +142,7 @@ public class DeviceService {
         device.setOwner(customer);
         device.setPurchaseDate(AppUtils.getCurrentTime());
 
-        if(device.getDeviceTemplate().isRouter()){
+        if(!device.getDeviceTemplate().isRouter()){
             HashMap<String, Object> sale = getSale(device, customer, customerRequest.getPromotionId());
 
             ResponseEntity<HashMap> saleResponse = salesInterface.add(authHeader, sale);
@@ -169,7 +169,7 @@ public class DeviceService {
         return sale;
     }
 
-    public PagedResponse<Device> getAvailableDevices(int page, Integer size, String sort, String search, String type) {
+    public PagedResponse<Device> getAvailableDevices(int page, Integer size, String sort, String search, DeviceType type) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Device.class);
 
         if(size == -1){

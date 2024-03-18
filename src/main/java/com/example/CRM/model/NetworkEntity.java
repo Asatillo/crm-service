@@ -1,10 +1,9 @@
 package com.example.CRM.model;
 
-import com.example.CRM.utils.AppConstants;
+import com.example.CRM.model.enums.DeviceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +22,8 @@ public class NetworkEntity {
     @Size(max = 20, message = "Network identifier must not exceed 20 characters")
     private String networkIdentifier;
 
-    @NotNull(message = "Device type cannot be null")
-    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
-    @Size(max = 20, message = "Device type must not exceed 20 characters")
-    private String deviceType;
+    @Enumerated(EnumType.STRING)
+    private DeviceType deviceType;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
@@ -39,12 +36,14 @@ public class NetworkEntity {
     private boolean isActive;
 
     public boolean isMobile() {
-        return deviceType.equals("MOBILE");
+        return deviceType.equals(DeviceType.MOBILE);
     }
 
-    public boolean isRouter() {return deviceType.equals("ROUTER");}
+    public boolean isRouter() {
+        return deviceType.equals(DeviceType.ROUTER);
+    }
 
-    public NetworkEntity(String networkIdentifier, String deviceType, Customer owner, String tag) {
+    public NetworkEntity(String networkIdentifier, DeviceType deviceType, Customer owner, String tag) {
         this.networkIdentifier = networkIdentifier;
         this.deviceType = deviceType;
         this.owner = owner;
@@ -55,7 +54,7 @@ public class NetworkEntity {
         }
     }
 
-    public NetworkEntity(String networkIdentifier, String deviceType, String tag) {
+    public NetworkEntity(String networkIdentifier, DeviceType deviceType, String tag) {
         this.networkIdentifier = networkIdentifier;
         this.deviceType = deviceType;
         this.owner = null;

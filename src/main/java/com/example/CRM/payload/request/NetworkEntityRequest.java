@@ -1,8 +1,9 @@
 package com.example.CRM.payload.request;
 
-import com.example.CRM.utils.AppConstants;
+import com.example.CRM.model.enums.DeviceType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +19,9 @@ public class NetworkEntityRequest {
 //    @Pattern(regexp = AppConstants.REGEX_NETWORK_IDENTIFIER, message = "Network identifier must be a valid format. SSID of the router or phone number of the SIM card")
     private String networkIdentifier;
 
-    @NotNull(message = "Device type cannot be null")
-    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
-    private String deviceType;
+    @Enumerated(EnumType.STRING)
+    private DeviceType deviceType;
 
-    @NotNull(message = "Owner cannot be null")
     private Long owner_id;
 
     @Size(max = 50, message = "Tag must not exceed 50 characters")

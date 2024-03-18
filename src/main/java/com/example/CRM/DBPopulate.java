@@ -1,6 +1,7 @@
 package com.example.CRM;
 
 import com.example.CRM.model.*;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,32 +36,32 @@ public class DBPopulate implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Service serviceMobile1 = new Service("1.5 GB Internet", DATA, 1.5F, "MOBILE", 2000D);
-        Service serviceMobile2 = new Service("1 hour of Voice", VOICE, 60F, "MOBILE", 1000D);
-        Service serviceMobile3 = new Service("100 SMS", SMS, 100F, "MOBILE", 2500D);
-        Service serviceMobile4 = new Service("3 GB Internet", DATA, 3F, "MOBILE", 2500D);
-        Service serviceMobile5 = new Service("2 hours of Voice", VOICE, 120F, "MOBILE", 1800D);
-        Service serviceMobile6 = new Service("200 SMS", SMS, 200F, "MOBILE", 3000D);
-        Service serviceMobile7 = new Service("5 GB Internet", DATA, 5F, "MOBILE", 3000D);
-        Service serviceMobile8 = new Service("3 hours of Voice", VOICE, 180F, "MOBILE", 2000D);
-        Service serviceMobile9 = new Service("300 SMS", SMS, 300F, "MOBILE", 3500D);
-        Service serviceRouter1 = new Service("10 GB Internet", DATA, 10F, "ROUTER", 5000D);
-        Service serviceRouter2 = new Service("20 GB Internet", DATA, 20F, "ROUTER", 6000D);
-        Service serviceRouter3 = new Service("30 GB Internet", DATA, 30F, "ROUTER", 7000D);
+        Service serviceMobile1 = new Service("1.5 GB Internet", DATA, 1.5F, DeviceType.MOBILE, 2000D);
+        Service serviceMobile2 = new Service("1 hour of Voice", VOICE, 60F, DeviceType.MOBILE, 1000D);
+        Service serviceMobile3 = new Service("100 SMS", SMS, 100F, DeviceType.MOBILE, 2500D);
+        Service serviceMobile4 = new Service("3 GB Internet", DATA, 3F, DeviceType.MOBILE, 2500D);
+        Service serviceMobile5 = new Service("2 hours of Voice", VOICE, 120F, DeviceType.MOBILE, 1800D);
+        Service serviceMobile6 = new Service("200 SMS", SMS, 200F, DeviceType.MOBILE, 3000D);
+        Service serviceMobile7 = new Service("5 GB Internet", DATA, 5F, DeviceType.MOBILE, 3000D);
+        Service serviceMobile8 = new Service("3 hours of Voice", VOICE, 180F, DeviceType.MOBILE, 2000D);
+        Service serviceMobile9 = new Service("300 SMS", SMS, 300F, DeviceType.MOBILE, 3500D);
+        Service serviceRouter1 = new Service("10 GB Internet", DATA, 10F, DeviceType.ROUTER, 5000D);
+        Service serviceRouter2 = new Service("20 GB Internet", DATA, 20F, DeviceType.ROUTER, 6000D);
+        Service serviceRouter3 = new Service("30 GB Internet", DATA, 30F, DeviceType.ROUTER, 7000D);
 
         serviceRepository.saveAll(List.of(serviceMobile1, serviceMobile2, serviceMobile3, serviceMobile4,
                 serviceMobile5, serviceMobile6, serviceMobile7, serviceMobile8, serviceMobile9, serviceRouter1,
                 serviceRouter2, serviceRouter3));
 
-        Plan planMobile1 = new Plan("Basic Plan", Period.ofYears(1).toString(), "Basic subscription", 1999., List.of(serviceMobile1, serviceMobile2, serviceMobile3),"MOBILE");
-        Plan planMobile2 = new Plan("Premium Plan", Period.ofMonths(3).toString(), "Premium subscription", 3999., List.of(serviceMobile4, serviceMobile5, serviceMobile6), "MOBILE");
-        Plan planMobile3 = new Plan("Ultimate Plan", Period.ofMonths(6).toString(), "Ultimate subscription", 5999., List.of(serviceMobile7, serviceMobile8, serviceMobile9), "MOBILE");
-        Plan planMobile4 = new Plan("Talk a lot", Period.ofYears(1).toString(), "Talk a lot subscription", 2999., List.of(serviceMobile8, serviceMobile1, serviceMobile3), "MOBILE");
-        Plan planMobile5 = new Plan("Surf a lot", Period.ofYears(1).toString(), "Surf a lot subscription", 2999., List.of(serviceMobile7, serviceMobile2, serviceMobile3), "MOBILE");
-        Plan planMobile6 = new Plan("SMS a lot", Period.ofYears(1).toString(), "SMS a lot subscription", 3999., List.of(serviceMobile9, serviceMobile1, serviceMobile2), "MOBILE");
-        Plan planRouter7 = new Plan("10GB router plan", Period.ofYears(1).toString(), "10GB for Router subscription", 4999., List.of(serviceRouter1), "ROUTER");
-        Plan planRouter8 = new Plan("20GB router plan", Period.ofYears(1).toString(), "20GB for Router subscription", 5999., List.of(serviceRouter2), "ROUTER");
-        Plan planRouter9 = new Plan("30GB router plan", Period.ofYears(1).toString(), "30GB for Router subscription", 6999., List.of(serviceRouter3), "ROUTER");
+        Plan planMobile1 = new Plan("Basic Plan", Period.ofYears(1).toString(), "Basic subscription", 1999., List.of(serviceMobile1, serviceMobile2, serviceMobile3),DeviceType.MOBILE);
+        Plan planMobile2 = new Plan("Premium Plan", Period.ofMonths(3).toString(), "Premium subscription", 3999., List.of(serviceMobile4, serviceMobile5, serviceMobile6), DeviceType.MOBILE);
+        Plan planMobile3 = new Plan("Ultimate Plan", Period.ofMonths(6).toString(), "Ultimate subscription", 5999., List.of(serviceMobile7, serviceMobile8, serviceMobile9), DeviceType.MOBILE);
+        Plan planMobile4 = new Plan("Talk a lot", Period.ofYears(1).toString(), "Talk a lot subscription", 2999., List.of(serviceMobile8, serviceMobile1, serviceMobile3), DeviceType.MOBILE);
+        Plan planMobile5 = new Plan("Surf a lot", Period.ofYears(1).toString(), "Surf a lot subscription", 2999., List.of(serviceMobile7, serviceMobile2, serviceMobile3), DeviceType.MOBILE);
+        Plan planMobile6 = new Plan("SMS a lot", Period.ofYears(1).toString(), "SMS a lot subscription", 3999., List.of(serviceMobile9, serviceMobile1, serviceMobile2), DeviceType.MOBILE);
+        Plan planRouter7 = new Plan("10GB router plan", Period.ofYears(1).toString(), "10GB for Router subscription", 4999., List.of(serviceRouter1), DeviceType.ROUTER);
+        Plan planRouter8 = new Plan("20GB router plan", Period.ofYears(1).toString(), "20GB for Router subscription", 5999., List.of(serviceRouter2), DeviceType.ROUTER);
+        Plan planRouter9 = new Plan("30GB router plan", Period.ofYears(1).toString(), "30GB for Router subscription", 6999., List.of(serviceRouter3), DeviceType.ROUTER);
         planRepository.saveAll(List.of(planMobile1, planMobile2, planMobile3, planMobile4, planMobile5, planMobile6, planRouter7, planRouter8, planRouter9));
 
         Customer customer1 = new Customer("Alice", "Smith", "alice@example.com", "123 Main St", "Budapest", LocalDate.of(1990, 5, 15), PREMIUM);
@@ -77,41 +78,41 @@ public class DBPopulate implements CommandLineRunner {
         Customer customer12 = new Customer("Olivia", "Roberts", "olivia.roberts@gmail.com", "123 Cedar St", "Eger", LocalDate.of(1986, 2, 28), EXPLORE);
         customerRepository.saveAll(List.of(customer1, customer2, customer3, customer4, customer5, customer6, customer7, customer8, customer9, customer10, customer11, customer12));
 
-        NetworkEntity networkMobile1 = new NetworkEntity("+36201234567", "MOBILE", customer1, "Personal Mobile");
-        NetworkEntity networkMobile2 = new NetworkEntity("+36201234568", "MOBILE", "");
-        NetworkEntity networkMobile3 = new NetworkEntity("+36201234569", "MOBILE", customer5, "Travel Mobile");
-        NetworkEntity networkMobile4 = new NetworkEntity("+36201234570", "MOBILE", customer7, "Secondary Mobile");
-        NetworkEntity networkMobile5 = new NetworkEntity("+36201234571", "MOBILE", customer9, "Emergency Mobile");
-        NetworkEntity networkMobile6 = new NetworkEntity("+36201234572", "MOBILE", customer1, "Family Mobile");
-        NetworkEntity networkMobile7 = new NetworkEntity("+36201234573", "MOBILE", "");
-        NetworkEntity networkMobile8 = new NetworkEntity("+36201234574", "MOBILE", customer5, "Work Mobile");
-        NetworkEntity networkMobile9 = new NetworkEntity("+36201234575", "MOBILE", customer7, "Development Mobile");
-        NetworkEntity networkMobile10 = new NetworkEntity("+36201234576", "MOBILE", customer9, "Temporary Mobile");
-        NetworkEntity networkRouter1 = new NetworkEntity("TDST2200H0156", "ROUTER", customer2, "Home Router");
-        NetworkEntity networkRouter2 = new NetworkEntity("TDST2200H0153", "ROUTER", customer4, "Office Router");
-        NetworkEntity networkRouter3 = new NetworkEntity("TGST2200H0156", "ROUTER", "");
-        NetworkEntity networkRouter4 = new NetworkEntity("TDVR2200H0126", "ROUTER", customer8, "Backup Router");
-        NetworkEntity networkRouter5 = new NetworkEntity("TDST2200H3156", "ROUTER", customer10, "Holiday Router");
-        NetworkEntity networkRouter6 = new NetworkEntity("TDST2250H0156", "ROUTER", customer2, "Guest Router");
-        NetworkEntity networkRouter7 = new NetworkEntity("TDST2223H0156", "ROUTER", "");
-        NetworkEntity networkRouter8 = new NetworkEntity("TDFA2345L1234", "ROUTER", customer6, "Main Router");
-        NetworkEntity networkRouter9 = new NetworkEntity("TDST2200B2156", "ROUTER", customer8, "Test Router");
-        NetworkEntity networkRouter10 = new NetworkEntity("BDVC2312G2315", "ROUTER", customer10, "Production Router");
+        NetworkEntity networkMobile1 = new NetworkEntity("+36201234567", DeviceType.MOBILE, customer1, "Personal Mobile");
+        NetworkEntity networkMobile2 = new NetworkEntity("+36201234568", DeviceType.MOBILE, "");
+        NetworkEntity networkMobile3 = new NetworkEntity("+36201234569", DeviceType.MOBILE, customer5, "Travel Mobile");
+        NetworkEntity networkMobile4 = new NetworkEntity("+36201234570", DeviceType.MOBILE, customer7, "Secondary Mobile");
+        NetworkEntity networkMobile5 = new NetworkEntity("+36201234571", DeviceType.MOBILE, customer9, "Emergency Mobile");
+        NetworkEntity networkMobile6 = new NetworkEntity("+36201234572", DeviceType.MOBILE, customer1, "Family Mobile");
+        NetworkEntity networkMobile7 = new NetworkEntity("+36201234573", DeviceType.MOBILE, "");
+        NetworkEntity networkMobile8 = new NetworkEntity("+36201234574", DeviceType.MOBILE, customer5, "Work Mobile");
+        NetworkEntity networkMobile9 = new NetworkEntity("+36201234575", DeviceType.MOBILE, customer7, "Development Mobile");
+        NetworkEntity networkMobile10 = new NetworkEntity("+36201234576", DeviceType.MOBILE, customer9, "Temporary Mobile");
+        NetworkEntity networkRouter1 = new NetworkEntity("TDST2200H0156", DeviceType.ROUTER, customer2, "Home Router");
+        NetworkEntity networkRouter2 = new NetworkEntity("TDST2200H0153", DeviceType.ROUTER, customer4, "Office Router");
+        NetworkEntity networkRouter3 = new NetworkEntity("TGST2200H0156", DeviceType.ROUTER, "");
+        NetworkEntity networkRouter4 = new NetworkEntity("TDVR2200H0126", DeviceType.ROUTER, customer8, "Backup Router");
+        NetworkEntity networkRouter5 = new NetworkEntity("TDST2200H3156", DeviceType.ROUTER, customer10, "Holiday Router");
+        NetworkEntity networkRouter6 = new NetworkEntity("TDST2250H0156", DeviceType.ROUTER, customer2, "Guest Router");
+        NetworkEntity networkRouter7 = new NetworkEntity("TDST2223H0156", DeviceType.ROUTER, "");
+        NetworkEntity networkRouter8 = new NetworkEntity("TDFA2345L1234", DeviceType.ROUTER, customer6, "Main Router");
+        NetworkEntity networkRouter9 = new NetworkEntity("TDST2200B2156", DeviceType.ROUTER, customer8, "Test Router");
+        NetworkEntity networkRouter10 = new NetworkEntity("BDVC2312G2315", DeviceType.ROUTER, customer10, "Production Router");
         networkEntityRepository.saveAll(List.of(networkMobile1, networkMobile2, networkMobile3, networkMobile4,
                 networkMobile5, networkMobile6, networkMobile7, networkMobile8, networkMobile9, networkMobile10,
                 networkRouter1, networkRouter2, networkRouter3, networkRouter4, networkRouter5, networkRouter6,
                 networkRouter7, networkRouter8, networkRouter9, networkRouter10));
 
-        DeviceTemplate deviceMobileTemplate1 = new DeviceTemplate("Galaxy S20", "Samsung", "MOBILE", Period.ZERO.toString(), 300000.0, "white", 128);
-        DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", "MOBILE", Period.ofYears(1).toString(), 200000.0, "black", 128);
-        DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", "MOBILE", Period.ofYears(1).toString(), 400000.0, "silver", 256);
-        DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", "MOBILE", Period.ofYears(2).toString(), 340000.0, "black", 128);
-        DeviceTemplate deviceMobileTemplate5 = new DeviceTemplate("Galaxy S21", "Samsung", "MOBILE", Period.ZERO.toString(), 300000.0, "white", 128);
-        DeviceTemplate deviceMobileTemplate6 = new DeviceTemplate("Iphone X", "Apple", "MOBILE", Period.ofYears(1).toString(), 340000.0, "black", 64);
-        DeviceTemplate deviceMobileTemplate7 = new DeviceTemplate("Pixel", "Google", "MOBILE", Period.ZERO.toString(), 300000.0, "white", 128);
-        DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0, "white", 0);
-        DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", "ROUTER", Period.ZERO.toString(), 0.0, "black", 0);
-        DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", "ROUTER", Period.ZERO.toString(), 0.0, "silver", 0);
+        DeviceTemplate deviceMobileTemplate1 = new DeviceTemplate("Galaxy S20", "Samsung", DeviceType.MOBILE, Period.ZERO.toString(), 300000.0, "white", 128);
+        DeviceTemplate deviceMobileTemplate2 = new DeviceTemplate("Galaxy S10", "Samsung", DeviceType.MOBILE, Period.ofYears(1).toString(), 200000.0, "black", 128);
+        DeviceTemplate deviceMobileTemplate3 = new DeviceTemplate("Iphone XS", "Apple", DeviceType.MOBILE, Period.ofYears(1).toString(), 400000.0, "silver", 256);
+        DeviceTemplate deviceMobileTemplate4 = new DeviceTemplate("Iphone 11", "Apple", DeviceType.MOBILE, Period.ofYears(2).toString(), 340000.0, "black", 128);
+        DeviceTemplate deviceMobileTemplate5 = new DeviceTemplate("Galaxy S21", "Samsung", DeviceType.MOBILE, Period.ZERO.toString(), 300000.0, "white", 128);
+        DeviceTemplate deviceMobileTemplate6 = new DeviceTemplate("Iphone X", "Apple", DeviceType.MOBILE, Period.ofYears(1).toString(), 340000.0, "black", 64);
+        DeviceTemplate deviceMobileTemplate7 = new DeviceTemplate("Pixel", "Google", DeviceType.MOBILE, Period.ZERO.toString(), 300000.0, "white", 128);
+        DeviceTemplate deviceRouterTemplate1 = new DeviceTemplate("Archer AX21", "TP-Link", DeviceType.ROUTER, Period.ZERO.toString(), 0.0, "white", 0);
+        DeviceTemplate deviceRouterTemplate2 = new DeviceTemplate("Hydra Pro 6 (MR5500)", "Linksys", DeviceType.ROUTER, Period.ZERO.toString(), 0.0, "black", 0);
+        DeviceTemplate deviceRouterTemplate3 = new DeviceTemplate("Archer AX6000", "TP-Link", DeviceType.ROUTER, Period.ZERO.toString(), 0.0, "silver", 0);
         deviceTemplateRepository.saveAll(List.of(deviceMobileTemplate1, deviceMobileTemplate2, deviceMobileTemplate3,
                 deviceMobileTemplate4, deviceRouterTemplate1, deviceRouterTemplate2, deviceRouterTemplate3,
                 deviceMobileTemplate5, deviceMobileTemplate6, deviceMobileTemplate7));

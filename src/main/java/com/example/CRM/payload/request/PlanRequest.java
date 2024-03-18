@@ -1,6 +1,9 @@
 package com.example.CRM.payload.request;
 
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.utils.AppConstants;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Getter;
@@ -28,9 +31,8 @@ public class PlanRequest {
     @Positive(message = "Price must be positive")
     private Double price;
 
-    @NotNull(message = "Designated device type cannot be null")
-    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
-    private String designatedDeviceType;
+    @Enumerated(EnumType.STRING)
+    private DeviceType designatedDeviceType;
 
     @NotNull(message = "Services cannot be null")
     private List<Long> services;

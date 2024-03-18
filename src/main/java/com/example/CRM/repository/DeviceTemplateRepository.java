@@ -1,5 +1,6 @@
 package com.example.CRM.repository;
 
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.template.DeviceTemplate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,5 +14,5 @@ public interface DeviceTemplateRepository extends JpaRepository<DeviceTemplate, 
     Page<DeviceTemplate> findByBrand(String brand, Pageable pageable);
 
     @Query("SELECT dt FROM DeviceTemplate dt WHERE dt.deviceType = ?1 AND CONCAT(dt.brand, ' ', dt.model, ' ', dt.color) LIKE %?2%")
-    Page<DeviceTemplate> searchByDeviceType(Pageable pageable, String deviceType, String search);
+    Page<DeviceTemplate> searchByDeviceType(Pageable pageable, DeviceType deviceType, String search);
 }

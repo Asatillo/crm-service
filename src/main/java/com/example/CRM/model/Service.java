@@ -1,5 +1,6 @@
 package com.example.CRM.model;
 
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.enums.ServiceTypes;
 import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.*;
@@ -35,16 +36,14 @@ public class Service {
     @NotNull(message = "Active indicator cannot be null")
     private boolean isActive = true;
 
-    @NotNull(message = "Designated device type cannot be null")
-    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
-    @Size(min = 1, max = 20, message = "Designated device type must be between 1 and 20 characters")
-    private String designatedDeviceType;
+    @Enumerated(EnumType.STRING)
+    private DeviceType designatedDeviceType;
 
     @NotNull(message = "Price cannot be null")
     @Positive(message = "Price must be positive")
     private Double price;
 
-    public Service(String name, ServiceTypes type, Float amount, String designatedDeviceType, Double price) {
+    public Service(String name, ServiceTypes type, Float amount, DeviceType designatedDeviceType, Double price) {
         this.name = name;
         this.type = type;
         this.amount = amount;

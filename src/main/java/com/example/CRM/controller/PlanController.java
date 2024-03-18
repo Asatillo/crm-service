@@ -1,6 +1,7 @@
 package com.example.CRM.controller;
 
 import com.example.CRM.model.Plan;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.payload.request.PlanRequest;
@@ -50,7 +51,7 @@ public class PlanController {
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,
             @RequestParam(name = "search", required = false, defaultValue = "") String search,
-            @PathVariable String deviceType){
+            @PathVariable DeviceType deviceType){
         return planService.getAllActiveByType(page-1, size, sort, search, deviceType);
     }
 
@@ -74,7 +75,7 @@ public class PlanController {
 
     @Operation(summary = "Get Plans by Designated Device Type")
     @GetMapping("/device-type/{deviceType}")
-    public PagedResponse<Plan> getPlansByDesignatedDeviceType(@PathVariable String deviceType,
+    public PagedResponse<Plan> getPlansByDesignatedDeviceType(@PathVariable DeviceType deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort){

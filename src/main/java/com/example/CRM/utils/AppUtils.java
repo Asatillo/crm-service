@@ -56,12 +56,6 @@ public class AppUtils {
         }
     }
 
-    public static void validateDeviceType(String deviceType) {
-        if(!deviceType.equals("MOBILE") && !deviceType.equals("ROUTER")){
-            throw new ApiException(String.format("Device type must be one of the following: %s", AppConstants.DEVICE_TYPES_REGEX));
-        }
-    }
-
     public static void validateDOB(LocalDate dob) {
         if (!dob.plusYears(MAJORITY_AGE).isBefore(LocalDate.now())){
             throw new InvalidInputException(new ApiResponse(false, "Customer must be older than 18"));

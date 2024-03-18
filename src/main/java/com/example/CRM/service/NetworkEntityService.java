@@ -3,6 +3,7 @@ package com.example.CRM.service;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.NetworkEntity;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.request.NetworkEntityRequest;
 import com.example.CRM.payload.PagedResponse;
@@ -43,8 +44,7 @@ public class NetworkEntityService {
         return pagedResponse;
     }
 
-    public PagedResponse<NetworkEntity> getAllByDeviceType(String deviceType, int page, int size, String sort) {
-        AppUtils.validateDeviceType(deviceType);
+    public PagedResponse<NetworkEntity> getAllByDeviceType(DeviceType deviceType, int page, int size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
@@ -73,7 +73,7 @@ public class NetworkEntityService {
         }
     }
 
-    public PagedResponse<NetworkEntity> getAllAvailableByDeviceType(int page, Integer size, String sort, String search, String deviceType) {
+    public PagedResponse<NetworkEntity> getAllAvailableByDeviceType(int page, Integer size, String sort, String search, DeviceType deviceType) {
         AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
 
         if(size == -1){
@@ -168,7 +168,7 @@ public class NetworkEntityService {
         return new ResponseEntity<>(new ApiResponse(true, "NetworkEntity deleted successfully"), HttpStatus.OK);
     }
 
-    public PagedResponse<NetworkEntity> getAllByOwnerIdAndDeviceType(Long id, String deviceType, int page, Integer size,
+    public PagedResponse<NetworkEntity> getAllByOwnerIdAndDeviceType(Long id, DeviceType deviceType, int page, Integer size,
                                                                      String sort, String search) {
         AppUtils.validatePaginationRequestParams(page, size, sort, NetworkEntity.class);
 

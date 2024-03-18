@@ -1,5 +1,6 @@
 package com.example.CRM.controller;
 
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.template.DeviceTemplate;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
@@ -47,7 +48,7 @@ public class DeviceTemplateController {
 
     @Operation(summary = "Get Mobile Device Templates By Type")
     @GetMapping("/type/{deviceType}")
-    public PagedResponse<DeviceTemplate> getByType(@PathVariable String deviceType,
+    public PagedResponse<DeviceTemplate> getByType(@PathVariable DeviceType deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = AppConstants.DEFAULT_SORT_PROPERTY) String sort,

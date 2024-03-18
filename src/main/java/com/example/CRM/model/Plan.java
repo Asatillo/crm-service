@@ -1,5 +1,6 @@
 package com.example.CRM.model;
 
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -39,20 +40,19 @@ public class Plan {
     @Positive(message = "Price must be positive")
     private Double price;
 
-    @NotNull(message = "Designated device type cannot be null")
-    @Pattern(regexp = AppConstants.DEVICE_TYPES_REGEX, message = "Designated device type must be one of the following: " + AppConstants.DEVICE_TYPES_REGEX)
-    @Size(min = 1, max = 20, message = "Designated device type must be between 1 and 20 characters")
-    private String designatedDeviceType;
+    @Enumerated(EnumType.STRING)
+    private DeviceType designatedDeviceType;
 
     @ManyToMany
     @JoinColumn(name = "plan_id")
+    // TODO: change to set
     private List<Service> services;
 
     // field for the allowed segment types
 //    @NotNull(message = "Segment cannot be null")
 //    private String segment;
 
-    public Plan(String name, String duration, String description, Double price, List<Service> services, String designatedDeviceType) {
+    public Plan(String name, String duration, String description, Double price, List<Service> services, DeviceType designatedDeviceType) {
         this.isActive = true;
         this.name = name;
         this.duration = duration;

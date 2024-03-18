@@ -4,6 +4,7 @@ import com.example.CRM.exceptions.InvalidInputException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Plan;
 import com.example.CRM.model.Service;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.payload.request.PlanRequest;
@@ -56,7 +57,7 @@ public class PlanService {
         return new PagedResponse<>(plans, 0, plans.size(), plans.size(), 1);
     }
 
-    public PagedResponse<Plan> getAllActiveByType(int page, Integer size, String sort, String search, String deviceType) {
+    public PagedResponse<Plan> getAllActiveByType(int page, Integer size, String sort, String search, DeviceType deviceType) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
 
         if(size == -1){
@@ -78,9 +79,8 @@ public class PlanService {
         return new ResponseEntity<>(plan, HttpStatus.OK);
     }
 
-    public PagedResponse<Plan> getPlansByDesignatedDeviceType(String deviceType, int page, Integer size, String sort) {
+    public PagedResponse<Plan> getPlansByDesignatedDeviceType(DeviceType deviceType, int page, Integer size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Plan.class);
-        AppUtils.validateDeviceType(deviceType);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Plan> plans = planRepository.findAllByDesignatedDeviceType(deviceType, pageable);
@@ -155,7 +155,7 @@ public class PlanService {
         return services;
     }
 
-    private void validateServiceDeviceTypes(@NonNull List<Service> services, String deviceType){
+    private void validateServiceDeviceTypes(@NonNull List<Service> services, DeviceType deviceType){
         for(Service service: services){
             if(!service.getDesignatedDeviceType().equals(deviceType)){
                 throw new InvalidInputException(new ApiResponse(false,
@@ -165,7 +165,7 @@ public class PlanService {
         }
     }
 
-    private @NonNull List<Service> validateServiceIds(List<Long> serviceIds, String deviceType){
+    private @NonNull List<Service> validateServiceIds(List<Long> serviceIds, DeviceType deviceType){
         List<Service> services = convertServiceIdsToService(serviceIds);
         validateServiceDeviceTypes(services, deviceType);
 
