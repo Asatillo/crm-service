@@ -1,7 +1,6 @@
 package com.example.CRM.model;
 
 import com.example.CRM.model.enums.DeviceType;
-import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;

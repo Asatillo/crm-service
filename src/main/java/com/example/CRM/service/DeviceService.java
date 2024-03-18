@@ -155,7 +155,7 @@ public class DeviceService {
     }
 
     private static HashMap<String, Object> getSale(Device device, Customer customer, Long promotionId) {
-        HashMap<String, Object> sale = new HashMap();
+        HashMap<String, Object> sale = new HashMap<>();
         if(promotionId != null){
             sale.put("promotionId", promotionId);
         }

@@ -1,7 +1,6 @@
 package com.example.CRM.model.template;
 
 import com.example.CRM.model.enums.DeviceType;
-import com.example.CRM.utils.AppConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -68,7 +67,7 @@ public class DeviceTemplate{
     }
 
     private String constructImageUrl() {
-        if(!deviceType.equals("MOBILE")){
+        if(!deviceType.equals(DeviceType.MOBILE)){
             return "https://www.raneen.com/media/catalog/product/n/4/n41584596-a-1_mam7elzfeladrsb6.jpg?optimize=high&bg-color=255,255,255&fit=bounds&height=250&width=250&canvas=250:250";
         }else{
             String width = "250";
@@ -86,10 +85,10 @@ public class DeviceTemplate{
     }
 
     public boolean isMobile() {
-        return deviceType.equals("MOBILE");
+        return deviceType.equals(DeviceType.MOBILE);
     }
 
     public boolean isRouter() {
-        return deviceType.equals("ROUTER");
+        return deviceType.equals(DeviceType.ROUTER);
     }
 }

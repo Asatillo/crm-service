@@ -1,7 +1,6 @@
 package com.example.CRM.payload.request;
 
 import com.example.CRM.model.enums.DeviceType;
-import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;

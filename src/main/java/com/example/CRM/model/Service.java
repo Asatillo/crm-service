@@ -2,10 +2,8 @@ package com.example.CRM.model;
 
 import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.model.enums.ServiceTypes;
-import com.example.CRM.utils.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
