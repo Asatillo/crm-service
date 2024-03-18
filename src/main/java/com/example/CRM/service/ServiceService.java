@@ -1,6 +1,7 @@
 package com.example.CRM.service;
 
 import com.example.CRM.exceptions.ResourceNotFoundException;
+import com.example.CRM.model.enums.DeviceType;
 import com.example.CRM.payload.ApiResponse;
 import com.example.CRM.payload.PagedResponse;
 import com.example.CRM.repository.ServiceRepository;
@@ -40,9 +41,8 @@ public class ServiceService {
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
 
-    public PagedResponse<Service> getServicesByDesignatedDeviceType(String deviceType, Integer page, Integer size, String sort) {
+    public PagedResponse<Service> getServicesByDesignatedDeviceType(DeviceType deviceType, Integer page, Integer size, String sort) {
         AppUtils.validatePaginationRequestParams(page, size, sort, com.example.CRM.model.Service.class);
-        AppUtils.validateDeviceType(deviceType);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Service> services = serviceRepository.findByDesignatedDeviceType(deviceType, pageable);
