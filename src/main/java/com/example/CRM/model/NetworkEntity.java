@@ -22,6 +22,7 @@ public class NetworkEntity {
     @Size(max = 20, message = "Network identifier must not exceed 20 characters")
     private String networkIdentifier;
 
+    @NotNull(message = "Device type cannot be null")
     @Enumerated(EnumType.STRING)
     private DeviceType deviceType;
 
