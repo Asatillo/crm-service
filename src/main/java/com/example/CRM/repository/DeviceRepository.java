@@ -17,7 +17,9 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     Page<Device> findByDeviceTemplate_Id(Long id, Pageable pageable);
 
-    @Query("SELECT d FROM Device d WHERE d.deviceTemplate.deviceType = ?1  and CONCAT(d.deviceTemplate.brand, ' ', d.deviceTemplate.model, ' ', d.deviceTemplate.storage) LIKE %?2%")
+    @Query("SELECT d FROM Device d WHERE d.deviceTemplate.deviceType = ?1  and " +
+            "CONCAT(d.deviceTemplate.brand, ' ', d.deviceTemplate.model, ' ', d.deviceTemplate.storage) LIKE %?2% and " +
+            "d.owner=null")
     Page<Device> searchDevicesByDeviceType(Pageable pageable, DeviceType deviceType, String search);
 
     @Query("SELECT d FROM Device d WHERE d.owner.id = ?1 and CONCAT(d.deviceTemplate.brand, ' ', d.deviceTemplate.model, ' ', d.deviceTemplate.storage) LIKE %?2%")
@@ -28,4 +30,6 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     @Query("SELECT d FROM Device d WHERE d.owner=null and d.deviceTemplate.deviceType = ?2 and CONCAT(d.deviceTemplate.brand, ' ', d.deviceTemplate.model, ' ', d.deviceTemplate.storage) LIKE %?1%")
     Page<Device> findAllAvailableDevices(String search, DeviceType type, Pageable pageable);
+
+    Page<Device> findAllByOwnerIsEmpty(Pageable pageable);
 }
