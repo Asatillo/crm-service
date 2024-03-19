@@ -22,7 +22,7 @@ public class NetworkEntityRequest {
     @Enumerated(EnumType.STRING)
     private DeviceType deviceType;
 
-    private Long owner_id;
+    private Long ownerId;
 
     @Size(max = 50, message = "Tag must not exceed 50 characters")
     private String tag;

@@ -1,5 +1,6 @@
 package com.example.CRM.service;
 
+import com.example.CRM.exceptions.ExistingResourceException;
 import com.example.CRM.exceptions.ResourceNotFoundException;
 import com.example.CRM.model.Customer;
 import com.example.CRM.model.NetworkEntity;
@@ -96,9 +97,16 @@ public class NetworkEntityService {
     }
 
     public ResponseEntity<NetworkEntity> addNetworkEntity(@NonNull NetworkEntityRequest networkEntityRequest) {
-        Customer owner = customerRepository.findById(networkEntityRequest.getOwner_id())
-                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntityRequest.getOwner_id()));
-
+        if(networkEntityRepository.existsByNetworkIdentifier(networkEntityRequest.getNetworkIdentifier())){
+            throw new ExistingResourceException(new ApiResponse(false, String.format(
+                    "Network Entity with network identifier %s already exists", networkEntityRequest.getNetworkIdentifier()
+            )));
+        }
+        Customer owner = null;
+        if(networkEntityRequest.getOwnerId() != null){
+            owner = customerRepository.findById(networkEntityRequest.getOwnerId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntityRequest.getOwnerId()));
+        }
         NetworkEntity networkEntity = new NetworkEntity(networkEntityRequest.getNetworkIdentifier(),
                 networkEntityRequest.getDeviceType(), owner, networkEntityRequest.getTag());
 
@@ -123,13 +131,13 @@ public class NetworkEntityService {
             existingNetworkEntity.setTag(networkEntityRequest.getTag());
         }
 
-        if(networkEntityRequest.getOwner_id() == null){
+        if(networkEntityRequest.getOwnerId() == null){
             existingNetworkEntity.setOwner(null);
             existingNetworkEntity.setActive(false);
-            existingNetworkEntity.setTag(null);
-        } else if(!existingNetworkEntity.getOwner().getId().equals(networkEntityRequest.getOwner_id())){
-            Customer newOwner = customerRepository.findById(networkEntityRequest.getOwner_id())
-                    .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntityRequest.getOwner_id()));
+            existingNetworkEntity.setTag("");
+        } else if(!existingNetworkEntity.getOwner().getId().equals(networkEntityRequest.getOwnerId())){
+            Customer newOwner = customerRepository.findById(networkEntityRequest.getOwnerId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", networkEntityRequest.getOwnerId()));
             existingNetworkEntity.setOwner(newOwner);
         }
 
