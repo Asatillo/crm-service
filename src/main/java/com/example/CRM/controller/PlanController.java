@@ -8,11 +8,13 @@ import com.example.CRM.payload.request.PlanRequest;
 import com.example.CRM.service.PlanService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Plans", description = "Plan API")
 @RequestMapping("plans")
 public class PlanController {
     final

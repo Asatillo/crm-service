@@ -9,12 +9,14 @@ import com.example.CRM.payload.request.DeviceSellRequest;
 import com.example.CRM.service.DeviceService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Devices", description = "Device API")
 @RequestMapping("devices")
 public class DeviceController {
 

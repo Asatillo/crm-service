@@ -7,11 +7,13 @@ import com.example.CRM.service.CustomerService;
 import com.example.CRM.service.DeviceService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Customers", description = "Customer API")
 @RequestMapping("customers")
 public class CustomerController {
 

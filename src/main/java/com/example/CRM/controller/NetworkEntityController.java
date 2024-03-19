@@ -9,11 +9,13 @@ import com.example.CRM.payload.request.NetworkEntitySellRequest;
 import com.example.CRM.service.NetworkEntityService;
 import com.example.CRM.utils.AppConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Network Entities", description = "Network Entity API")
 @RequestMapping("network-entities")
 public class NetworkEntityController {
 
