@@ -17,6 +17,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 public class SecurityConfig {
 
     private final JwtAuthConverter jwtAuthConverter;
+    private static final String[] AUTH_WHITE_LIST = {
+            "/docs",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -24,7 +30,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.anyRequest().authenticated());
+                        req.requestMatchers(AUTH_WHITE_LIST).permitAll()
+                                .anyRequest().authenticated());
         http
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(jwt ->
