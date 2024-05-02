@@ -44,11 +44,16 @@ public class SubscriptionService {
         this.salesInterface = salesInterface;
     }
 
-    public PagedResponse<Subscription> getAll(int page, int size, String sort, String search) {
+    public PagedResponse<Subscription> getAll(int page, int size, String sort, String search, String city) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Subscription.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
-        Page<Subscription> subscriptions = subscriptionRepository.findAllWithSearch(pageable, search);
+        Page<Subscription> subscriptions;
+        if (city.isEmpty()) {
+            subscriptions = subscriptionRepository.findAll(pageable, search);
+        } else {
+            subscriptions = subscriptionRepository.findAllByCity(pageable, search, city);
+        }
         PagedResponse<Subscription> pagedResponse = new PagedResponse<>(subscriptions);
 
         AppUtils.validatePageNumberLessThanTotalPages(page, pagedResponse.getTotalPages(), pagedResponse.getTotalElements());

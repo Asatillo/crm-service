@@ -33,15 +33,15 @@ public class CustomerService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public PagedResponse<Customer> getAllCustomers(int page, int size, String sort, String search) {
+    public PagedResponse<Customer> getAllCustomers(int page, int size, String sort, String search, String city) {
         AppUtils.validatePaginationRequestParams(page, size, sort, Customer.class);
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, sort);
         Page<Customer> customers;
-        if(search.isEmpty()){
-            customers = customerRepository.findAll(pageable);
-        }else{
+        if (city.isEmpty()) {
             customers = customerRepository.searchCustomers(pageable, search);
+        } else {
+            customers = customerRepository.searchCustomersByCity(pageable, search, city);
         }
         PagedResponse<Customer> pagedResponse = new PagedResponse<>(customers);
 
