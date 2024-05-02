@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,9 +25,9 @@ public class PlanController {
         this.planService = planService;
     }
 
-    // TODO: add filters, sortorder
     @Operation(summary = "Get All Plans")
     @GetMapping
+    @PreAuthorize("hasAnyRole('agent', 'admin', 'sales')")
     public PagedResponse<Plan> getAll(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -38,6 +39,7 @@ public class PlanController {
 
     @Operation(summary = "Get All Active Plans")
     @GetMapping("/active")
+    @PreAuthorize("hasAnyRole('agent', 'admin', 'sales')")
     public PagedResponse<Plan> getAllActive(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -46,8 +48,9 @@ public class PlanController {
         return planService.getAllActive(page-1, size, sort, search);
     }
 
-    @Operation(summary = "Get All Active Plans")
+    @Operation(summary = "Get All Active Plans By Device Type")
     @GetMapping("/device-type/{deviceType}/active")
+    @PreAuthorize("hasAnyRole('agent', 'admin', 'sales')")
     public PagedResponse<Plan> getAllActive(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -59,24 +62,28 @@ public class PlanController {
 
     @Operation(summary = "Get Plan by Id")
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('agent', 'admin', 'sales')")
     public ResponseEntity<Plan> getById(@PathVariable Long id){
         return planService.getById(id);
     }
 
     @Operation(summary = "Add Plan")
     @PostMapping
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<Plan> addPlan(@Valid @RequestBody PlanRequest planRequest){
         return planService.addPlan(planRequest);
     }
 
     @Operation(summary = "Update Plan")
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @Valid @RequestBody PlanRequest planRequest){
         return planService.updatePlan(id, planRequest);
     }
 
     @Operation(summary = "Get Plans by Designated Device Type")
     @GetMapping("/device-type/{deviceType}")
+    @PreAuthorize("hasAnyRole('agent', 'admin', 'sales')")
     public PagedResponse<Plan> getPlansByDesignatedDeviceType(@PathVariable DeviceType deviceType,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
@@ -86,18 +93,21 @@ public class PlanController {
 
     @Operation(summary = "Deactivate Plan")
     @PatchMapping("/{id}/deactivate")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<Plan> deactivatePlan(@PathVariable Long id){
         return planService.changePlanActive(id, false);
     }
 
     @Operation(summary = "Activate Plan")
     @PatchMapping("/{id}/activate")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<Plan> activatePlan(@PathVariable Long id){
         return planService.changePlanActive(id, true);
     }
 
     @Operation(summary = "Delete Plan")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<ApiResponse> deletePlan(@PathVariable Long id){
         return planService.deletePlan(id);
     }
