@@ -1,6 +1,5 @@
 package com.example.CRM.feign;
 
-import com.example.CRM.payload.ApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

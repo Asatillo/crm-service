@@ -14,7 +14,12 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
 
     @Query("SELECT s FROM Subscription s WHERE concat(s.networkEntity.owner.firstName, ' ',  s.networkEntity.owner.lastName, " +
             "' ', s.networkEntity.networkIdentifier, ' ', s.plan.name) LIKE %:search%")
-    Page<Subscription> findAllWithSearch(Pageable pageable, String search);
+    Page<Subscription> findAll(Pageable pageable, String search);
+
+    @Query("SELECT s FROM Subscription s WHERE concat(s.networkEntity.owner.firstName, ' ',  s.networkEntity.owner.lastName, " +
+            "' ', s.networkEntity.networkIdentifier, ' ', s.plan.name) LIKE %:search%" +
+            " AND s.networkEntity.owner.city = :city")
+    Page<Subscription> findAllByCity(Pageable pageable, String search, String city);
 
     Page<Subscription> findAllByNetworkEntity_Owner_Id(Long id, Pageable pageable);
 
